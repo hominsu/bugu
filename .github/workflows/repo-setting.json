@@ -1,0 +1,11 @@
+{
+  "include": [
+    {
+      "name": "Tencent",
+      "register": "ccr.ccs.tencentyun.com",
+      "push_link": "ccr.ccs.tencentyun.com/paper4u",
+      "id": "TENCENT_CCR_ID",
+      "token": "TENCENT_CCR_TOKEN"
+    }
+  ]
+}

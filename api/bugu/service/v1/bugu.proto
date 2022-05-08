@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+package bugu.service.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "bugu/api/bugu/service/v1;v1";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "E-Code API";
+    version: "1.0";
+    description: "";
+    contact: {
+      name: "Bugu Backend";
+      url: "https://github.com/hominsu/bugu";
+      email: "hominsu@foxmail.com";
+    };
+  };
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+};
+
+service Bugu {
+  rpc Register (RegisterRequest) returns (RegisterReply) {
+    option (google.api.http) = {
+      post: "/v1/users",
+      body: "*",
+    };
+  };
+
+  rpc Login (LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/v1/users/login",
+      body: "*",
+    };
+  };
+
+  rpc GetCurrentUser (GetCurrentUserRequest) returns (GetCurrentUserReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{id}",
+    };
+  };
+
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply) {
+    option (google.api.http) = {
+      put: "/v1/users",
+      body: "*",
+    };
+  };
+
+  rpc FileUpload (stream FileUploadRequest) returns (FileUploadReply) {
+    option (google.api.http) = {
+      post: "/v1/files",
+      body: "*",
+    };
+  };
+
+  rpc Detect (DetectRequest) returns (DetectReply) {
+    option (google.api.http) = {
+      post: "/v1/file/detect",
+      body: "*",
+    };
+  };
+
+  rpc Confound (ConfoundRequest) returns (stream ConfoundReply) {
+    option (google.api.http) = {
+      post: "/v1/file/confound",
+      body: "*",
+    };
+  };
+};
+
+message RegisterRequest {
+  message User {
+    string username = 1;
+    string email = 2;
+    string password = 3;
+  }
+  User user = 1;
+}
+
+message RegisterReply {
+  UserStruct user = 1;
+}
+
+message LoginRequest {
+  message User {
+    string email = 1;
+    string password = 2;
+  }
+  User user = 1;
+}
+
+message LoginReply {
+  UserStruct user = 1;
+  string token = 2;
+}
+
+message GetCurrentUserRequest {
+  string id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message GetCurrentUserReply {
+  UserStruct user = 1;
+}
+
+message UpdateUserRequest {
+  message User {
+    string id = 1;
+    string email = 2;
+    string username = 4;
+    string password = 5;
+  }
+  User user = 1;
+}
+
+message UpdateUserReply {
+  UserStruct user = 1;
+}
+
+message UserStruct {
+  string id = 1 [(validate.rules).string = {uuid: true}];
+  string email = 2;
+  string username = 3;
+}
+
+message FileUploadRequest {
+  int64 size = 1;
+  bytes content = 2;
+}
+
+message FileUploadReply {
+  string id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message DetectRequest {
+  string file_id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message DetectReply {
+
+}
+
+message ConfoundRequest {
+  string file_id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message ConfoundReply {
+  bytes content = 1;
+}

@@ -1,0 +1,20 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: check-added-large-files
+    -   id: check-merge-conflict
+    -   id: check-json
+    -   id: check-toml
+    -   id: check-xml
+    -   id: check-yaml
+    -   id: detect-private-key
+-   repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.1.13
+    hooks:
+    -   id: forbid-crlf
+    -   id: remove-crlf
+-   repo: https://github.com/golangci/golangci-lint
+    rev: v1.45.2
+    hooks:
+    -   id: golangci-lint
