@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  bugu-bugu-service:
+    image: hominsu/bugu-bugu-service:latest
+    container_name: bugu-bugu-service
+    restart: always
+    depends_on:
+      - paper4u-user-service
+      - paper4u-publication-service
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - "../../app/bugu/service/configs:/data/conf"
+    ports:
+      - "8000:8000"
+    networks:
+      net:
+        aliases:
+          - bugu-bugu-service
+
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.10.0/24

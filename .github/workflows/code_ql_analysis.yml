@@ -2,7 +2,9 @@ name: CodeQL Analysis
 
 on:
   push:
-    branches: [ dev ]
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
