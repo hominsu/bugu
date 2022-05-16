@@ -329,12 +329,12 @@ func (fq *FileQuery) WithAffiliatedUser(opts ...func(*UserQuery)) *FileQuery {
 // Example:
 //
 //	var v []struct {
-//		FileHash uuid.UUID `json:"file_hash,omitempty"`
+//		FileSha1 string `json:"file_sha_1,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.File.Query().
-//		GroupBy(file.FieldFileHash).
+//		GroupBy(file.FieldFileSha1).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -356,11 +356,11 @@ func (fq *FileQuery) GroupBy(field string, fields ...string) *FileGroupBy {
 // Example:
 //
 //	var v []struct {
-//		FileHash uuid.UUID `json:"file_hash,omitempty"`
+//		FileSha1 string `json:"file_sha_1,omitempty"`
 //	}
 //
 //	client.File.Query().
-//		Select(file.FieldFileHash).
+//		Select(file.FieldFileSha1).
 //		Scan(ctx, &v)
 //
 func (fq *FileQuery) Select(fields ...string) *FileSelect {

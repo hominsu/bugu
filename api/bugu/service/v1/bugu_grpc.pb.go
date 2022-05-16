@@ -26,7 +26,6 @@ type BuguClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginReply, error)
 	GetCurrentUser(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*GetCurrentUserReply, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserReply, error)
-	FileUpload(ctx context.Context, opts ...grpc.CallOption) (Bugu_FileUploadClient, error)
 	Detect(ctx context.Context, in *DetectRequest, opts ...grpc.CallOption) (*DetectReply, error)
 	Confound(ctx context.Context, in *ConfoundRequest, opts ...grpc.CallOption) (Bugu_ConfoundClient, error)
 }
@@ -75,40 +74,6 @@ func (c *buguClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts
 	return out, nil
 }
 
-func (c *buguClient) FileUpload(ctx context.Context, opts ...grpc.CallOption) (Bugu_FileUploadClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Bugu_ServiceDesc.Streams[0], "/bugu.service.v1.Bugu/FileUpload", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &buguFileUploadClient{stream}
-	return x, nil
-}
-
-type Bugu_FileUploadClient interface {
-	Send(*FileUploadRequest) error
-	CloseAndRecv() (*FileUploadReply, error)
-	grpc.ClientStream
-}
-
-type buguFileUploadClient struct {
-	grpc.ClientStream
-}
-
-func (x *buguFileUploadClient) Send(m *FileUploadRequest) error {
-	return x.ClientStream.SendMsg(m)
-}
-
-func (x *buguFileUploadClient) CloseAndRecv() (*FileUploadReply, error) {
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	m := new(FileUploadReply)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func (c *buguClient) Detect(ctx context.Context, in *DetectRequest, opts ...grpc.CallOption) (*DetectReply, error) {
 	out := new(DetectReply)
 	err := c.cc.Invoke(ctx, "/bugu.service.v1.Bugu/Detect", in, out, opts...)
@@ -119,7 +84,7 @@ func (c *buguClient) Detect(ctx context.Context, in *DetectRequest, opts ...grpc
 }
 
 func (c *buguClient) Confound(ctx context.Context, in *ConfoundRequest, opts ...grpc.CallOption) (Bugu_ConfoundClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Bugu_ServiceDesc.Streams[1], "/bugu.service.v1.Bugu/Confound", opts...)
+	stream, err := c.cc.NewStream(ctx, &Bugu_ServiceDesc.Streams[0], "/bugu.service.v1.Bugu/Confound", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -158,7 +123,6 @@ type BuguServer interface {
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
 	GetCurrentUser(context.Context, *GetCurrentUserRequest) (*GetCurrentUserReply, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserReply, error)
-	FileUpload(Bugu_FileUploadServer) error
 	Detect(context.Context, *DetectRequest) (*DetectReply, error)
 	Confound(*ConfoundRequest, Bugu_ConfoundServer) error
 	mustEmbedUnimplementedBuguServer()
@@ -179,9 +143,6 @@ func (UnimplementedBuguServer) GetCurrentUser(context.Context, *GetCurrentUserRe
 }
 func (UnimplementedBuguServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
-}
-func (UnimplementedBuguServer) FileUpload(Bugu_FileUploadServer) error {
-	return status.Errorf(codes.Unimplemented, "method FileUpload not implemented")
 }
 func (UnimplementedBuguServer) Detect(context.Context, *DetectRequest) (*DetectReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Detect not implemented")
@@ -274,32 +235,6 @@ func _Bugu_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Bugu_FileUpload_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BuguServer).FileUpload(&buguFileUploadServer{stream})
-}
-
-type Bugu_FileUploadServer interface {
-	SendAndClose(*FileUploadReply) error
-	Recv() (*FileUploadRequest, error)
-	grpc.ServerStream
-}
-
-type buguFileUploadServer struct {
-	grpc.ServerStream
-}
-
-func (x *buguFileUploadServer) SendAndClose(m *FileUploadReply) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *buguFileUploadServer) Recv() (*FileUploadRequest, error) {
-	m := new(FileUploadRequest)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func _Bugu_Detect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DetectRequest)
 	if err := dec(in); err != nil {
@@ -368,11 +303,6 @@ var Bugu_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "FileUpload",
-			Handler:       _Bugu_FileUpload_Handler,
-			ClientStreams: true,
-		},
 		{
 			StreamName:    "Confound",
 			Handler:       _Bugu_Confound_Handler,

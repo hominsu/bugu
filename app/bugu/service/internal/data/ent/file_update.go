@@ -31,9 +31,9 @@ func (fu *FileUpdate) Where(ps ...predicate.File) *FileUpdate {
 	return fu
 }
 
-// SetFileHash sets the "file_hash" field.
-func (fu *FileUpdate) SetFileHash(u uuid.UUID) *FileUpdate {
-	fu.mutation.SetFileHash(u)
+// SetFileSha1 sets the "file_sha_1" field.
+func (fu *FileUpdate) SetFileSha1(s string) *FileUpdate {
+	fu.mutation.SetFileSha1(s)
 	return fu
 }
 
@@ -53,6 +53,26 @@ func (fu *FileUpdate) AddFileSize(i int64) *FileUpdate {
 // SetFileAddr sets the "file_addr" field.
 func (fu *FileUpdate) SetFileAddr(s string) *FileUpdate {
 	fu.mutation.SetFileAddr(s)
+	return fu
+}
+
+// SetType sets the "type" field.
+func (fu *FileUpdate) SetType(f file.Type) *FileUpdate {
+	fu.mutation.SetType(f)
+	return fu
+}
+
+// SetNillableType sets the "type" field if the given value is not nil.
+func (fu *FileUpdate) SetNillableType(f *file.Type) *FileUpdate {
+	if f != nil {
+		fu.SetType(*f)
+	}
+	return fu
+}
+
+// ClearType clears the value of the "type" field.
+func (fu *FileUpdate) ClearType() *FileUpdate {
+	fu.mutation.ClearType()
 	return fu
 }
 
@@ -143,12 +163,18 @@ func (fu *FileUpdate) Save(ctx context.Context) (int, error) {
 		affected int
 	)
 	if len(fu.hooks) == 0 {
+		if err = fu.check(); err != nil {
+			return 0, err
+		}
 		affected, err = fu.sqlSave(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 			mutation, ok := m.(*FileMutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
+			}
+			if err = fu.check(); err != nil {
+				return 0, err
 			}
 			fu.mutation = mutation
 			affected, err = fu.sqlSave(ctx)
@@ -190,6 +216,16 @@ func (fu *FileUpdate) ExecX(ctx context.Context) {
 	}
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (fu *FileUpdate) check() error {
+	if v, ok := fu.mutation.GetType(); ok {
+		if err := file.TypeValidator(v); err != nil {
+			return &ValidationError{Name: "type", err: fmt.Errorf(`ent: validator failed for field "File.type": %w`, err)}
+		}
+	}
+	return nil
+}
+
 func (fu *FileUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
@@ -208,11 +244,11 @@ func (fu *FileUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := fu.mutation.FileHash(); ok {
+	if value, ok := fu.mutation.FileSha1(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUUID,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: file.FieldFileHash,
+			Column: file.FieldFileSha1,
 		})
 	}
 	if value, ok := fu.mutation.FileSize(); ok {
@@ -234,6 +270,19 @@ func (fu *FileUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: file.FieldFileAddr,
+		})
+	}
+	if value, ok := fu.mutation.GetType(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Value:  value,
+			Column: file.FieldType,
+		})
+	}
+	if fu.mutation.TypeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Column: file.FieldType,
 		})
 	}
 	if value, ok := fu.mutation.UpdatedAt(); ok {
@@ -351,9 +400,9 @@ type FileUpdateOne struct {
 	mutation *FileMutation
 }
 
-// SetFileHash sets the "file_hash" field.
-func (fuo *FileUpdateOne) SetFileHash(u uuid.UUID) *FileUpdateOne {
-	fuo.mutation.SetFileHash(u)
+// SetFileSha1 sets the "file_sha_1" field.
+func (fuo *FileUpdateOne) SetFileSha1(s string) *FileUpdateOne {
+	fuo.mutation.SetFileSha1(s)
 	return fuo
 }
 
@@ -373,6 +422,26 @@ func (fuo *FileUpdateOne) AddFileSize(i int64) *FileUpdateOne {
 // SetFileAddr sets the "file_addr" field.
 func (fuo *FileUpdateOne) SetFileAddr(s string) *FileUpdateOne {
 	fuo.mutation.SetFileAddr(s)
+	return fuo
+}
+
+// SetType sets the "type" field.
+func (fuo *FileUpdateOne) SetType(f file.Type) *FileUpdateOne {
+	fuo.mutation.SetType(f)
+	return fuo
+}
+
+// SetNillableType sets the "type" field if the given value is not nil.
+func (fuo *FileUpdateOne) SetNillableType(f *file.Type) *FileUpdateOne {
+	if f != nil {
+		fuo.SetType(*f)
+	}
+	return fuo
+}
+
+// ClearType clears the value of the "type" field.
+func (fuo *FileUpdateOne) ClearType() *FileUpdateOne {
+	fuo.mutation.ClearType()
 	return fuo
 }
 
@@ -470,12 +539,18 @@ func (fuo *FileUpdateOne) Save(ctx context.Context) (*File, error) {
 		node *File
 	)
 	if len(fuo.hooks) == 0 {
+		if err = fuo.check(); err != nil {
+			return nil, err
+		}
 		node, err = fuo.sqlSave(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 			mutation, ok := m.(*FileMutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
+			}
+			if err = fuo.check(); err != nil {
+				return nil, err
 			}
 			fuo.mutation = mutation
 			node, err = fuo.sqlSave(ctx)
@@ -517,6 +592,16 @@ func (fuo *FileUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
+// check runs all checks and user-defined validators on the builder.
+func (fuo *FileUpdateOne) check() error {
+	if v, ok := fuo.mutation.GetType(); ok {
+		if err := file.TypeValidator(v); err != nil {
+			return &ValidationError{Name: "type", err: fmt.Errorf(`ent: validator failed for field "File.type": %w`, err)}
+		}
+	}
+	return nil
+}
+
 func (fuo *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
@@ -552,11 +637,11 @@ func (fuo *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) 
 			}
 		}
 	}
-	if value, ok := fuo.mutation.FileHash(); ok {
+	if value, ok := fuo.mutation.FileSha1(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUUID,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: file.FieldFileHash,
+			Column: file.FieldFileSha1,
 		})
 	}
 	if value, ok := fuo.mutation.FileSize(); ok {
@@ -578,6 +663,19 @@ func (fuo *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: file.FieldFileAddr,
+		})
+	}
+	if value, ok := fuo.mutation.GetType(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Value:  value,
+			Column: file.FieldType,
+		})
+	}
+	if fuo.mutation.TypeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Column: file.FieldType,
 		})
 	}
 	if value, ok := fuo.mutation.UpdatedAt(); ok {

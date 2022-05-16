@@ -3,7 +3,6 @@
 package artifact
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -80,50 +79,3 @@ var (
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
 	DefaultUpdatedAt func() time.Time
 )
-
-// Method defines the type for the "method" enum field.
-type Method string
-
-// Method values.
-const (
-	MethodAdposhel    Method = "Adposhel"
-	MethodAgent       Method = "Agent"
-	MethodAllaple     Method = "Allaple"
-	MethodAmonetize   Method = "Amonetize"
-	MethodAndrom      Method = "Androm"
-	MethodAutorun     Method = "Autorun"
-	MethodBrowseFox   Method = "BrowseFox"
-	MethodDinwod      Method = "Dinwod"
-	MethodElex        Method = "Elex"
-	MethodExpiro      Method = "Expiro"
-	MethodFasong      Method = "Fasong"
-	MethodHackKMS     Method = "HackKMS"
-	MethodHlux        Method = "Hlux"
-	MethodInjector    Method = "Injector"
-	MethodInstallCore Method = "InstallCore"
-	MethodMultiPlug   Method = "MultiPlug"
-	MethodNeoreklami  Method = "Neoreklami"
-	MethodNeshta      Method = "Neshta"
-	MethodOther       Method = "Other"
-	MethodRegrun      Method = "Regrun"
-	MethodSality      Method = "Sality"
-	MethodSnarasite   Method = "Snarasite"
-	MethodStantinko   Method = "Stantinko"
-	MethodVBA         Method = "VBA"
-	MethodVBKrypt     Method = "VBKrypt"
-	MethodVilsel      Method = "Vilsel"
-)
-
-func (m Method) String() string {
-	return string(m)
-}
-
-// MethodValidator is a validator for the "method" field enum values. It is called by the builders before save.
-func MethodValidator(m Method) error {
-	switch m {
-	case MethodAdposhel, MethodAgent, MethodAllaple, MethodAmonetize, MethodAndrom, MethodAutorun, MethodBrowseFox, MethodDinwod, MethodElex, MethodExpiro, MethodFasong, MethodHackKMS, MethodHlux, MethodInjector, MethodInstallCore, MethodMultiPlug, MethodNeoreklami, MethodNeshta, MethodOther, MethodRegrun, MethodSality, MethodSnarasite, MethodStantinko, MethodVBA, MethodVBKrypt, MethodVilsel:
-		return nil
-	default:
-		return fmt.Errorf("artifact: invalid enum value for method field: %q", m)
-	}
-}

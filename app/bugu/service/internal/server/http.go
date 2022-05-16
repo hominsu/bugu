@@ -32,7 +32,13 @@ func NewSkipRoutersMatcher() selector.MatchFunc {
 }
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, sc *conf.Jwt, is *service.BuguService, logger log.Logger) *http.Server {
+func NewHTTPServer(
+	c *conf.Server,
+	sc *conf.Jwt,
+	bs *service.BuguService,
+	bfs *service.BuguFileService,
+	logger log.Logger,
+) *http.Server {
 	opts := []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(
@@ -65,6 +71,8 @@ func NewHTTPServer(c *conf.Server, sc *conf.Jwt, is *service.BuguService, logger
 	}
 	srv := http.NewServer(opts...)
 
-	buguV1.RegisterBuguHTTPServer(srv, is)
+	buguV1.RegisterBuguHTTPServer(srv, bs)
+	buguV1.RegisterBuguFileHTTPServer(srv, bfs)
+
 	return srv
 }

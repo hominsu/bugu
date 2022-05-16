@@ -14,7 +14,7 @@ var (
 		{Name: "artifact_hash", Type: field.TypeUUID, Unique: true},
 		{Name: "artifact_size", Type: field.TypeInt64},
 		{Name: "artifact_addr", Type: field.TypeString},
-		{Name: "method", Type: field.TypeEnum, Enums: []string{"Adposhel", "Agent", "Allaple", "Amonetize", "Androm", "Autorun", "BrowseFox", "Dinwod", "Elex", "Expiro", "Fasong", "HackKMS", "Hlux", "Injector", "InstallCore", "MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun", "Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt", "Vilsel"}},
+		{Name: "method", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "file_id", Type: field.TypeUUID, Unique: true},
@@ -36,9 +36,10 @@ var (
 	// FilesColumns holds the columns for the "files" table.
 	FilesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
-		{Name: "file_hash", Type: field.TypeUUID, Unique: true},
+		{Name: "file_sha_1", Type: field.TypeString, Unique: true},
 		{Name: "file_size", Type: field.TypeInt64},
 		{Name: "file_addr", Type: field.TypeString},
+		{Name: "type", Type: field.TypeEnum, Nullable: true, Enums: []string{"Adposhel", "Agent", "Allaple", "Amonetize", "Androm", "Autorun", "BrowseFox", "Dinwod", "Elex", "Expiro", "Fasong", "HackKMS", "Hlux", "Injector", "InstallCore", "MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun", "Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt", "Vilsel"}},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 	}

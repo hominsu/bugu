@@ -97,39 +97,6 @@
         ]
       }
     },
-    "/v1/files": {
-      "post": {
-        "operationId": "Bugu_FileUpload",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1FileUploadReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": " (streaming inputs)",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1FileUploadRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Bugu"
-        ]
-      }
-    },
     "/v1/user/{id}": {
       "get": {
         "operationId": "Bugu_GetCurrentUser",
@@ -308,27 +275,6 @@
       "properties": {
         "fileId": {
           "type": "string"
-        }
-      }
-    },
-    "v1FileUploadReply": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1FileUploadRequest": {
-      "type": "object",
-      "properties": {
-        "size": {
-          "type": "string",
-          "format": "int64"
-        },
-        "content": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },

@@ -52,13 +52,6 @@ service Bugu {
     };
   };
 
-  rpc FileUpload (stream FileUploadRequest) returns (FileUploadReply) {
-    option (google.api.http) = {
-      post: "/v1/files",
-      body: "*",
-    };
-  };
-
   rpc Detect (DetectRequest) returns (DetectReply) {
     option (google.api.http) = {
       post: "/v1/file/detect",

@@ -48,8 +48,16 @@ func (ac *ArtifactCreate) SetArtifactAddr(s string) *ArtifactCreate {
 }
 
 // SetMethod sets the "method" field.
-func (ac *ArtifactCreate) SetMethod(a artifact.Method) *ArtifactCreate {
-	ac.mutation.SetMethod(a)
+func (ac *ArtifactCreate) SetMethod(s string) *ArtifactCreate {
+	ac.mutation.SetMethod(s)
+	return ac
+}
+
+// SetNillableMethod sets the "method" field if the given value is not nil.
+func (ac *ArtifactCreate) SetNillableMethod(s *string) *ArtifactCreate {
+	if s != nil {
+		ac.SetMethod(*s)
+	}
 	return ac
 }
 
@@ -208,14 +216,6 @@ func (ac *ArtifactCreate) check() error {
 	if _, ok := ac.mutation.ArtifactAddr(); !ok {
 		return &ValidationError{Name: "artifact_addr", err: errors.New(`ent: missing required field "Artifact.artifact_addr"`)}
 	}
-	if _, ok := ac.mutation.Method(); !ok {
-		return &ValidationError{Name: "method", err: errors.New(`ent: missing required field "Artifact.method"`)}
-	}
-	if v, ok := ac.mutation.Method(); ok {
-		if err := artifact.MethodValidator(v); err != nil {
-			return &ValidationError{Name: "method", err: fmt.Errorf(`ent: validator failed for field "Artifact.method": %w`, err)}
-		}
-	}
 	if _, ok := ac.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Artifact.created_at"`)}
 	}
@@ -287,7 +287,7 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := ac.mutation.Method(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeEnum,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: artifact.FieldMethod,
 		})

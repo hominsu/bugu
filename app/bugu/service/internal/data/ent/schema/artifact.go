@@ -23,13 +23,7 @@ func (Artifact) Fields() []ent.Field {
 		field.UUID("artifact_hash", uuid.UUID{}).Unique(),
 		field.Int64("artifact_size"),
 		field.String("artifact_addr"),
-		field.Enum("method").
-			Values("Adposhel", "Agent", "Allaple", "Amonetize", "Androm",
-				"Autorun", "BrowseFox", "Dinwod", "Elex", "Expiro",
-				"Fasong", "HackKMS", "Hlux", "Injector", "InstallCore",
-				"MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun",
-				"Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt",
-				"Vilsel"),
+		field.String("method").Optional(),
 		field.Time("created_at").
 			Default(time.Now).
 			Immutable().

@@ -122,6 +122,13 @@ func ArtifactAddr(v string) predicate.Artifact {
 	})
 }
 
+// Method applies equality check predicate on the "method" field. It's identical to MethodEQ.
+func Method(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMethod), v))
+	})
+}
+
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.Artifact {
 	return predicate.Artifact(func(s *sql.Selector) {
@@ -448,21 +455,21 @@ func ArtifactAddrContainsFold(v string) predicate.Artifact {
 }
 
 // MethodEQ applies the EQ predicate on the "method" field.
-func MethodEQ(v Method) predicate.Artifact {
+func MethodEQ(v string) predicate.Artifact {
 	return predicate.Artifact(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldMethod), v))
 	})
 }
 
 // MethodNEQ applies the NEQ predicate on the "method" field.
-func MethodNEQ(v Method) predicate.Artifact {
+func MethodNEQ(v string) predicate.Artifact {
 	return predicate.Artifact(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldMethod), v))
 	})
 }
 
 // MethodIn applies the In predicate on the "method" field.
-func MethodIn(vs ...Method) predicate.Artifact {
+func MethodIn(vs ...string) predicate.Artifact {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -479,7 +486,7 @@ func MethodIn(vs ...Method) predicate.Artifact {
 }
 
 // MethodNotIn applies the NotIn predicate on the "method" field.
-func MethodNotIn(vs ...Method) predicate.Artifact {
+func MethodNotIn(vs ...string) predicate.Artifact {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -492,6 +499,83 @@ func MethodNotIn(vs ...Method) predicate.Artifact {
 			return
 		}
 		s.Where(sql.NotIn(s.C(FieldMethod), v...))
+	})
+}
+
+// MethodGT applies the GT predicate on the "method" field.
+func MethodGT(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMethod), v))
+	})
+}
+
+// MethodGTE applies the GTE predicate on the "method" field.
+func MethodGTE(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMethod), v))
+	})
+}
+
+// MethodLT applies the LT predicate on the "method" field.
+func MethodLT(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMethod), v))
+	})
+}
+
+// MethodLTE applies the LTE predicate on the "method" field.
+func MethodLTE(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMethod), v))
+	})
+}
+
+// MethodContains applies the Contains predicate on the "method" field.
+func MethodContains(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldMethod), v))
+	})
+}
+
+// MethodHasPrefix applies the HasPrefix predicate on the "method" field.
+func MethodHasPrefix(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldMethod), v))
+	})
+}
+
+// MethodHasSuffix applies the HasSuffix predicate on the "method" field.
+func MethodHasSuffix(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldMethod), v))
+	})
+}
+
+// MethodIsNil applies the IsNil predicate on the "method" field.
+func MethodIsNil() predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldMethod)))
+	})
+}
+
+// MethodNotNil applies the NotNil predicate on the "method" field.
+func MethodNotNil() predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldMethod)))
+	})
+}
+
+// MethodEqualFold applies the EqualFold predicate on the "method" field.
+func MethodEqualFold(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldMethod), v))
+	})
+}
+
+// MethodContainsFold applies the ContainsFold predicate on the "method" field.
+func MethodContainsFold(v string) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldMethod), v))
 	})
 }
 

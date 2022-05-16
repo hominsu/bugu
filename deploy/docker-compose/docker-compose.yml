@@ -12,6 +12,7 @@ services:
       TZ: "Asia/Shanghai"
     volumes:
       - "../../app/bugu/service/configs:/data/conf"
+      - "./data:/data"
     ports:
       - "8000:8000"
     networks:
@@ -24,4 +25,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 10.10.10.0/24
+        - subnet: 172.10.10.0/24

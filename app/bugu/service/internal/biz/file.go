@@ -1,19 +1,34 @@
 package biz
 
 import (
+	"context"
+	"io"
+	"mime/multipart"
+	"os"
+	"path/filepath"
+
+	v1 "bugu/api/bugu/service/v1"
+	"bugu/app/bugu/service/internal/data/ent/file"
+	"bugu/pkg"
+
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"
 )
 
 // File is the model entity for the File schema.
 type File struct {
-	ID       uuid.UUID `json:"id,omitempty"`
-	FileHash uuid.UUID `json:"file_hash,omitempty"`
-	FileSize string    `json:"file_size,omitempty"`
-	FileAddr string    `json:"file_addr,omitempty"`
+	ID       uuid.UUID  `json:"id,omitempty"`
+	FileSha1 string     `json:"file_sha_1,omitempty"`
+	FileSize int64      `json:"file_size,omitempty"`
+	FileAddr string     `json:"file_addr,omitempty"`
+	Type     *file.Type `json:"type,omitempty"`
 }
 
-type FileRepo interface{}
+type FileRepo interface {
+	CreateFileMetadata(ctx context.Context, file *File) (*File, error)
+	UpdateFileMetadata(ctx context.Context, file *File) (*File, error)
+	GetFileMetadata(ctx context.Context, id uuid.UUID) (*File, error)
+}
 
 type FileUsecase struct {
 	repo FileRepo
@@ -26,4 +41,82 @@ func NewFileUsecase(repo FileRepo, logger log.Logger) *FileUsecase {
 		repo: repo,
 		log:  log.NewHelper(logger),
 	}
+}
+
+func (uc *FileUsecase) SaveFile(ctx context.Context, metaFile multipart.File, dir string) (*File, error) {
+	u, err := uuid.NewRandom()
+	if err != nil {
+		return nil, v1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
+	}
+
+	dir = filepath.Join(filepath.Dir(dir), u.String())
+
+	ok, err := pkg.PathExists(dir)
+	if err != nil {
+		return nil, v1.ErrorUnknownError("check file failed, err: %v", err)
+	}
+	if ok {
+		return nil, v1.ErrorCreateConflict("create file conflict")
+	}
+
+	f, err := os.OpenFile(dir, os.O_WRONLY|os.O_CREATE, 0o666)
+	if err != nil {
+		return nil, err
+	}
+	defer func(f *os.File) {
+		err = f.Close()
+		if err != nil {
+			uc.log.Error(err)
+		}
+	}(f)
+
+	metadata := &File{
+		ID:       u,
+		FileAddr: dir,
+	}
+
+	metadata.FileSize, err = io.Copy(f, metaFile)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = f.Seek(0, 0)
+	if err != nil {
+		return nil, err
+	}
+
+	metadata.FileSha1, err = pkg.FileSha1(f)
+
+	return uc.repo.CreateFileMetadata(ctx, metadata)
+}
+
+func (uc *FileUsecase) GetFile(ctx context.Context, id string) (*os.File, func(), error) {
+	u, err := uuid.Parse(id)
+	if err != nil {
+		return nil, nil, v1.ErrorUuidParseFailed("parse file id failed, err: %v", id)
+	}
+
+	dto, err := uc.repo.GetFileMetadata(ctx, u)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ok, err := pkg.PathExists(dto.FileAddr)
+	if err != nil {
+		return nil, nil, v1.ErrorUnknownError("check file failed, err: %v", err)
+	}
+	if !ok {
+		return nil, nil, v1.ErrorCreateConflict("file not exist")
+	}
+
+	f, err := os.OpenFile(dto.FileAddr, os.O_RDONLY, 0)
+	if err != nil {
+		return nil, nil, err
+	}
+	return f, func() {
+		err := f.Close()
+		if err != nil {
+			uc.log.Error(err)
+		}
+	}, nil
 }

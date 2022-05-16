@@ -63,8 +63,22 @@ func (au *ArtifactUpdate) SetArtifactAddr(s string) *ArtifactUpdate {
 }
 
 // SetMethod sets the "method" field.
-func (au *ArtifactUpdate) SetMethod(a artifact.Method) *ArtifactUpdate {
-	au.mutation.SetMethod(a)
+func (au *ArtifactUpdate) SetMethod(s string) *ArtifactUpdate {
+	au.mutation.SetMethod(s)
+	return au
+}
+
+// SetNillableMethod sets the "method" field if the given value is not nil.
+func (au *ArtifactUpdate) SetNillableMethod(s *string) *ArtifactUpdate {
+	if s != nil {
+		au.SetMethod(*s)
+	}
+	return au
+}
+
+// ClearMethod clears the value of the "method" field.
+func (au *ArtifactUpdate) ClearMethod() *ArtifactUpdate {
+	au.mutation.ClearMethod()
 	return au
 }
 
@@ -202,11 +216,6 @@ func (au *ArtifactUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (au *ArtifactUpdate) check() error {
-	if v, ok := au.mutation.Method(); ok {
-		if err := artifact.MethodValidator(v); err != nil {
-			return &ValidationError{Name: "method", err: fmt.Errorf(`ent: validator failed for field "Artifact.method": %w`, err)}
-		}
-	}
 	if _, ok := au.mutation.AffiliatedFileID(); au.mutation.AffiliatedFileCleared() && !ok {
 		return errors.New(`ent: clearing a required unique edge "Artifact.affiliated_file"`)
 	}
@@ -261,8 +270,14 @@ func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := au.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeEnum,
+			Type:   field.TypeString,
 			Value:  value,
+			Column: artifact.FieldMethod,
+		})
+	}
+	if au.mutation.MethodCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: artifact.FieldMethod,
 		})
 	}
@@ -413,8 +428,22 @@ func (auo *ArtifactUpdateOne) SetArtifactAddr(s string) *ArtifactUpdateOne {
 }
 
 // SetMethod sets the "method" field.
-func (auo *ArtifactUpdateOne) SetMethod(a artifact.Method) *ArtifactUpdateOne {
-	auo.mutation.SetMethod(a)
+func (auo *ArtifactUpdateOne) SetMethod(s string) *ArtifactUpdateOne {
+	auo.mutation.SetMethod(s)
+	return auo
+}
+
+// SetNillableMethod sets the "method" field if the given value is not nil.
+func (auo *ArtifactUpdateOne) SetNillableMethod(s *string) *ArtifactUpdateOne {
+	if s != nil {
+		auo.SetMethod(*s)
+	}
+	return auo
+}
+
+// ClearMethod clears the value of the "method" field.
+func (auo *ArtifactUpdateOne) ClearMethod() *ArtifactUpdateOne {
+	auo.mutation.ClearMethod()
 	return auo
 }
 
@@ -559,11 +588,6 @@ func (auo *ArtifactUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (auo *ArtifactUpdateOne) check() error {
-	if v, ok := auo.mutation.Method(); ok {
-		if err := artifact.MethodValidator(v); err != nil {
-			return &ValidationError{Name: "method", err: fmt.Errorf(`ent: validator failed for field "Artifact.method": %w`, err)}
-		}
-	}
 	if _, ok := auo.mutation.AffiliatedFileID(); auo.mutation.AffiliatedFileCleared() && !ok {
 		return errors.New(`ent: clearing a required unique edge "Artifact.affiliated_file"`)
 	}
@@ -635,8 +659,14 @@ func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err
 	}
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeEnum,
+			Type:   field.TypeString,
 			Value:  value,
+			Column: artifact.FieldMethod,
+		})
+	}
+	if auo.mutation.MethodCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: artifact.FieldMethod,
 		})
 	}
