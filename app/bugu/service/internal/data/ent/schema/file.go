@@ -19,9 +19,17 @@ type File struct {
 func (File) Fields() []ent.Field {
 	return []ent.Field{
 		field.UUID("id", uuid.UUID{}),
-		field.UUID("file_hash", uuid.UUID{}).Unique(),
+		field.String("file_sha_1").Unique(),
 		field.Int64("file_size"),
 		field.String("file_addr"),
+		field.Enum("type").
+			Values("Adposhel", "Agent", "Allaple", "Amonetize", "Androm",
+				"Autorun", "BrowseFox", "Dinwod", "Elex", "Expiro",
+				"Fasong", "HackKMS", "Hlux", "Injector", "InstallCore",
+				"MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun",
+				"Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt",
+				"Vilsel").
+			Optional(),
 		field.Time("created_at").
 			Default(time.Now).
 			Immutable().

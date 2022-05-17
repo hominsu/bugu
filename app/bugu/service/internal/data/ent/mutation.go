@@ -42,7 +42,7 @@ type ArtifactMutation struct {
 	artifact_size          *int64
 	addartifact_size       *int64
 	artifact_addr          *string
-	method                 *artifact.Method
+	method                 *string
 	created_at             *time.Time
 	updated_at             *time.Time
 	clearedFields          map[string]struct{}
@@ -325,12 +325,12 @@ func (m *ArtifactMutation) ResetArtifactAddr() {
 }
 
 // SetMethod sets the "method" field.
-func (m *ArtifactMutation) SetMethod(a artifact.Method) {
-	m.method = &a
+func (m *ArtifactMutation) SetMethod(s string) {
+	m.method = &s
 }
 
 // Method returns the value of the "method" field in the mutation.
-func (m *ArtifactMutation) Method() (r artifact.Method, exists bool) {
+func (m *ArtifactMutation) Method() (r string, exists bool) {
 	v := m.method
 	if v == nil {
 		return
@@ -341,7 +341,7 @@ func (m *ArtifactMutation) Method() (r artifact.Method, exists bool) {
 // OldMethod returns the old "method" field's value of the Artifact entity.
 // If the Artifact object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ArtifactMutation) OldMethod(ctx context.Context) (v artifact.Method, err error) {
+func (m *ArtifactMutation) OldMethod(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldMethod is only allowed on UpdateOne operations")
 	}
@@ -355,9 +355,22 @@ func (m *ArtifactMutation) OldMethod(ctx context.Context) (v artifact.Method, er
 	return oldValue.Method, nil
 }
 
+// ClearMethod clears the value of the "method" field.
+func (m *ArtifactMutation) ClearMethod() {
+	m.method = nil
+	m.clearedFields[artifact.FieldMethod] = struct{}{}
+}
+
+// MethodCleared returns if the "method" field was cleared in this mutation.
+func (m *ArtifactMutation) MethodCleared() bool {
+	_, ok := m.clearedFields[artifact.FieldMethod]
+	return ok
+}
+
 // ResetMethod resets all changes to the "method" field.
 func (m *ArtifactMutation) ResetMethod() {
 	m.method = nil
+	delete(m.clearedFields, artifact.FieldMethod)
 }
 
 // SetCreatedAt sets the "created_at" field.
@@ -649,7 +662,7 @@ func (m *ArtifactMutation) SetField(name string, value ent.Value) error {
 		m.SetArtifactAddr(v)
 		return nil
 	case artifact.FieldMethod:
-		v, ok := value.(artifact.Method)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -713,7 +726,11 @@ func (m *ArtifactMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *ArtifactMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(artifact.FieldMethod) {
+		fields = append(fields, artifact.FieldMethod)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -726,6 +743,11 @@ func (m *ArtifactMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *ArtifactMutation) ClearField(name string) error {
+	switch name {
+	case artifact.FieldMethod:
+		m.ClearMethod()
+		return nil
+	}
 	return fmt.Errorf("unknown Artifact nullable field %s", name)
 }
 
@@ -866,10 +888,11 @@ type FileMutation struct {
 	op                     Op
 	typ                    string
 	id                     *uuid.UUID
-	file_hash              *uuid.UUID
+	file_sha_1             *string
 	file_size              *int64
 	addfile_size           *int64
 	file_addr              *string
+	_type                  *file.Type
 	created_at             *time.Time
 	updated_at             *time.Time
 	clearedFields          map[string]struct{}
@@ -987,40 +1010,40 @@ func (m *FileMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
 	}
 }
 
-// SetFileHash sets the "file_hash" field.
-func (m *FileMutation) SetFileHash(u uuid.UUID) {
-	m.file_hash = &u
+// SetFileSha1 sets the "file_sha_1" field.
+func (m *FileMutation) SetFileSha1(s string) {
+	m.file_sha_1 = &s
 }
 
-// FileHash returns the value of the "file_hash" field in the mutation.
-func (m *FileMutation) FileHash() (r uuid.UUID, exists bool) {
-	v := m.file_hash
+// FileSha1 returns the value of the "file_sha_1" field in the mutation.
+func (m *FileMutation) FileSha1() (r string, exists bool) {
+	v := m.file_sha_1
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldFileHash returns the old "file_hash" field's value of the File entity.
+// OldFileSha1 returns the old "file_sha_1" field's value of the File entity.
 // If the File object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *FileMutation) OldFileHash(ctx context.Context) (v uuid.UUID, err error) {
+func (m *FileMutation) OldFileSha1(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldFileHash is only allowed on UpdateOne operations")
+		return v, errors.New("OldFileSha1 is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldFileHash requires an ID field in the mutation")
+		return v, errors.New("OldFileSha1 requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldFileHash: %w", err)
+		return v, fmt.Errorf("querying old value for OldFileSha1: %w", err)
 	}
-	return oldValue.FileHash, nil
+	return oldValue.FileSha1, nil
 }
 
-// ResetFileHash resets all changes to the "file_hash" field.
-func (m *FileMutation) ResetFileHash() {
-	m.file_hash = nil
+// ResetFileSha1 resets all changes to the "file_sha_1" field.
+func (m *FileMutation) ResetFileSha1() {
+	m.file_sha_1 = nil
 }
 
 // SetFileSize sets the "file_size" field.
@@ -1113,6 +1136,55 @@ func (m *FileMutation) OldFileAddr(ctx context.Context) (v string, err error) {
 // ResetFileAddr resets all changes to the "file_addr" field.
 func (m *FileMutation) ResetFileAddr() {
 	m.file_addr = nil
+}
+
+// SetType sets the "type" field.
+func (m *FileMutation) SetType(f file.Type) {
+	m._type = &f
+}
+
+// GetType returns the value of the "type" field in the mutation.
+func (m *FileMutation) GetType() (r file.Type, exists bool) {
+	v := m._type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldType returns the old "type" field's value of the File entity.
+// If the File object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *FileMutation) OldType(ctx context.Context) (v file.Type, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldType: %w", err)
+	}
+	return oldValue.Type, nil
+}
+
+// ClearType clears the value of the "type" field.
+func (m *FileMutation) ClearType() {
+	m._type = nil
+	m.clearedFields[file.FieldType] = struct{}{}
+}
+
+// TypeCleared returns if the "type" field was cleared in this mutation.
+func (m *FileMutation) TypeCleared() bool {
+	_, ok := m.clearedFields[file.FieldType]
+	return ok
+}
+
+// ResetType resets all changes to the "type" field.
+func (m *FileMutation) ResetType() {
+	m._type = nil
+	delete(m.clearedFields, file.FieldType)
 }
 
 // SetCreatedAt sets the "created_at" field.
@@ -1299,15 +1371,18 @@ func (m *FileMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *FileMutation) Fields() []string {
-	fields := make([]string, 0, 5)
-	if m.file_hash != nil {
-		fields = append(fields, file.FieldFileHash)
+	fields := make([]string, 0, 6)
+	if m.file_sha_1 != nil {
+		fields = append(fields, file.FieldFileSha1)
 	}
 	if m.file_size != nil {
 		fields = append(fields, file.FieldFileSize)
 	}
 	if m.file_addr != nil {
 		fields = append(fields, file.FieldFileAddr)
+	}
+	if m._type != nil {
+		fields = append(fields, file.FieldType)
 	}
 	if m.created_at != nil {
 		fields = append(fields, file.FieldCreatedAt)
@@ -1323,12 +1398,14 @@ func (m *FileMutation) Fields() []string {
 // schema.
 func (m *FileMutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case file.FieldFileHash:
-		return m.FileHash()
+	case file.FieldFileSha1:
+		return m.FileSha1()
 	case file.FieldFileSize:
 		return m.FileSize()
 	case file.FieldFileAddr:
 		return m.FileAddr()
+	case file.FieldType:
+		return m.GetType()
 	case file.FieldCreatedAt:
 		return m.CreatedAt()
 	case file.FieldUpdatedAt:
@@ -1342,12 +1419,14 @@ func (m *FileMutation) Field(name string) (ent.Value, bool) {
 // database failed.
 func (m *FileMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
-	case file.FieldFileHash:
-		return m.OldFileHash(ctx)
+	case file.FieldFileSha1:
+		return m.OldFileSha1(ctx)
 	case file.FieldFileSize:
 		return m.OldFileSize(ctx)
 	case file.FieldFileAddr:
 		return m.OldFileAddr(ctx)
+	case file.FieldType:
+		return m.OldType(ctx)
 	case file.FieldCreatedAt:
 		return m.OldCreatedAt(ctx)
 	case file.FieldUpdatedAt:
@@ -1361,12 +1440,12 @@ func (m *FileMutation) OldField(ctx context.Context, name string) (ent.Value, er
 // type.
 func (m *FileMutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case file.FieldFileHash:
-		v, ok := value.(uuid.UUID)
+	case file.FieldFileSha1:
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetFileHash(v)
+		m.SetFileSha1(v)
 		return nil
 	case file.FieldFileSize:
 		v, ok := value.(int64)
@@ -1381,6 +1460,13 @@ func (m *FileMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFileAddr(v)
+		return nil
+	case file.FieldType:
+		v, ok := value.(file.Type)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetType(v)
 		return nil
 	case file.FieldCreatedAt:
 		v, ok := value.(time.Time)
@@ -1440,7 +1526,11 @@ func (m *FileMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *FileMutation) ClearedFields() []string {
-	return nil
+	var fields []string
+	if m.FieldCleared(file.FieldType) {
+		fields = append(fields, file.FieldType)
+	}
+	return fields
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -1453,6 +1543,11 @@ func (m *FileMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *FileMutation) ClearField(name string) error {
+	switch name {
+	case file.FieldType:
+		m.ClearType()
+		return nil
+	}
 	return fmt.Errorf("unknown File nullable field %s", name)
 }
 
@@ -1460,14 +1555,17 @@ func (m *FileMutation) ClearField(name string) error {
 // It returns an error if the field is not defined in the schema.
 func (m *FileMutation) ResetField(name string) error {
 	switch name {
-	case file.FieldFileHash:
-		m.ResetFileHash()
+	case file.FieldFileSha1:
+		m.ResetFileSha1()
 		return nil
 	case file.FieldFileSize:
 		m.ResetFileSize()
 		return nil
 	case file.FieldFileAddr:
 		m.ResetFileAddr()
+		return nil
+	case file.FieldType:
+		m.ResetType()
 		return nil
 	case file.FieldCreatedAt:
 		m.ResetCreatedAt()

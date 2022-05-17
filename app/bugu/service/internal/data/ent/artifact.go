@@ -27,7 +27,7 @@ type Artifact struct {
 	// ArtifactAddr holds the value of the "artifact_addr" field.
 	ArtifactAddr string `json:"artifact_addr,omitempty"`
 	// Method holds the value of the "method" field.
-	Method artifact.Method `json:"method,omitempty"`
+	Method string `json:"method,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
@@ -133,7 +133,7 @@ func (a *Artifact) assignValues(columns []string, values []interface{}) error {
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field method", values[i])
 			} else if value.Valid {
-				a.Method = artifact.Method(value.String)
+				a.Method = value.String
 			}
 		case artifact.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -194,7 +194,7 @@ func (a *Artifact) String() string {
 	builder.WriteString(", artifact_addr=")
 	builder.WriteString(a.ArtifactAddr)
 	builder.WriteString(", method=")
-	builder.WriteString(fmt.Sprintf("%v", a.Method))
+	builder.WriteString(a.Method)
 	builder.WriteString(", created_at=")
 	builder.WriteString(a.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", updated_at=")

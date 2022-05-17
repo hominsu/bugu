@@ -18,6 +18,7 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 type BuguHTTPServer interface {
+	Confusion(context.Context, *ConfusionRequest) (*ConfusionReply, error)
 	Detect(context.Context, *DetectRequest) (*DetectReply, error)
 	GetCurrentUser(context.Context, *GetCurrentUserRequest) (*GetCurrentUserReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
@@ -32,6 +33,7 @@ func RegisterBuguHTTPServer(s *http.Server, srv BuguHTTPServer) {
 	r.GET("/v1/user/{id}", _Bugu_GetCurrentUser0_HTTP_Handler(srv))
 	r.PUT("/v1/users", _Bugu_UpdateUser0_HTTP_Handler(srv))
 	r.POST("/v1/file/detect", _Bugu_Detect0_HTTP_Handler(srv))
+	r.POST("/v1/file/confusion", _Bugu_Confusion0_HTTP_Handler(srv))
 }
 
 func _Bugu_Register0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
@@ -132,7 +134,27 @@ func _Bugu_Detect0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error
 	}
 }
 
+func _Bugu_Confusion0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ConfusionRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Confusion")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Confusion(ctx, req.(*ConfusionRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ConfusionReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type BuguHTTPClient interface {
+	Confusion(ctx context.Context, req *ConfusionRequest, opts ...http.CallOption) (rsp *ConfusionReply, err error)
 	Detect(ctx context.Context, req *DetectRequest, opts ...http.CallOption) (rsp *DetectReply, err error)
 	GetCurrentUser(ctx context.Context, req *GetCurrentUserRequest, opts ...http.CallOption) (rsp *GetCurrentUserReply, err error)
 	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
@@ -146,6 +168,19 @@ type BuguHTTPClientImpl struct {
 
 func NewBuguHTTPClient(client *http.Client) BuguHTTPClient {
 	return &BuguHTTPClientImpl{client}
+}
+
+func (c *BuguHTTPClientImpl) Confusion(ctx context.Context, in *ConfusionRequest, opts ...http.CallOption) (*ConfusionReply, error) {
+	var out ConfusionReply
+	pattern := "/v1/file/confusion"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/Confusion"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
 }
 
 func (c *BuguHTTPClientImpl) Detect(ctx context.Context, in *DetectRequest, opts ...http.CallOption) (*DetectReply, error) {

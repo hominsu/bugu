@@ -64,7 +64,6 @@ func NewRedisCmd(conf *conf.Data, logger log.Logger) redis.Cmdable {
 
 	client := redis.NewClient(&redis.Options{
 		Addr:         conf.Redis.Addr,
-		Password:     conf.Redis.Password,
 		DB:           int(conf.Redis.Db),
 		ReadTimeout:  conf.Redis.ReadTimeout.AsDuration(),
 		WriteTimeout: conf.Redis.WriteTimeout.AsDuration(),

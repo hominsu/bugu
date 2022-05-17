@@ -29,7 +29,10 @@ func initApp(registry *conf.Registry, confServer *conf.Server, confData *conf.Da
 	userRepo := data.NewUserRepo(dataData, logger)
 	userUsecase := biz.NewUserUsecase(userRepo, jwt, logger)
 	buguService := service.NewBuguService(userUsecase, logger)
-	httpServer := server.NewHTTPServer(confServer, jwt, buguService, logger)
+	fileRepo := data.NewFileRepo(dataData, logger)
+	fileUsecase := biz.NewFileUsecase(fileRepo, logger)
+	buguFileService := service.NewBuguFileService(fileUsecase, confData, logger)
+	httpServer := server.NewHTTPServer(confServer, jwt, buguService, buguFileService, logger)
 	registrar := server.NewRegistrar(registry)
 	app := newApp(logger, httpServer, registrar)
 	return app, func() {

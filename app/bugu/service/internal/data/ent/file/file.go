@@ -3,6 +3,7 @@
 package file
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -11,12 +12,14 @@ const (
 	Label = "file"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldFileHash holds the string denoting the file_hash field in the database.
-	FieldFileHash = "file_hash"
+	// FieldFileSha1 holds the string denoting the file_sha_1 field in the database.
+	FieldFileSha1 = "file_sha_1"
 	// FieldFileSize holds the string denoting the file_size field in the database.
 	FieldFileSize = "file_size"
 	// FieldFileAddr holds the string denoting the file_addr field in the database.
 	FieldFileAddr = "file_addr"
+	// FieldType holds the string denoting the type field in the database.
+	FieldType = "type"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -44,9 +47,10 @@ const (
 // Columns holds all SQL columns for file fields.
 var Columns = []string{
 	FieldID,
-	FieldFileHash,
+	FieldFileSha1,
 	FieldFileSize,
 	FieldFileAddr,
+	FieldType,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 }
@@ -73,3 +77,50 @@ var (
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
 	DefaultUpdatedAt func() time.Time
 )
+
+// Type defines the type for the "type" enum field.
+type Type string
+
+// Type values.
+const (
+	TypeAdposhel    Type = "Adposhel"
+	TypeAgent       Type = "Agent"
+	TypeAllaple     Type = "Allaple"
+	TypeAmonetize   Type = "Amonetize"
+	TypeAndrom      Type = "Androm"
+	TypeAutorun     Type = "Autorun"
+	TypeBrowseFox   Type = "BrowseFox"
+	TypeDinwod      Type = "Dinwod"
+	TypeElex        Type = "Elex"
+	TypeExpiro      Type = "Expiro"
+	TypeFasong      Type = "Fasong"
+	TypeHackKMS     Type = "HackKMS"
+	TypeHlux        Type = "Hlux"
+	TypeInjector    Type = "Injector"
+	TypeInstallCore Type = "InstallCore"
+	TypeMultiPlug   Type = "MultiPlug"
+	TypeNeoreklami  Type = "Neoreklami"
+	TypeNeshta      Type = "Neshta"
+	TypeOther       Type = "Other"
+	TypeRegrun      Type = "Regrun"
+	TypeSality      Type = "Sality"
+	TypeSnarasite   Type = "Snarasite"
+	TypeStantinko   Type = "Stantinko"
+	TypeVBA         Type = "VBA"
+	TypeVBKrypt     Type = "VBKrypt"
+	TypeVilsel      Type = "Vilsel"
+)
+
+func (_type Type) String() string {
+	return string(_type)
+}
+
+// TypeValidator is a validator for the "type" field enum values. It is called by the builders before save.
+func TypeValidator(_type Type) error {
+	switch _type {
+	case TypeAdposhel, TypeAgent, TypeAllaple, TypeAmonetize, TypeAndrom, TypeAutorun, TypeBrowseFox, TypeDinwod, TypeElex, TypeExpiro, TypeFasong, TypeHackKMS, TypeHlux, TypeInjector, TypeInstallCore, TypeMultiPlug, TypeNeoreklami, TypeNeshta, TypeOther, TypeRegrun, TypeSality, TypeSnarasite, TypeStantinko, TypeVBA, TypeVBKrypt, TypeVilsel:
+		return nil
+	default:
+		return fmt.Errorf("file: invalid enum value for type field: %q", _type)
+	}
+}

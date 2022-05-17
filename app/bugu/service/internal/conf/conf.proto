@@ -40,8 +40,12 @@ message Data {
     google.protobuf.Duration read_timeout = 6;
     google.protobuf.Duration write_timeout = 7;
   }
+  message File {
+    string path = 1;
+  }
   Database database = 1;
   Redis redis = 2;
+  File file = 3;
 }
 
 message Jwt {
@@ -58,7 +62,7 @@ message Registry {
     string namespace = 2;
     string token = 3;
   }
-  Polaris polaris = 1;
+  Consul consul = 1;
 }
 
 message Tracer {

@@ -23,9 +23,9 @@ type FileCreate struct {
 	hooks    []Hook
 }
 
-// SetFileHash sets the "file_hash" field.
-func (fc *FileCreate) SetFileHash(u uuid.UUID) *FileCreate {
-	fc.mutation.SetFileHash(u)
+// SetFileSha1 sets the "file_sha_1" field.
+func (fc *FileCreate) SetFileSha1(s string) *FileCreate {
+	fc.mutation.SetFileSha1(s)
 	return fc
 }
 
@@ -38,6 +38,20 @@ func (fc *FileCreate) SetFileSize(i int64) *FileCreate {
 // SetFileAddr sets the "file_addr" field.
 func (fc *FileCreate) SetFileAddr(s string) *FileCreate {
 	fc.mutation.SetFileAddr(s)
+	return fc
+}
+
+// SetType sets the "type" field.
+func (fc *FileCreate) SetType(f file.Type) *FileCreate {
+	fc.mutation.SetType(f)
+	return fc
+}
+
+// SetNillableType sets the "type" field if the given value is not nil.
+func (fc *FileCreate) SetNillableType(f *file.Type) *FileCreate {
+	if f != nil {
+		fc.SetType(*f)
+	}
 	return fc
 }
 
@@ -192,14 +206,19 @@ func (fc *FileCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (fc *FileCreate) check() error {
-	if _, ok := fc.mutation.FileHash(); !ok {
-		return &ValidationError{Name: "file_hash", err: errors.New(`ent: missing required field "File.file_hash"`)}
+	if _, ok := fc.mutation.FileSha1(); !ok {
+		return &ValidationError{Name: "file_sha_1", err: errors.New(`ent: missing required field "File.file_sha_1"`)}
 	}
 	if _, ok := fc.mutation.FileSize(); !ok {
 		return &ValidationError{Name: "file_size", err: errors.New(`ent: missing required field "File.file_size"`)}
 	}
 	if _, ok := fc.mutation.FileAddr(); !ok {
 		return &ValidationError{Name: "file_addr", err: errors.New(`ent: missing required field "File.file_addr"`)}
+	}
+	if v, ok := fc.mutation.GetType(); ok {
+		if err := file.TypeValidator(v); err != nil {
+			return &ValidationError{Name: "type", err: fmt.Errorf(`ent: validator failed for field "File.type": %w`, err)}
+		}
 	}
 	if _, ok := fc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "File.created_at"`)}
@@ -243,13 +262,13 @@ func (fc *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 		_node.ID = id
 		_spec.ID.Value = &id
 	}
-	if value, ok := fc.mutation.FileHash(); ok {
+	if value, ok := fc.mutation.FileSha1(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUUID,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: file.FieldFileHash,
+			Column: file.FieldFileSha1,
 		})
-		_node.FileHash = value
+		_node.FileSha1 = value
 	}
 	if value, ok := fc.mutation.FileSize(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -266,6 +285,14 @@ func (fc *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 			Column: file.FieldFileAddr,
 		})
 		_node.FileAddr = value
+	}
+	if value, ok := fc.mutation.GetType(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Value:  value,
+			Column: file.FieldType,
+		})
+		_node.Type = value
 	}
 	if value, ok := fc.mutation.CreatedAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

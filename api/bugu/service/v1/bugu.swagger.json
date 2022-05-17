@@ -24,23 +24,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/file/confound": {
+    "/v1/file/confusion": {
       "post": {
-        "operationId": "Bugu_Confound",
+        "operationId": "Bugu_Confusion",
         "responses": {
           "200": {
-            "description": "A successful response.(streaming responses)",
+            "description": "A successful response.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/v1ConfoundReply"
-                },
-                "error": {
-                  "$ref": "#/definitions/rpcStatus"
-                }
-              },
-              "title": "Stream result of v1ConfoundReply"
+              "$ref": "#/definitions/v1ConfusionReply"
             }
           },
           "default": {
@@ -56,7 +47,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1ConfoundRequest"
+              "$ref": "#/definitions/v1ConfusionRequest"
             }
           }
         ],
@@ -89,39 +80,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1DetectRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Bugu"
-        ]
-      }
-    },
-    "/v1/files": {
-      "post": {
-        "operationId": "Bugu_FileUpload",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1FileUploadReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": " (streaming inputs)",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1FileUploadRequest"
             }
           }
         ],
@@ -283,16 +241,15 @@
         }
       }
     },
-    "v1ConfoundReply": {
+    "v1ConfusionReply": {
       "type": "object",
       "properties": {
-        "content": {
-          "type": "string",
-          "format": "byte"
+        "artifactId": {
+          "type": "string"
         }
       }
     },
-    "v1ConfoundRequest": {
+    "v1ConfusionRequest": {
       "type": "object",
       "properties": {
         "fileId": {
@@ -301,34 +258,18 @@
       }
     },
     "v1DetectReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "type": "string"
+        }
+      }
     },
     "v1DetectRequest": {
       "type": "object",
       "properties": {
         "fileId": {
           "type": "string"
-        }
-      }
-    },
-    "v1FileUploadReply": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        }
-      }
-    },
-    "v1FileUploadRequest": {
-      "type": "object",
-      "properties": {
-        "size": {
-          "type": "string",
-          "format": "int64"
-        },
-        "content": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },

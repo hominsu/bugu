@@ -1558,8 +1558,28 @@ func (m *DetectReply) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetArtifactId()); err != nil {
+		err = DetectReplyValidationError{
+			field:  "ArtifactId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return DetectReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *DetectReply) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1635,22 +1655,22 @@ var _ interface {
 	ErrorName() string
 } = DetectReplyValidationError{}
 
-// Validate checks the field values on ConfoundRequest with the rules defined
+// Validate checks the field values on ConfusionRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
-func (m *ConfoundRequest) Validate() error {
+func (m *ConfusionRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfoundRequest with the rules
+// ValidateAll checks the field values on ConfusionRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// ConfoundRequestMultiError, or nil if none found.
-func (m *ConfoundRequest) ValidateAll() error {
+// ConfusionRequestMultiError, or nil if none found.
+func (m *ConfusionRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfoundRequest) validate(all bool) error {
+func (m *ConfusionRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1658,7 +1678,7 @@ func (m *ConfoundRequest) validate(all bool) error {
 	var errors []error
 
 	if err := m._validateUuid(m.GetFileId()); err != nil {
-		err = ConfoundRequestValidationError{
+		err = ConfusionRequestValidationError{
 			field:  "FileId",
 			reason: "value must be a valid UUID",
 			cause:  err,
@@ -1670,13 +1690,13 @@ func (m *ConfoundRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return ConfoundRequestMultiError(errors)
+		return ConfusionRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-func (m *ConfoundRequest) _validateUuid(uuid string) error {
+func (m *ConfusionRequest) _validateUuid(uuid string) error {
 	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
 		return errors.New("invalid uuid format")
 	}
@@ -1684,13 +1704,13 @@ func (m *ConfoundRequest) _validateUuid(uuid string) error {
 	return nil
 }
 
-// ConfoundRequestMultiError is an error wrapping multiple validation errors
-// returned by ConfoundRequest.ValidateAll() if the designated constraints
+// ConfusionRequestMultiError is an error wrapping multiple validation errors
+// returned by ConfusionRequest.ValidateAll() if the designated constraints
 // aren't met.
-type ConfoundRequestMultiError []error
+type ConfusionRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfoundRequestMultiError) Error() string {
+func (m ConfusionRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1699,11 +1719,11 @@ func (m ConfoundRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfoundRequestMultiError) AllErrors() []error { return m }
+func (m ConfusionRequestMultiError) AllErrors() []error { return m }
 
-// ConfoundRequestValidationError is the validation error returned by
-// ConfoundRequest.Validate if the designated constraints aren't met.
-type ConfoundRequestValidationError struct {
+// ConfusionRequestValidationError is the validation error returned by
+// ConfusionRequest.Validate if the designated constraints aren't met.
+type ConfusionRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1711,22 +1731,22 @@ type ConfoundRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfoundRequestValidationError) Field() string { return e.field }
+func (e ConfusionRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfoundRequestValidationError) Reason() string { return e.reason }
+func (e ConfusionRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfoundRequestValidationError) Cause() error { return e.cause }
+func (e ConfusionRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfoundRequestValidationError) Key() bool { return e.key }
+func (e ConfusionRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfoundRequestValidationError) ErrorName() string { return "ConfoundRequestValidationError" }
+func (e ConfusionRequestValidationError) ErrorName() string { return "ConfusionRequestValidationError" }
 
 // Error satisfies the builtin error interface
-func (e ConfoundRequestValidationError) Error() string {
+func (e ConfusionRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1738,14 +1758,14 @@ func (e ConfoundRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfoundRequest.%s: %s%s",
+		"invalid %sConfusionRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfoundRequestValidationError{}
+var _ error = ConfusionRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1753,46 +1773,64 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfoundRequestValidationError{}
+} = ConfusionRequestValidationError{}
 
-// Validate checks the field values on ConfoundReply with the rules defined in
+// Validate checks the field values on ConfusionReply with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *ConfoundReply) Validate() error {
+func (m *ConfusionReply) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ConfoundReply with the rules defined
+// ValidateAll checks the field values on ConfusionReply with the rules defined
 // in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in ConfoundReplyMultiError, or
-// nil if none found.
-func (m *ConfoundReply) ValidateAll() error {
+// result is a list of violation errors wrapped in ConfusionReplyMultiError,
+// or nil if none found.
+func (m *ConfusionReply) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ConfoundReply) validate(all bool) error {
+func (m *ConfusionReply) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	// no validation rules for Content
+	if err := m._validateUuid(m.GetArtifactId()); err != nil {
+		err = ConfusionReplyValidationError{
+			field:  "ArtifactId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
-		return ConfoundReplyMultiError(errors)
+		return ConfusionReplyMultiError(errors)
 	}
 
 	return nil
 }
 
-// ConfoundReplyMultiError is an error wrapping multiple validation errors
-// returned by ConfoundReply.ValidateAll() if the designated constraints
+func (m *ConfusionReply) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// ConfusionReplyMultiError is an error wrapping multiple validation errors
+// returned by ConfusionReply.ValidateAll() if the designated constraints
 // aren't met.
-type ConfoundReplyMultiError []error
+type ConfusionReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ConfoundReplyMultiError) Error() string {
+func (m ConfusionReplyMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1801,11 +1839,11 @@ func (m ConfoundReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ConfoundReplyMultiError) AllErrors() []error { return m }
+func (m ConfusionReplyMultiError) AllErrors() []error { return m }
 
-// ConfoundReplyValidationError is the validation error returned by
-// ConfoundReply.Validate if the designated constraints aren't met.
-type ConfoundReplyValidationError struct {
+// ConfusionReplyValidationError is the validation error returned by
+// ConfusionReply.Validate if the designated constraints aren't met.
+type ConfusionReplyValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1813,22 +1851,22 @@ type ConfoundReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e ConfoundReplyValidationError) Field() string { return e.field }
+func (e ConfusionReplyValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ConfoundReplyValidationError) Reason() string { return e.reason }
+func (e ConfusionReplyValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ConfoundReplyValidationError) Cause() error { return e.cause }
+func (e ConfusionReplyValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ConfoundReplyValidationError) Key() bool { return e.key }
+func (e ConfusionReplyValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ConfoundReplyValidationError) ErrorName() string { return "ConfoundReplyValidationError" }
+func (e ConfusionReplyValidationError) ErrorName() string { return "ConfusionReplyValidationError" }
 
 // Error satisfies the builtin error interface
-func (e ConfoundReplyValidationError) Error() string {
+func (e ConfusionReplyValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1840,14 +1878,14 @@ func (e ConfoundReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sConfoundReply.%s: %s%s",
+		"invalid %sConfusionReply.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ConfoundReplyValidationError{}
+var _ error = ConfusionReplyValidationError{}
 
 var _ interface {
 	Field() string
@@ -1855,7 +1893,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ConfoundReplyValidationError{}
+} = ConfusionReplyValidationError{}
 
 // Validate checks the field values on RegisterRequest_User with the rules
 // defined in the proto definition for this message. If any rules are

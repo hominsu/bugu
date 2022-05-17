@@ -18,12 +18,14 @@ type File struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID uuid.UUID `json:"id,omitempty"`
-	// FileHash holds the value of the "file_hash" field.
-	FileHash uuid.UUID `json:"file_hash,omitempty"`
+	// FileSha1 holds the value of the "file_sha_1" field.
+	FileSha1 string `json:"file_sha_1,omitempty"`
 	// FileSize holds the value of the "file_size" field.
 	FileSize int64 `json:"file_size,omitempty"`
 	// FileAddr holds the value of the "file_addr" field.
 	FileAddr string `json:"file_addr,omitempty"`
+	// Type holds the value of the "type" field.
+	Type file.Type `json:"type,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
@@ -74,11 +76,11 @@ func (*File) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case file.FieldFileSize:
 			values[i] = new(sql.NullInt64)
-		case file.FieldFileAddr:
+		case file.FieldFileSha1, file.FieldFileAddr, file.FieldType:
 			values[i] = new(sql.NullString)
 		case file.FieldCreatedAt, file.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case file.FieldID, file.FieldFileHash:
+		case file.FieldID:
 			values[i] = new(uuid.UUID)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type File", columns[i])
@@ -101,11 +103,11 @@ func (f *File) assignValues(columns []string, values []interface{}) error {
 			} else if value != nil {
 				f.ID = *value
 			}
-		case file.FieldFileHash:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field file_hash", values[i])
-			} else if value != nil {
-				f.FileHash = *value
+		case file.FieldFileSha1:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field file_sha_1", values[i])
+			} else if value.Valid {
+				f.FileSha1 = value.String
 			}
 		case file.FieldFileSize:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -118,6 +120,12 @@ func (f *File) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field file_addr", values[i])
 			} else if value.Valid {
 				f.FileAddr = value.String
+			}
+		case file.FieldType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field type", values[i])
+			} else if value.Valid {
+				f.Type = file.Type(value.String)
 			}
 		case file.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -169,12 +177,14 @@ func (f *File) String() string {
 	var builder strings.Builder
 	builder.WriteString("File(")
 	builder.WriteString(fmt.Sprintf("id=%v", f.ID))
-	builder.WriteString(", file_hash=")
-	builder.WriteString(fmt.Sprintf("%v", f.FileHash))
+	builder.WriteString(", file_sha_1=")
+	builder.WriteString(f.FileSha1)
 	builder.WriteString(", file_size=")
 	builder.WriteString(fmt.Sprintf("%v", f.FileSize))
 	builder.WriteString(", file_addr=")
 	builder.WriteString(f.FileAddr)
+	builder.WriteString(", type=")
+	builder.WriteString(fmt.Sprintf("%v", f.Type))
 	builder.WriteString(", created_at=")
 	builder.WriteString(f.CreatedAt.Format(time.ANSIC))
 	builder.WriteString(", updated_at=")

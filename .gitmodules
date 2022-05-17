@@ -1,0 +1,3 @@
+[submodule "app/obfusion/service/third_party/obfusion"]
+	path = app/obfusion/service/third_party/obfusion
+	url = https://github.com/hominsu/obfusion.git

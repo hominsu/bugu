@@ -94,10 +94,10 @@ func IDLTE(id uuid.UUID) predicate.File {
 	})
 }
 
-// FileHash applies equality check predicate on the "file_hash" field. It's identical to FileHashEQ.
-func FileHash(v uuid.UUID) predicate.File {
+// FileSha1 applies equality check predicate on the "file_sha_1" field. It's identical to FileSha1EQ.
+func FileSha1(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldFileHash), v))
+		s.Where(sql.EQ(s.C(FieldFileSha1), v))
 	})
 }
 
@@ -129,22 +129,22 @@ func UpdatedAt(v time.Time) predicate.File {
 	})
 }
 
-// FileHashEQ applies the EQ predicate on the "file_hash" field.
-func FileHashEQ(v uuid.UUID) predicate.File {
+// FileSha1EQ applies the EQ predicate on the "file_sha_1" field.
+func FileSha1EQ(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldFileHash), v))
+		s.Where(sql.EQ(s.C(FieldFileSha1), v))
 	})
 }
 
-// FileHashNEQ applies the NEQ predicate on the "file_hash" field.
-func FileHashNEQ(v uuid.UUID) predicate.File {
+// FileSha1NEQ applies the NEQ predicate on the "file_sha_1" field.
+func FileSha1NEQ(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldFileHash), v))
+		s.Where(sql.NEQ(s.C(FieldFileSha1), v))
 	})
 }
 
-// FileHashIn applies the In predicate on the "file_hash" field.
-func FileHashIn(vs ...uuid.UUID) predicate.File {
+// FileSha1In applies the In predicate on the "file_sha_1" field.
+func FileSha1In(vs ...string) predicate.File {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -156,12 +156,12 @@ func FileHashIn(vs ...uuid.UUID) predicate.File {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldFileHash), v...))
+		s.Where(sql.In(s.C(FieldFileSha1), v...))
 	})
 }
 
-// FileHashNotIn applies the NotIn predicate on the "file_hash" field.
-func FileHashNotIn(vs ...uuid.UUID) predicate.File {
+// FileSha1NotIn applies the NotIn predicate on the "file_sha_1" field.
+func FileSha1NotIn(vs ...string) predicate.File {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -173,35 +173,70 @@ func FileHashNotIn(vs ...uuid.UUID) predicate.File {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldFileHash), v...))
+		s.Where(sql.NotIn(s.C(FieldFileSha1), v...))
 	})
 }
 
-// FileHashGT applies the GT predicate on the "file_hash" field.
-func FileHashGT(v uuid.UUID) predicate.File {
+// FileSha1GT applies the GT predicate on the "file_sha_1" field.
+func FileSha1GT(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldFileHash), v))
+		s.Where(sql.GT(s.C(FieldFileSha1), v))
 	})
 }
 
-// FileHashGTE applies the GTE predicate on the "file_hash" field.
-func FileHashGTE(v uuid.UUID) predicate.File {
+// FileSha1GTE applies the GTE predicate on the "file_sha_1" field.
+func FileSha1GTE(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldFileHash), v))
+		s.Where(sql.GTE(s.C(FieldFileSha1), v))
 	})
 }
 
-// FileHashLT applies the LT predicate on the "file_hash" field.
-func FileHashLT(v uuid.UUID) predicate.File {
+// FileSha1LT applies the LT predicate on the "file_sha_1" field.
+func FileSha1LT(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldFileHash), v))
+		s.Where(sql.LT(s.C(FieldFileSha1), v))
 	})
 }
 
-// FileHashLTE applies the LTE predicate on the "file_hash" field.
-func FileHashLTE(v uuid.UUID) predicate.File {
+// FileSha1LTE applies the LTE predicate on the "file_sha_1" field.
+func FileSha1LTE(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldFileHash), v))
+		s.Where(sql.LTE(s.C(FieldFileSha1), v))
+	})
+}
+
+// FileSha1Contains applies the Contains predicate on the "file_sha_1" field.
+func FileSha1Contains(v string) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFileSha1), v))
+	})
+}
+
+// FileSha1HasPrefix applies the HasPrefix predicate on the "file_sha_1" field.
+func FileSha1HasPrefix(v string) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFileSha1), v))
+	})
+}
+
+// FileSha1HasSuffix applies the HasSuffix predicate on the "file_sha_1" field.
+func FileSha1HasSuffix(v string) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFileSha1), v))
+	})
+}
+
+// FileSha1EqualFold applies the EqualFold predicate on the "file_sha_1" field.
+func FileSha1EqualFold(v string) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFileSha1), v))
+	})
+}
+
+// FileSha1ContainsFold applies the ContainsFold predicate on the "file_sha_1" field.
+func FileSha1ContainsFold(v string) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFileSha1), v))
 	})
 }
 
@@ -389,6 +424,68 @@ func FileAddrEqualFold(v string) predicate.File {
 func FileAddrContainsFold(v string) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldFileAddr), v))
+	})
+}
+
+// TypeEQ applies the EQ predicate on the "type" field.
+func TypeEQ(v Type) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldType), v))
+	})
+}
+
+// TypeNEQ applies the NEQ predicate on the "type" field.
+func TypeNEQ(v Type) predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldType), v))
+	})
+}
+
+// TypeIn applies the In predicate on the "type" field.
+func TypeIn(vs ...Type) predicate.File {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.File(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldType), v...))
+	})
+}
+
+// TypeNotIn applies the NotIn predicate on the "type" field.
+func TypeNotIn(vs ...Type) predicate.File {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.File(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldType), v...))
+	})
+}
+
+// TypeIsNil applies the IsNil predicate on the "type" field.
+func TypeIsNil() predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldType)))
+	})
+}
+
+// TypeNotNil applies the NotNil predicate on the "type" field.
+func TypeNotNil() predicate.File {
+	return predicate.File(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldType)))
 	})
 }
 
