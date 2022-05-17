@@ -94,7 +94,5 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "XL")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -qarch=auto")
 endif ()
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(src)
-
 add_subdirectory(third_party/obfusion)

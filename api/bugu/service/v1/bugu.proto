@@ -59,9 +59,9 @@ service Bugu {
     };
   };
 
-  rpc Confound (ConfoundRequest) returns (stream ConfoundReply) {
+  rpc Confusion (ConfusionRequest) returns (ConfusionReply) {
     option (google.api.http) = {
-      post: "/v1/file/confound",
+      post: "/v1/file/confusion",
       body: "*",
     };
   };
@@ -135,13 +135,13 @@ message DetectRequest {
 }
 
 message DetectReply {
-
+  string artifact_id = 1 [(validate.rules).string = {uuid: true}];
 }
 
-message ConfoundRequest {
+message ConfusionRequest {
   string file_id = 1 [(validate.rules).string = {uuid: true}];
 }
 
-message ConfoundReply {
-  bytes content = 1;
+message ConfusionReply {
+  string artifact_id = 1 [(validate.rules).string = {uuid: true}];
 }

@@ -24,23 +24,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/file/confound": {
+    "/v1/file/confusion": {
       "post": {
-        "operationId": "Bugu_Confound",
+        "operationId": "Bugu_Confusion",
         "responses": {
           "200": {
-            "description": "A successful response.(streaming responses)",
+            "description": "A successful response.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/v1ConfoundReply"
-                },
-                "error": {
-                  "$ref": "#/definitions/rpcStatus"
-                }
-              },
-              "title": "Stream result of v1ConfoundReply"
+              "$ref": "#/definitions/v1ConfusionReply"
             }
           },
           "default": {
@@ -56,7 +47,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1ConfoundRequest"
+              "$ref": "#/definitions/v1ConfusionRequest"
             }
           }
         ],
@@ -250,16 +241,15 @@
         }
       }
     },
-    "v1ConfoundReply": {
+    "v1ConfusionReply": {
       "type": "object",
       "properties": {
-        "content": {
-          "type": "string",
-          "format": "byte"
+        "artifactId": {
+          "type": "string"
         }
       }
     },
-    "v1ConfoundRequest": {
+    "v1ConfusionRequest": {
       "type": "object",
       "properties": {
         "fileId": {
@@ -268,7 +258,12 @@
       }
     },
     "v1DetectReply": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "type": "string"
+        }
+      }
     },
     "v1DetectRequest": {
       "type": "object",

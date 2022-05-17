@@ -5,7 +5,7 @@ if (Threads_FOUND)
 endif ()
 
 # OpenSSL
-#set(OPENSSL_USE_STATIC_LIBS true)
+set(OPENSSL_USE_STATIC_LIBS true)
 find_package(OpenSSL REQUIRED)
 if (OPENSSL_FOUND)
     message(STATUS "OPENSSL_VERSION = ${OPENSSL_VERSION}")
@@ -27,11 +27,13 @@ if (gRPC_FOUND)
     message(STATUS "gRPC_VERSION = ${gRPC_VERSION}")
 endif ()
 
-# ============================== add executable and link libraries ==============================
-include_directories(..)
-include_directories(../include)
-include_directories(../../../..)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/third_party)
+include_directories(${PROJECT_SOURCE_DIR}/../../../)
 file(GLOB ProjectSRC
+        "../../../api/obfusion/service/v1/cpp/*.cc"
+        "thread_pool/*.cc"
+        "thread/*.cc"
         "*.cc")
 
 if (CMAKE_BUILD_TYPE STREQUAL Debug)

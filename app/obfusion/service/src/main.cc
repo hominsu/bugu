@@ -2,19 +2,20 @@
 // Created by HominSu on 2022/5/16.
 //
 
-#include "third_party/obfusion/include/obfusion.h"
+#include "obfusion/include/obfusion.h"
 #include <cstdio>
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
-bool read_file(const char *fname, u8 **data, u32 *size) {
+#include "api/obfusion/service/v1/cpp/bugu_obfusion.pb.h"
+
+bool read_file(const char *filename, u8 **data, u32 *size) {
   bool ret = false;
-  FILE *f = fopen(fname, "rb");
+  FILE *f = fopen(filename, "rb");
   if (f) {
     fseek(f, 0, SEEK_END);
     u32 fsize = ftell(f);
-
     fseek(f, 0, SEEK_SET);
 
     u8 *bindata = new u8[fsize];
