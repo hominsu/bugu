@@ -22,45 +22,38 @@
 //
 
 //
-// Created by Homin Su on 2022/5/17.
+// Created by Homin Su on 2022/5/19.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_SRC_THREAD_X_THREAD_H_
-#define BUGU_OBFUSION_SERVICE_SRC_THREAD_X_THREAD_H_
+#ifndef BUGU_OBFUSION_SERVICE_SRC_BUGU_OBFUSION_IMPL_H_
+#define BUGU_OBFUSION_SERVICE_SRC_BUGU_OBFUSION_IMPL_H_
 
-#include <mutex>
+#include "api/obfusion/service/v1/cpp/bugu_obfusion.grpc.pb.h"
+
+#include <grpc++/grpc++.h>
+#include <memory_resource>
+#include <memory>
 #include <thread>
-#include <shared_mutex>
-#include <functional>
 
 namespace bugu {
-/**
- * @brief 线程基类
- * @details Start() 启动服务，Stop() 关闭服务
- */
-class XThread {
+
+class XThreadPool;
+
+class BuguObfusionImpl final : public bugu_obfusion::service::v1::BuguObfusion::Service {
  private:
-  ::std::thread thread_;  ///< 线程句柄
-  bool is_running_ = false;  ///< 当前线程运行状态
-  mutable ::std::shared_mutex is_running_mutex_;  ///< 线程运行状态互斥量
+  ::bugu::XThreadPool *thread_pool_;  ///< 线程池
+  ::std::shared_ptr<::std::pmr::memory_resource> memory_resource_;  ///< 内存池
 
  public:
-  virtual void Start();
-  virtual void Wait();
-  virtual void Stop();
-  virtual void StopWith(::std::function<void()> &_do);
-  virtual void ThreadSleep(::std::chrono::milliseconds _time);
+  explicit BuguObfusionImpl(::bugu::XThreadPool *_thread_pool,
+                            ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource)
+      : thread_pool_(_thread_pool), memory_resource_(::std::move(_memory_resource)) {};
 
-  bool IsRunning() const;
-
- private:
-  void SetIsRunning(bool is_running);
-
-  /**
-   * @brief 该纯虚函数必须在子类中实现，用于线程函数的主函数
-   */
-  virtual void Main() = 0;
+  ::grpc::Status Obfusion(::grpc::ServerContext *_ctx,
+                          const ::bugu_obfusion::service::v1::ObfusionRequest *_request,
+                          ::bugu_obfusion::service::v1::ObfusionReply *_response) override;
 };
+
 } // namespace bugu
 
-#endif //BUGU_OBFUSION_SERVICE_SRC_THREAD_X_THREAD_H_
+#endif //BUGU_OBFUSION_SERVICE_SRC_BUGU_OBFUSION_IMPL_H_

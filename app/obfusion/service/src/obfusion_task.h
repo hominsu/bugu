@@ -22,35 +22,42 @@
 //
 
 //
-// Created by HominSu on 2022/5/16.
+// Created by Homin Su on 2022/5/19.
 //
 
-#include "bugu_obfusion_server.h"
-#include "thread_pool/x_thread_pool.h"
+#ifndef BUGU_OBFUSION_SERVICE_SRC_OBFUSION_TASK_H_
+#define BUGU_OBFUSION_SERVICE_SRC_OBFUSION_TASK_H_
 
-#include <cstdio>
-#include <csignal>
+#include "thread_pool/x_task.h"
 
-void handler(int signal) {
-  fprintf(stdout, "receive the signal: %d", signal);
-  ::bugu::BuguObfusionServer::Get()->Stop();
-  ::bugu::XThreadPool::Get()->Stop();
-}
+#include <fstream>
+#include <memory>
+#include <memory_resource>
+#include <string>
+#include <utility>
 
-int main() {
-  auto thread_pool = ::bugu::XThreadPool::Get();
-  thread_pool->Init(::std::thread::hardware_concurrency());
+namespace bugu {
 
-  auto memory_resource = ::std::make_shared<std::pmr::synchronized_pool_resource>();
+class Data;
 
-  auto server = ::bugu::BuguObfusionServer::Get();
-  server->Init("127.0.0.1", thread_pool, memory_resource);
-  server->Start();
+class ObfusionTask : public XTask<::std::shared_ptr<Data>> {
+ private:
+  ::std::shared_ptr<Data> data_;
+  ::std::shared_ptr<::std::pmr::memory_resource> memory_resource_;  ///< 内存池
 
-  signal(SIGINT, handler);
-  signal(SIGQUIT, handler);
+ public:
+  explicit ObfusionTask(::std::shared_ptr<Data> _data,
+                        ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource)
+      : data_(std::move(_data)), memory_resource_(std::move(_memory_resource)) {};
+  ~ObfusionTask() override = default;
 
-  // TODO: block to wait the exit
+ private:
+  /**
+   * 线程入口函数
+   */
+  void Main() final;
+};
 
-  return 0;
-}
+} // namespace bugu
+
+#endif //BUGU_OBFUSION_SERVICE_SRC_OBFUSION_TASK_H_

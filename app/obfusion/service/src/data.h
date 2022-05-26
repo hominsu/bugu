@@ -32,6 +32,7 @@
 #include <memory_resource>
 
 namespace bugu {
+
 /**
  * @brief 内存池数据块
  */
@@ -39,9 +40,9 @@ class Data {
  private:
   void *data_ = nullptr;
   bool end_ = false;        ///< 是否是文件结尾
-  size_t size_ = 0;         ///< 数据字节数
-  size_t memory_size_ = 0;  ///< 申请内存空间字节数
-  std::shared_ptr<std::pmr::memory_resource> memory_resource_;  ///< 内存池
+  ::std::size_t size_ = 0;         ///< 数据字节数
+  ::std::size_t memory_size_ = 0;  ///< 申请内存空间字节数
+  ::std::shared_ptr<::std::pmr::memory_resource> memory_resource_;  ///< 内存池
 
  private:
   Data();
@@ -54,14 +55,14 @@ class Data {
    * @param _memory_resource
    * @return Data 的智能指针对象
    */
-  static std::shared_ptr<Data> Make(std::shared_ptr<std::pmr::memory_resource> _memory_resource);
+  static ::std::shared_ptr<Data> Make(::std::shared_ptr<::std::pmr::memory_resource> _memory_resource);
 
   /**
    * @brief 创建内存空间
    * @param _memory_size 占用内存字节数
    * @return 创建的内存空间的指针，创建失败为空 nullptr
    */
-  void *New(size_t _memory_size);
+  void *New(::std::size_t _memory_size);
 
   /**
    * @brief 获取数据块的指针
@@ -73,19 +74,19 @@ class Data {
    * @brief 获取实际数据的字节数
    * @return 实际数据的字节数
    */
-  [[nodiscard]] size_t size() const;
+  [[nodiscard]] ::std::size_t size() const;
 
   /**
    * @brief 设置实际数据字节数
    * @param size 实际数据字节数
    */
-  void set_size(size_t _size);
+  void set_size(::std::size_t _size);
 
   /**
    * @brief 获取分配的内存大小
-   * @return size_t 分配的内存大小
+   * @return ::std::size_t 分配的内存大小
    */
-  [[nodiscard]] size_t memory_size() const;
+  [[nodiscard]] ::std::size_t memory_size() const;
 
   /**
    * @brief 是否是文件结尾
@@ -103,7 +104,7 @@ class Data {
 /**
  * @brief 定义了 Byte、KB、MB、GB 的大小
  */
-enum class Unit : size_t {
+enum class Unit : ::std::size_t {
   Byte = 1, KB = 1024 * Byte, MB = 1024 * KB, GB = 1024 * MB
 };
 
@@ -115,24 +116,25 @@ enum class Unit : size_t {
  * @return 转换后的数值
  */
 template<typename size_type,
-    class = typename std::enable_if<
-        std::is_arithmetic<size_type>::value>::type
+    class = typename ::std::enable_if<
+        ::std::is_arithmetic<size_type>::value>::type
 >
 double UnitConvert(size_type _size, Unit _unit) {
   return _size / static_cast<double>(_unit);
 }
 
-constexpr size_t KB(size_t _size) {
-  return static_cast<size_t>(Unit::KB) * _size;
+constexpr ::std::size_t KB(::std::size_t _size) {
+  return static_cast<::std::size_t>(Unit::KB) * _size;
 }
 
-constexpr size_t MB(size_t _size) {
-  return static_cast<size_t>(Unit::MB) * _size;
+constexpr ::std::size_t MB(::std::size_t _size) {
+  return static_cast<::std::size_t>(Unit::MB) * _size;
 }
 
-constexpr size_t GB(size_t _size) {
-  return static_cast<size_t>(Unit::GB) * _size;
+constexpr ::std::size_t GB(::std::size_t _size) {
+  return static_cast<::std::size_t>(Unit::GB) * _size;
 }
+
 } // namespace bugu
 
 #endif //BUGU_OBFUSION_SERVICE_SRC_DATA_H_

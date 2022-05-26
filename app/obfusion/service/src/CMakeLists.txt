@@ -14,6 +14,7 @@ if (OPENSSL_FOUND)
 endif ()
 
 # Protobuf
+set(protobuf_MODULE_COMPATIBLE TRUE)
 find_package(Protobuf REQUIRED)
 if (Protobuf_FOUND)
     message(STATUS "Protobuf_VERSION = ${Protobuf_VERSION}")
@@ -31,24 +32,16 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/third_party)
 include_directories(${PROJECT_SOURCE_DIR}/../../../)
 file(GLOB ProjectSRC
-        "../../../api/obfusion/service/v1/cpp/*.cc"
+        "../../../../api/obfusion/service/v1/cpp/*.cc"
+        "../../../../api/obfusion/service/v1/cpp/*.h"
         "thread_pool/*.cc"
         "thread/*.cc"
         "*.cc")
 
-if (CMAKE_BUILD_TYPE STREQUAL Debug)
-    ADD_DEFINITIONS(-DDEBUG)
-    message(STATUS "CMake Build Type: Debug")
-    message("")
-elseif (CMAKE_BUILD_TYPE STREQUAL Release)
-    ADD_DEFINITIONS(-DRELEASE)
-    message(STATUS "CMake Build Type: Release")
-    message("")
-endif ()
-
 add_executable(${PROJECT_NAME} ${ProjectSRC})
 target_link_libraries(${PROJECT_NAME}
         Threads::Threads
-        protobuf
+        protobuf::libprotobuf
+        gRPC::grpc++_reflection
         gRPC::grpc++
         obfusion-static)

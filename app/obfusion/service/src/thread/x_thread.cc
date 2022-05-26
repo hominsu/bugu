@@ -34,7 +34,7 @@
 void bugu::XThread::Start() {
   if (!this->IsRunning()) {
     this->SetIsRunning(true);
-    this->thread_ = std::thread(&XThread::Main, this);
+    this->thread_ = ::std::thread(&XThread::Main, this);
   }
 }
 
@@ -57,18 +57,18 @@ void bugu::XThread::Stop() {
   Wait();
 }
 
-void bugu::XThread::StopWith(std::function<void()> &_do) {
+void bugu::XThread::StopWith(::std::function<void()> &_do) {
   _do();
   Stop();
 }
 
 /**
  * @brief 休眠该线程若干毫秒
- * @details 接收一个 std::chrono::milliseconds 的时间戳，调用 std::this_thread::sleep_for() 休眠该线程指定时间
- * @param _time std::chrono::milliseconds 时间戳
+ * @details 接收一个 ::std::chrono::milliseconds 的时间戳，调用 ::std::this_thread::sleep_for() 休眠该线程指定时间
+ * @param _time ::std::chrono::milliseconds 时间戳
  */
-void bugu::XThread::ThreadSleep(std::chrono::milliseconds _time) {
-  std::this_thread::sleep_for(_time);
+void bugu::XThread::ThreadSleep(::std::chrono::milliseconds _time) {
+  ::std::this_thread::sleep_for(_time);
 }
 
 /**
@@ -76,7 +76,7 @@ void bugu::XThread::ThreadSleep(std::chrono::milliseconds _time) {
  * @return bool 返回值为 true，说明线程当前处于运行状态
  */
 bool bugu::XThread::IsRunning() const {
-  std::shared_lock<std::shared_mutex> lock(is_running_mutex_);
+  ::std::shared_lock<::std::shared_mutex> lock(is_running_mutex_);
   return is_running_;
 }
 
@@ -85,6 +85,6 @@ bool bugu::XThread::IsRunning() const {
  * @param is_running 运行状态
  */
 void bugu::XThread::SetIsRunning(bool is_running) {
-  std::unique_lock<std::shared_mutex> lock(is_running_mutex_);
+  ::std::unique_lock<::std::shared_mutex> lock(is_running_mutex_);
   is_running_ = is_running;
 }
