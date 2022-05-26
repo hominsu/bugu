@@ -24,9 +24,19 @@ grpc-go:
 		--go-grpc_out=paths=source_relative:. \
 		$(API_PROTO_FILES)
 
+.PHONY: grpc-cpp
+# generate grpc cpp code
+grpc-cpp:
+	cd ../../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=./v1 \
+			--proto_path=../../../third_party \
+			--cpp_out=./v1/cpp \
+			--grpc_out=./v1/cpp \
+			--plugin=protoc-gen-grpc=`which grpc_cpp_plugin` \
+			$(CPP_API_PROTO_FILES)
+
 .PHONY: grpc
 # generate grpc code
-grpc: grpc-go
+grpc: grpc-go grpc-cpp
 
 .PHONY: http
 # generate http code

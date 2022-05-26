@@ -1,7 +1,31 @@
+// MIT License
+//
+// Copyright (c) 2022. HominSu
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+//
+
 //
 // Created by Homin Su on 2022/5/17.
 //
 
+#include "bugu-obfusion/bugu_obfusion.h"
 #include "x_thread_pool.h"
 #include "x_task.h"
 
@@ -20,34 +44,24 @@ bugu::XThreadPool::~XThreadPool() {
  * @brief 初始化所有线程，并启动线程
  * @param _thread_nums 线程数量
  */
-size_t bugu::XThreadPool::Init(size_t _thread_nums) {
+::std::size_t bugu::XThreadPool::Init(::std::size_t _thread_nums) {
   std::unique_lock<std::shared_mutex> lock(mutex_);
 
   thread_nums_ = _thread_nums;
 
-  // 处理异常
+  BUGU_ASSERT(thread_nums_ > 0 && "thread_nums_ <= 0");
   if (thread_nums_ <= 0) {
-#ifdef DEBUG
-    std::cerr << "thread_nums_ <= 0" << std::endl;
-    exit(EXIT_FAILURE);
-#else
-    throw std::runtime_error("thread_nums_ <= 0");
-#endif
+    throw ::std::runtime_error("thread_nums_ <= 0");
   }
 
-  // 处理异常
+  BUGU_ASSERT(threads_.empty() && "threads should be empty");
   if (!threads_.empty()) {
-#ifdef DEBUG
-    std::cerr << "!threads_.empty()" << std::endl;
-    exit(EXIT_FAILURE);
-#else
-    throw std::runtime_error("!threads_.empty()");
-#endif
+    throw ::std::runtime_error("!threads_.empty()");
   }
 
   // 创建线程对象
-  for (size_t i = 0; i < thread_nums_; ++i) {
-    threads_.push_back(std::make_unique<std::thread>(&bugu::XThreadPool::Run, this));
+  for (::std::size_t i = 0; i < thread_nums_; ++i) {
+    threads_.push_back(::std::make_unique<::std::thread>(&bugu::XThreadPool::Run, this));
   }
 
   // 设置线程池运行状态
@@ -72,7 +86,7 @@ void bugu::XThreadPool::Stop() {
   }
 
   // 独占锁
-  std::unique_lock<std::shared_mutex> lock(mutex_);
+  ::std::unique_lock<::std::shared_mutex> lock(mutex_);
 
   // 清理线程池中的线程对象
   threads_.clear();
@@ -82,10 +96,10 @@ void bugu::XThreadPool::Stop() {
  * @brief 线程池线程的入口函数
  */
 void bugu::XThreadPool::Run() {
-#ifdef Debug
-  std::stringstream str_info;
-  str_info << "Run: " << std::this_thread::get_id() << std::endl;
-  std::cout << str_info.str();
+#ifdef BUGU_DEBUG
+  ::std::stringstream str_info;
+  str_info << "Run: " << ::std::this_thread::get_id() << ::std::endl;
+  ::std::cout << str_info.str();
 #endif
 
   while (is_running_) {
@@ -100,8 +114,8 @@ void bugu::XThreadPool::Run() {
     try {
       // 执行任务
       task->Main();
-    } catch (std::exception &e) {
-      std::stringstream str_e;
+    } catch (::std::exception &e) {
+      ::std::stringstream str_e;
       str_e << "Failure in thread " << std::this_thread::get_id() << ", Exception: " << e.what() << std::endl;
       std::cerr << str_e.str();
     } catch (...) {
@@ -110,7 +124,7 @@ void bugu::XThreadPool::Run() {
       std::cerr << str_e.str();
     }
     --task_run_count_;
-#ifdef Debug
+#ifdef BUGU_DEBUG
     std::cout << "run: " << task_run_count_ << std::endl;
 #endif
   }
@@ -140,7 +154,7 @@ void bugu::XThreadPool::AddTask(std::shared_ptr<XTaskBase> &&_x_task) {
  * @brief 获取任务指针
  * @return XTaskBase* 任务指针
  */
-std::shared_ptr<XTaskBase> bugu::XThreadPool::GetTask() {
+std::shared_ptr<bugu::XTaskBase> bugu::XThreadPool::GetTask() {
   // 独占锁，防止抢占
   std::unique_lock<std::shared_mutex> lock(mutex_);
 

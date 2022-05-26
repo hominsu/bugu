@@ -22,21 +22,42 @@
 //
 
 //
-// Created by Homin Su on 2022/5/17.
+// Created by Homin Su on 2022/5/19.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_
-#define BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_
+#ifndef BUGU_OBFUSION_SERVICE_SRC_OBFUSION_TASK_H_
+#define BUGU_OBFUSION_SERVICE_SRC_OBFUSION_TASK_H_
 
-#if defined(__has_builtin)
-#define BUGU_HAS_BUILTIN(x) __has_builtin(x)
-#else
-#define BUGU_HAS_BUILTIN(x) 0
-#endif
+#include "thread_pool/x_task.h"
 
-#ifndef BUGU_ASSERT
-#include <cassert>
-#define BUGU_ASSERT(x) assert(x)
-#endif // BUGU_ASSERT
+#include <fstream>
+#include <memory>
+#include <memory_resource>
+#include <string>
+#include <utility>
 
-#endif //BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_
+namespace bugu {
+
+class Data;
+
+class ObfusionTask : public XTask<::std::shared_ptr<Data>> {
+ private:
+  ::std::shared_ptr<Data> data_;
+  ::std::shared_ptr<::std::pmr::memory_resource> memory_resource_;  ///< 内存池
+
+ public:
+  explicit ObfusionTask(::std::shared_ptr<Data> _data,
+                        ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource)
+      : data_(std::move(_data)), memory_resource_(std::move(_memory_resource)) {};
+  ~ObfusionTask() override = default;
+
+ private:
+  /**
+   * 线程入口函数
+   */
+  void Main() final;
+};
+
+} // namespace bugu
+
+#endif //BUGU_OBFUSION_SERVICE_SRC_OBFUSION_TASK_H_
