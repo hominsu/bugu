@@ -22,51 +22,44 @@
 //
 
 //
-// Created by HominSu on 2022/5/16.
+// Created by Homin Su on 2022/5/26.
 //
 
-#include "bugu_obfusion_server.h"
-#include "thread_pool/x_thread_pool.h"
-#include "utils/interrupt_sleeper.h"
+#ifndef BUGU_OBFUSION_SERVICE_SRC_UTILS_INTERRUPT_SLEEPER_H_
+#define BUGU_OBFUSION_SERVICE_SRC_UTILS_INTERRUPT_SLEEPER_H_
 
-#include <cstdio>
-#include <csignal>
-
-#include <memory_resource>
+#include <atomic>
+#include <chrono>
 #include <memory>
 #include <mutex>
 
-::bugu::InterruptSleeper interrupt_sleeper;
+namespace bugu {
 
-void handler(int signal) {
-  fprintf(stdout, "terminate with signal: %d\n", signal);
-  interrupt_sleeper.interrupt();
-}
+class InterruptSleeper {
+ private:
+  ::std::condition_variable cv_;
+  ::std::mutex mutex_;
+  ::std::atomic<bool> terminate_ = false;
 
-int main() {
-  // Init the threadpool and memory-resource
-  auto thread_pool = ::bugu::XThreadPool::Get();
-  thread_pool->Init(::std::thread::hardware_concurrency());
-  auto memory_resource = ::std::make_shared<::std::pmr::synchronized_pool_resource>();
+ public:
+  void wait() {
+    ::std::unique_lock<::std::mutex> lock(mutex_);
+    cv_.wait(lock, [&] { return terminate_.load(); });
+  }
 
-  // Init Grpc server
-  auto server = ::bugu::BuguObfusionServer::Get();
-  server->Init("127.0.0.1:9000", thread_pool, memory_resource);
-  server->Start();
+  template<typename R, typename P>
+  bool wait_for(::std::chrono::duration<R, P> const &_time) {
+    ::std::unique_lock<::std::mutex> lock(mutex_);
+    return !cv_.wait_for(lock, _time, [&] { return terminate_.load(); });
+  }
 
-  // capture the int and term signal
-  struct sigaction sa{};
-  sa.sa_handler = handler;
-  sigemptyset(&sa.sa_mask);
-  sa.sa_flags = 0;
-  sigaction(SIGINT, &sa, nullptr);
-  sigaction(SIGTERM, &sa, nullptr);
+  void interrupt() {
+    ::std::unique_lock<::std::mutex> lock(mutex_);
+    terminate_.store(true);
+    cv_.notify_all();
+  }
+};
 
-  // block to wait the exit
-  interrupt_sleeper.wait();
+} // namespace bugu
 
-  ::bugu::BuguObfusionServer::Get()->Stop();
-  ::bugu::XThreadPool::Get()->Stop();
-
-  return 0;
-}
+#endif //BUGU_OBFUSION_SERVICE_SRC_UTILS_INTERRUPT_SLEEPER_H_

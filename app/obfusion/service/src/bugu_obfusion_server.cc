@@ -28,6 +28,7 @@
 #include "bugu_obfusion_server.h"
 #include "bugu_obfusion_impl.h"
 #include "thread_pool/x_thread_pool.h"
+//#include "utils/credentials.h"
 
 #if BUGU_DEBUG
 #include <string>
@@ -43,9 +44,9 @@ bugu::BuguObfusionServer *bugu::BuguObfusionServer::Init(::std::string _local_ad
                                                          ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource) {
   // The thread pool and Grpc service are initialized only once
   if (!init_flag()) {
-    local_address_ = std::move(_local_address);
+    local_address_ = ::std::move(_local_address);
     thread_pool_ = _thread_pool;
-    memory_resource_ = std::move(_memory_resource);
+    memory_resource_ = ::std::move(_memory_resource);
     set_init_flag(true);
   }
 
@@ -75,13 +76,13 @@ void bugu::BuguObfusionServer::Main() {
   server_ = ::std::move(server);
 
 #if BUGU_DEBUG
-  std::cout << "Server listening on " << local_address_ << std::endl;
+  ::std::cout << "Server listening on " << local_address_ << ::std::endl;
 #endif
 
   server_->Wait();
 
 #if BUGU_DEBUG
-  std::cout << "Rpc Service Shut Down" << std::endl;
+  ::std::cout << "Rpc Service Shut Down" << ::std::endl;
 #endif
 }
 

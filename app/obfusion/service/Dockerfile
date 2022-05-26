@@ -28,6 +28,6 @@ RUN apk --no-cache add tzdata ca-certificates c-ares libprotobuf grpc
 # cpoy the app from builder
 COPY --from=builder /src/app/${APP_RELATIVE_PATH}/bin /app
 WORKDIR /app
-EXPOSE 8000 9000
+EXPOSE 9000
 VOLUME /data/conf
 CMD ["./server"]

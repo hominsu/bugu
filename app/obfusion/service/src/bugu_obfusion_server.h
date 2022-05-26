@@ -33,6 +33,7 @@
 
 #include <grpc++/grpc++.h>
 
+#include <condition_variable>
 #include <memory>
 #include <memory_resource>
 #include <mutex>
@@ -63,12 +64,6 @@ class BuguObfusionServer final : public XThread {
 
  private:
   BuguObfusionServer() = default;
-  explicit BuguObfusionServer(::std::string _local_address,
-                              ::bugu::XThreadPool *_thread_pool,
-                              ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource)
-      : local_address_(::std::move(_local_address)),
-        thread_pool_(_thread_pool),
-        memory_resource_(::std::move(_memory_resource)) {};
 
  public:
   BuguObfusionServer *Init(::std::string _local_address,

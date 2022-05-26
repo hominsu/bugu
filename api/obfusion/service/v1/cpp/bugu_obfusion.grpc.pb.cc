@@ -27,13 +27,13 @@ static const char* BuguObfusion_method_names[] = {
   "/bugu_obfusion.service.v1.BuguObfusion/Obfusion",
 };
 
-std::unique_ptr< BuguObfusion::Stub> BuguObfusion::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+::std::unique_ptr< BuguObfusion::Stub> BuguObfusion::NewStub(const ::std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< BuguObfusion::Stub> stub(new BuguObfusion::Stub(channel, options));
+  ::std::unique_ptr< BuguObfusion::Stub> stub(new BuguObfusion::Stub(channel, options));
   return stub;
 }
 
-BuguObfusion::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+BuguObfusion::Stub::Stub(const ::std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_Obfusion_(BuguObfusion_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
@@ -41,8 +41,8 @@ BuguObfusion::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chann
   return ::grpc::internal::BlockingUnaryCall< ::bugu_obfusion::service::v1::ObfusionRequest, ::bugu_obfusion::service::v1::ObfusionReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Obfusion_, context, request, response);
 }
 
-void BuguObfusion::Stub::async::Obfusion(::grpc::ClientContext* context, const ::bugu_obfusion::service::v1::ObfusionRequest* request, ::bugu_obfusion::service::v1::ObfusionReply* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::bugu_obfusion::service::v1::ObfusionRequest, ::bugu_obfusion::service::v1::ObfusionReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Obfusion_, context, request, response, std::move(f));
+void BuguObfusion::Stub::async::Obfusion(::grpc::ClientContext* context, const ::bugu_obfusion::service::v1::ObfusionRequest* request, ::bugu_obfusion::service::v1::ObfusionReply* response, ::std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::bugu_obfusion::service::v1::ObfusionRequest, ::bugu_obfusion::service::v1::ObfusionReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Obfusion_, context, request, response, ::std::move(f));
 }
 
 void BuguObfusion::Stub::async::Obfusion(::grpc::ClientContext* context, const ::bugu_obfusion::service::v1::ObfusionRequest* request, ::bugu_obfusion::service::v1::ObfusionReply* response, ::grpc::ClientUnaryReactor* reactor) {

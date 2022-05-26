@@ -36,6 +36,7 @@ file(GLOB ProjectSRC
         "../../../../api/obfusion/service/v1/cpp/*.h"
         "thread_pool/*.cc"
         "thread/*.cc"
+        "utils/*.cc"
         "*.cc")
 
 add_executable(${PROJECT_NAME} ${ProjectSRC})
