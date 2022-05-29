@@ -23,55 +23,36 @@
  *
  */
 
-package data
+package biz
 
 import (
-	"os"
-	"testing"
-	"time"
+	"context"
 
-	"bugu/app/bugu/service/internal/conf"
 	"github.com/go-kratos/kratos/v2/log"
-	"google.golang.org/protobuf/types/known/durationpb"
 )
 
-var (
-	c = &conf.Data{
-		Database: &conf.Data_Database{
-			Driver: "mysql",
-			Source: "root:dangerous@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local",
-		},
-		Redis: &conf.Data_Redis{
-			Addr:            "127.0.0.1:6379",
-			Db:              1,
-			CacheExpiration: durationpb.New(time.Second * 1800),
-			ReadTimeout:     durationpb.New(time.Millisecond * 200),
-			WriteTimeout:    durationpb.New(time.Millisecond * 200),
-		},
-	}
-
-	data *Data
-)
-
-func TestNewData(t *testing.T) {
+type Obfusion struct {
+	Data []byte `json:"data,omitempty"`
+	Size uint32 `json:"size,omitempty"`
 }
 
-func TestMain(m *testing.M) {
-	var err error
-	var cleanup func()
+type ObfusionRepo interface {
+	Obfusion(ctx context.Context, data *Obfusion) (*Obfusion, error)
+}
 
-	logger := log.With(log.NewStdLogger(os.Stdout))
-	helper := log.NewHelper(logger)
+type ObfusionUsecase struct {
+	repo ObfusionRepo
 
-	entClient := NewEntClient(c, logger)
-	redisCmd := NewRedisCmd(c, logger)
+	log *log.Helper
+}
 
-	data, cleanup, err = NewData(entClient, redisCmd, nil, c, logger)
-	if err != nil {
-		helper.Fatal(err)
+func NewObfusionUsecase(repo ObfusionRepo, logger log.Logger) *ObfusionUsecase {
+	return &ObfusionUsecase{
+		repo: repo,
+		log:  log.NewHelper(logger),
 	}
-	defer cleanup()
+}
 
-	ret := m.Run()
-	os.Exit(ret)
+func (uc *ObfusionUsecase) Obfusion(ctx context.Context, data *Obfusion) (*Obfusion, error) {
+	return uc.repo.Obfusion(ctx, data)
 }
