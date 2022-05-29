@@ -26,6 +26,7 @@
 //
 
 #include "bugu_obfusion_server.h"
+#include "conf/config.h"
 #include "thread_pool/x_thread_pool.h"
 #include "utils/interrupt_sleeper.h"
 
@@ -44,6 +45,13 @@ void handler(int signal) {
 }
 
 int main() {
+  auto bootstrap = ::std::make_shared<config::Bootstrap>();
+
+  ::bugu::Config conf;
+
+  conf.Load("/data/conf/config.json");
+  conf.Scan(bootstrap.get());
+
   // Init the threadpool and memory-resource
   auto thread_pool = ::bugu::XThreadPool::Get();
   thread_pool->Init(::std::thread::hardware_concurrency());
@@ -51,7 +59,7 @@ int main() {
 
   // Init Grpc server
   auto server = ::bugu::BuguObfusionServer::Get();
-  server->Init("127.0.0.1:9000", thread_pool, memory_resource);
+  server->Init(bootstrap->server().grpc().addr(), thread_pool, memory_resource);
   server->Start();
 
   // capture the int and term signal

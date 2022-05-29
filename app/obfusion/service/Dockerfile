@@ -9,7 +9,7 @@ RUN apk --no-cache add bash findutils git build-base cmake \
 # build app
 COPY . /src
 WORKDIR /src
-RUN make grpc-cpp
+RUN make grpc-cpp && cd /src/app/obfusion/service && make conf
 WORKDIR /src/app/${APP_RELATIVE_PATH}
 RUN make build
 

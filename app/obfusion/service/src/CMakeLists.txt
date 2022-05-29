@@ -37,6 +37,7 @@ file(GLOB ProjectSRC
         "thread_pool/*.cc"
         "thread/*.cc"
         "utils/*.cc"
+        "conf/*.cc"
         "*.cc")
 
 add_executable(${PROJECT_NAME} ${ProjectSRC})
