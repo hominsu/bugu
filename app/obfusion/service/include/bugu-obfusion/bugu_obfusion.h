@@ -39,4 +39,57 @@
 #define BUGU_ASSERT(x) assert(x)
 #endif // BUGU_ASSERT
 
+#if defined(_WIN64) || defined(WIN64) || defined(_WIN32) || defined(WIN32)
+#if defined(_WIN64) || defined(WIN64)
+#define BUGU_ARCH_64 1
+#else
+#define BUGU_ARCH_32 1
+#endif
+#define BUGU_PLATFORM_STRING "windows"
+#define BUGU_WINDOWS 1
+#elif defined(__linux__)
+#define BUGU_PLATFORM_STRING "linux"
+#define BUGU_LINUX 1
+#ifdef _LP64
+#define BUGU_ARCH_64 1
+#else /* _LP64 */
+#define BUGU_ARCH_32 1
+#endif /* _LP64 */
+#elif defined(__APPLE__)
+#define BUGU_PLATFORM_STRING "osx"
+#define BUGU_APPLE 1
+#ifdef _LP64
+#define BUGU_ARCH_64 1
+#else /* _LP64 */
+#define BUGU_ARCH_32 1
+#endif /* _LP64 */
+#endif
+
+#ifndef BUGU_WINDOWS
+#define BUGU_WINDOWS 0
+#endif
+#ifndef BUGU_LINUX
+#define BUGU_LINUX 0
+#endif
+#ifndef BUGU_APPLE
+#define BUGU_APPLE 0
+#endif
+
+#ifdef _MSC_VER
+#if _MSC_VER < 1700
+typedef __int8 int8_t;
+typedef __int16 int16_t;
+typedef __int32 int32_t;
+typedef __int64 int64_t;
+typedef unsigned __int8 uint8_t;
+typedef unsigned __int16 uint16_t;
+typedef unsigned __int32 uint32_t;
+typedef unsigned __int64 uint64_t;
+#else
+#include <stdint.h>
+#endif /* _MSC_VER < 1700 */
+#else
+#include <cstdint>
+#endif /* _MSC_VER */
+
 #endif //BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_

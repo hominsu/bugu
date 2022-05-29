@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package config;
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+}
+
+message Server {
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  GRPC grpc = 1;
+}

@@ -6,19 +6,32 @@ services:
     container_name: bugu-bugu-service
     restart: always
     depends_on:
-      - paper4u-user-service
-      - paper4u-publication-service
+      - bugu-obfusion-service
     environment:
       TZ: "Asia/Shanghai"
     volumes:
       - "../../app/bugu/service/configs:/data/conf"
-      - "./data:/data"
     ports:
       - "8000:8000"
     networks:
       net:
         aliases:
           - bugu-bugu-service
+
+  bugu-obfusion-service:
+    image: hominsu/bugu-obfusion-service:latest
+    container_name: bugu-obfusion-service
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - "../../app/obfusion/service/configs:/data/conf"
+    ports:
+      - "9000:9000"
+    networks:
+      net:
+        aliases:
+          - bugu-obfusion-service
 
 networks:
   net:

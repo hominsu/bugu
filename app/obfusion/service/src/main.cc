@@ -26,31 +26,55 @@
 //
 
 #include "bugu_obfusion_server.h"
+#include "conf/config.h"
 #include "thread_pool/x_thread_pool.h"
+#include "utils/interrupt_sleeper.h"
 
 #include <cstdio>
 #include <csignal>
 
+#include <memory_resource>
+#include <memory>
+#include <mutex>
+
+::bugu::InterruptSleeper interrupt_sleeper;
+
 void handler(int signal) {
-  fprintf(stdout, "receive the signal: %d", signal);
-  ::bugu::BuguObfusionServer::Get()->Stop();
-  ::bugu::XThreadPool::Get()->Stop();
+  fprintf(stdout, "terminate with signal: %d\n", signal);
+  interrupt_sleeper.interrupt();
 }
 
 int main() {
+  auto bootstrap = ::std::make_shared<config::Bootstrap>();
+
+  ::bugu::Config conf;
+
+  conf.Load("/data/conf/config.json");
+  conf.Scan(bootstrap.get());
+
+  // Init the threadpool and memory-resource
   auto thread_pool = ::bugu::XThreadPool::Get();
   thread_pool->Init(::std::thread::hardware_concurrency());
+  auto memory_resource = ::std::make_shared<::std::pmr::synchronized_pool_resource>();
 
-  auto memory_resource = ::std::make_shared<std::pmr::synchronized_pool_resource>();
-
+  // Init Grpc server
   auto server = ::bugu::BuguObfusionServer::Get();
-  server->Init("127.0.0.1", thread_pool, memory_resource);
+  server->Init(bootstrap->server().grpc().addr(), thread_pool, memory_resource);
   server->Start();
 
-  signal(SIGINT, handler);
-  signal(SIGQUIT, handler);
+  // capture the int and term signal
+  struct sigaction sa{};
+  sa.sa_handler = handler;
+  sigemptyset(&sa.sa_mask);
+  sa.sa_flags = 0;
+  sigaction(SIGINT, &sa, nullptr);
+  sigaction(SIGTERM, &sa, nullptr);
 
-  // TODO: block to wait the exit
+  // block to wait the exit
+  interrupt_sleeper.wait();
+
+  ::bugu::BuguObfusionServer::Get()->Stop();
+  ::bugu::XThreadPool::Get()->Stop();
 
   return 0;
 }

@@ -44,7 +44,6 @@ class XTaskBase;
  */
 class XThreadPool {
  private:
-  static ::std::once_flag flag_;  ///< 函数单次执行标识
   ::std::size_t thread_nums_ = 0; ///< 线程数量
   ::std::vector<::std::unique_ptr<::std::thread>> threads_;  ///< 线程池线程
   ::std::queue<::std::shared_ptr<XTaskBase>> x_tasks_;   ///< 任务队列
@@ -101,7 +100,7 @@ class XThreadPool {
    * @brief 获取任务指针
    * @return XTaskBase* 任务指针
    */
-  std::shared_ptr<XTaskBase> GetTask();
+  ::std::shared_ptr<XTaskBase> GetTask();
 
   // 获取器和设置器
  public:

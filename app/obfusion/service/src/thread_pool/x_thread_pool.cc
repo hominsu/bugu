@@ -45,7 +45,7 @@ bugu::XThreadPool::~XThreadPool() {
  * @param _thread_nums 线程数量
  */
 ::std::size_t bugu::XThreadPool::Init(::std::size_t _thread_nums) {
-  std::unique_lock<std::shared_mutex> lock(mutex_);
+  ::std::unique_lock<::std::shared_mutex> lock(mutex_);
 
   thread_nums_ = _thread_nums;
 
@@ -116,16 +116,16 @@ void bugu::XThreadPool::Run() {
       task->Main();
     } catch (::std::exception &e) {
       ::std::stringstream str_e;
-      str_e << "Failure in thread " << std::this_thread::get_id() << ", Exception: " << e.what() << std::endl;
-      std::cerr << str_e.str();
+      str_e << "Failure in thread " << ::std::this_thread::get_id() << ", Exception: " << e.what() << ::std::endl;
+      ::std::cerr << str_e.str();
     } catch (...) {
-      std::stringstream str_e;
-      str_e << "Unknown failure in thread " << std::this_thread::get_id() << std::endl;
-      std::cerr << str_e.str();
+      ::std::stringstream str_e;
+      str_e << "Unknown failure in thread " << ::std::this_thread::get_id() << ::std::endl;
+      ::std::cerr << str_e.str();
     }
     --task_run_count_;
 #ifdef BUGU_DEBUG
-    std::cout << "run: " << task_run_count_ << std::endl;
+    ::std::cout << "run: " << task_run_count_ << ::std::endl;
 #endif
   }
 }
@@ -134,11 +134,11 @@ void bugu::XThreadPool::Run() {
  * @brief 插入任务
  * @param _x_task 任务指针
  */
-void bugu::XThreadPool::AddTask(std::shared_ptr<XTaskBase> &&_x_task) {
+void bugu::XThreadPool::AddTask(::std::shared_ptr<XTaskBase> &&_x_task) {
   // 将任务插入到队列
   {
     // 独占锁
-    std::unique_lock<std::shared_mutex> lock(mutex_);
+    ::std::unique_lock<::std::shared_mutex> lock(mutex_);
     // 将线程池运行状态函数的函数指针传入任务中
     _x_task->is_running = [this] {
       return is_running();
@@ -154,9 +154,9 @@ void bugu::XThreadPool::AddTask(std::shared_ptr<XTaskBase> &&_x_task) {
  * @brief 获取任务指针
  * @return XTaskBase* 任务指针
  */
-std::shared_ptr<bugu::XTaskBase> bugu::XThreadPool::GetTask() {
+::std::shared_ptr<bugu::XTaskBase> bugu::XThreadPool::GetTask() {
   // 独占锁，防止抢占
-  std::unique_lock<std::shared_mutex> lock(mutex_);
+  ::std::unique_lock<::std::shared_mutex> lock(mutex_);
 
   // 当任务队列为空就阻塞
   if (x_tasks_.empty()) {
