@@ -20,9 +20,6 @@ func (Artifact) Fields() []ent.Field {
 	return []ent.Field{
 		field.UUID("id", uuid.UUID{}),
 		field.UUID("file_id", uuid.UUID{}),
-		field.UUID("artifact_hash", uuid.UUID{}).Unique(),
-		field.Int64("artifact_size"),
-		field.String("artifact_addr"),
 		field.String("method").Optional(),
 		field.Time("created_at").
 			Default(time.Now).

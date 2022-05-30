@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package bugu_detect.service.v1;
+
+option go_package = "bugu/api/detect/service/v1;v1";
+
+service BuguDetect {
+  rpc Detect (DetectRequest) returns (DetectReply) {};
+};
+
+message DetectRequest {
+  repeated bytes data = 1;
+  uint32 size = 2;
+}
+
+enum Type {
+  TYPE_ADPOSHEL = 0;
+  TYPE_AGENT = 1;
+  TYPE_ALLAPLE = 2;
+  TYPE_AMONETIZE = 3;
+  TYPE_ANDROM = 4;
+  TYPE_AUTORUN = 5;
+  TYPE_BROWSE_FOX = 6;
+  TYPE_DINWOD = 7;
+  TYPE_ELEX = 8;
+  TYPE_EXPIRO = 9;
+  TYPE_FASONG = 10;
+  TYPE_HACK_KMS = 11;
+  TYPE_HLUX = 12;
+  TYPE_INJECTOR = 13;
+  TYPE_INSTALL_CORE = 14;
+  TYPE_MULTI_Plug = 15;
+  TYPE_NEOREKLAMI = 16;
+  TYPE_NESHTA = 17;
+  TYPE_OTHER = 18;
+  TYPE_REGRUN = 19;
+  TYPE_SALITY = 20;
+  TYPE_SNARASITE = 21;
+  TYPE_STABTINKO = 22;
+  TYPE_VBA = 23;
+  TYPE_VBKRYPT = 24;
+  TYPE_VILSEL = 25;
+}
+
+message DetectReply {
+  Type type = 1;
+}

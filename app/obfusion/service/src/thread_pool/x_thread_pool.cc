@@ -25,7 +25,7 @@
 // Created by Homin Su on 2022/5/17.
 //
 
-#include "bugu-obfusion/bugu_obfusion.h"
+#include "bugu_obfusion/bugu_obfusion.h"
 #include "x_thread_pool.h"
 #include "x_task.h"
 

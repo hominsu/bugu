@@ -37,31 +37,6 @@ func (au *ArtifactUpdate) SetFileID(u uuid.UUID) *ArtifactUpdate {
 	return au
 }
 
-// SetArtifactHash sets the "artifact_hash" field.
-func (au *ArtifactUpdate) SetArtifactHash(u uuid.UUID) *ArtifactUpdate {
-	au.mutation.SetArtifactHash(u)
-	return au
-}
-
-// SetArtifactSize sets the "artifact_size" field.
-func (au *ArtifactUpdate) SetArtifactSize(i int64) *ArtifactUpdate {
-	au.mutation.ResetArtifactSize()
-	au.mutation.SetArtifactSize(i)
-	return au
-}
-
-// AddArtifactSize adds i to the "artifact_size" field.
-func (au *ArtifactUpdate) AddArtifactSize(i int64) *ArtifactUpdate {
-	au.mutation.AddArtifactSize(i)
-	return au
-}
-
-// SetArtifactAddr sets the "artifact_addr" field.
-func (au *ArtifactUpdate) SetArtifactAddr(s string) *ArtifactUpdate {
-	au.mutation.SetArtifactAddr(s)
-	return au
-}
-
 // SetMethod sets the "method" field.
 func (au *ArtifactUpdate) SetMethod(s string) *ArtifactUpdate {
 	au.mutation.SetMethod(s)
@@ -240,34 +215,6 @@ func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := au.mutation.ArtifactHash(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUUID,
-			Value:  value,
-			Column: artifact.FieldArtifactHash,
-		})
-	}
-	if value, ok := au.mutation.ArtifactSize(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: artifact.FieldArtifactSize,
-		})
-	}
-	if value, ok := au.mutation.AddedArtifactSize(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: artifact.FieldArtifactSize,
-		})
-	}
-	if value, ok := au.mutation.ArtifactAddr(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: artifact.FieldArtifactAddr,
-		})
-	}
 	if value, ok := au.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -399,31 +346,6 @@ type ArtifactUpdateOne struct {
 // SetFileID sets the "file_id" field.
 func (auo *ArtifactUpdateOne) SetFileID(u uuid.UUID) *ArtifactUpdateOne {
 	auo.mutation.SetFileID(u)
-	return auo
-}
-
-// SetArtifactHash sets the "artifact_hash" field.
-func (auo *ArtifactUpdateOne) SetArtifactHash(u uuid.UUID) *ArtifactUpdateOne {
-	auo.mutation.SetArtifactHash(u)
-	return auo
-}
-
-// SetArtifactSize sets the "artifact_size" field.
-func (auo *ArtifactUpdateOne) SetArtifactSize(i int64) *ArtifactUpdateOne {
-	auo.mutation.ResetArtifactSize()
-	auo.mutation.SetArtifactSize(i)
-	return auo
-}
-
-// AddArtifactSize adds i to the "artifact_size" field.
-func (auo *ArtifactUpdateOne) AddArtifactSize(i int64) *ArtifactUpdateOne {
-	auo.mutation.AddArtifactSize(i)
-	return auo
-}
-
-// SetArtifactAddr sets the "artifact_addr" field.
-func (auo *ArtifactUpdateOne) SetArtifactAddr(s string) *ArtifactUpdateOne {
-	auo.mutation.SetArtifactAddr(s)
 	return auo
 }
 
@@ -628,34 +550,6 @@ func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := auo.mutation.ArtifactHash(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeUUID,
-			Value:  value,
-			Column: artifact.FieldArtifactHash,
-		})
-	}
-	if value, ok := auo.mutation.ArtifactSize(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: artifact.FieldArtifactSize,
-		})
-	}
-	if value, ok := auo.mutation.AddedArtifactSize(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: artifact.FieldArtifactSize,
-		})
-	}
-	if value, ok := auo.mutation.ArtifactAddr(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: artifact.FieldArtifactAddr,
-		})
 	}
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{

@@ -38,10 +38,6 @@ type ArtifactMutation struct {
 	op                     Op
 	typ                    string
 	id                     *uuid.UUID
-	artifact_hash          *uuid.UUID
-	artifact_size          *int64
-	addartifact_size       *int64
-	artifact_addr          *string
 	method                 *string
 	created_at             *time.Time
 	updated_at             *time.Time
@@ -194,134 +190,6 @@ func (m *ArtifactMutation) OldFileID(ctx context.Context) (v uuid.UUID, err erro
 // ResetFileID resets all changes to the "file_id" field.
 func (m *ArtifactMutation) ResetFileID() {
 	m.affiliated_file = nil
-}
-
-// SetArtifactHash sets the "artifact_hash" field.
-func (m *ArtifactMutation) SetArtifactHash(u uuid.UUID) {
-	m.artifact_hash = &u
-}
-
-// ArtifactHash returns the value of the "artifact_hash" field in the mutation.
-func (m *ArtifactMutation) ArtifactHash() (r uuid.UUID, exists bool) {
-	v := m.artifact_hash
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldArtifactHash returns the old "artifact_hash" field's value of the Artifact entity.
-// If the Artifact object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ArtifactMutation) OldArtifactHash(ctx context.Context) (v uuid.UUID, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldArtifactHash is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldArtifactHash requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldArtifactHash: %w", err)
-	}
-	return oldValue.ArtifactHash, nil
-}
-
-// ResetArtifactHash resets all changes to the "artifact_hash" field.
-func (m *ArtifactMutation) ResetArtifactHash() {
-	m.artifact_hash = nil
-}
-
-// SetArtifactSize sets the "artifact_size" field.
-func (m *ArtifactMutation) SetArtifactSize(i int64) {
-	m.artifact_size = &i
-	m.addartifact_size = nil
-}
-
-// ArtifactSize returns the value of the "artifact_size" field in the mutation.
-func (m *ArtifactMutation) ArtifactSize() (r int64, exists bool) {
-	v := m.artifact_size
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldArtifactSize returns the old "artifact_size" field's value of the Artifact entity.
-// If the Artifact object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ArtifactMutation) OldArtifactSize(ctx context.Context) (v int64, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldArtifactSize is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldArtifactSize requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldArtifactSize: %w", err)
-	}
-	return oldValue.ArtifactSize, nil
-}
-
-// AddArtifactSize adds i to the "artifact_size" field.
-func (m *ArtifactMutation) AddArtifactSize(i int64) {
-	if m.addartifact_size != nil {
-		*m.addartifact_size += i
-	} else {
-		m.addartifact_size = &i
-	}
-}
-
-// AddedArtifactSize returns the value that was added to the "artifact_size" field in this mutation.
-func (m *ArtifactMutation) AddedArtifactSize() (r int64, exists bool) {
-	v := m.addartifact_size
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetArtifactSize resets all changes to the "artifact_size" field.
-func (m *ArtifactMutation) ResetArtifactSize() {
-	m.artifact_size = nil
-	m.addartifact_size = nil
-}
-
-// SetArtifactAddr sets the "artifact_addr" field.
-func (m *ArtifactMutation) SetArtifactAddr(s string) {
-	m.artifact_addr = &s
-}
-
-// ArtifactAddr returns the value of the "artifact_addr" field in the mutation.
-func (m *ArtifactMutation) ArtifactAddr() (r string, exists bool) {
-	v := m.artifact_addr
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldArtifactAddr returns the old "artifact_addr" field's value of the Artifact entity.
-// If the Artifact object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *ArtifactMutation) OldArtifactAddr(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldArtifactAddr is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldArtifactAddr requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldArtifactAddr: %w", err)
-	}
-	return oldValue.ArtifactAddr, nil
-}
-
-// ResetArtifactAddr resets all changes to the "artifact_addr" field.
-func (m *ArtifactMutation) ResetArtifactAddr() {
-	m.artifact_addr = nil
 }
 
 // SetMethod sets the "method" field.
@@ -557,18 +425,9 @@ func (m *ArtifactMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ArtifactMutation) Fields() []string {
-	fields := make([]string, 0, 7)
+	fields := make([]string, 0, 4)
 	if m.affiliated_file != nil {
 		fields = append(fields, artifact.FieldFileID)
-	}
-	if m.artifact_hash != nil {
-		fields = append(fields, artifact.FieldArtifactHash)
-	}
-	if m.artifact_size != nil {
-		fields = append(fields, artifact.FieldArtifactSize)
-	}
-	if m.artifact_addr != nil {
-		fields = append(fields, artifact.FieldArtifactAddr)
 	}
 	if m.method != nil {
 		fields = append(fields, artifact.FieldMethod)
@@ -589,12 +448,6 @@ func (m *ArtifactMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case artifact.FieldFileID:
 		return m.FileID()
-	case artifact.FieldArtifactHash:
-		return m.ArtifactHash()
-	case artifact.FieldArtifactSize:
-		return m.ArtifactSize()
-	case artifact.FieldArtifactAddr:
-		return m.ArtifactAddr()
 	case artifact.FieldMethod:
 		return m.Method()
 	case artifact.FieldCreatedAt:
@@ -612,12 +465,6 @@ func (m *ArtifactMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case artifact.FieldFileID:
 		return m.OldFileID(ctx)
-	case artifact.FieldArtifactHash:
-		return m.OldArtifactHash(ctx)
-	case artifact.FieldArtifactSize:
-		return m.OldArtifactSize(ctx)
-	case artifact.FieldArtifactAddr:
-		return m.OldArtifactAddr(ctx)
 	case artifact.FieldMethod:
 		return m.OldMethod(ctx)
 	case artifact.FieldCreatedAt:
@@ -639,27 +486,6 @@ func (m *ArtifactMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFileID(v)
-		return nil
-	case artifact.FieldArtifactHash:
-		v, ok := value.(uuid.UUID)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetArtifactHash(v)
-		return nil
-	case artifact.FieldArtifactSize:
-		v, ok := value.(int64)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetArtifactSize(v)
-		return nil
-	case artifact.FieldArtifactAddr:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetArtifactAddr(v)
 		return nil
 	case artifact.FieldMethod:
 		v, ok := value.(string)
@@ -689,21 +515,13 @@ func (m *ArtifactMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *ArtifactMutation) AddedFields() []string {
-	var fields []string
-	if m.addartifact_size != nil {
-		fields = append(fields, artifact.FieldArtifactSize)
-	}
-	return fields
+	return nil
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *ArtifactMutation) AddedField(name string) (ent.Value, bool) {
-	switch name {
-	case artifact.FieldArtifactSize:
-		return m.AddedArtifactSize()
-	}
 	return nil, false
 }
 
@@ -712,13 +530,6 @@ func (m *ArtifactMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *ArtifactMutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case artifact.FieldArtifactSize:
-		v, ok := value.(int64)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddArtifactSize(v)
-		return nil
 	}
 	return fmt.Errorf("unknown Artifact numeric field %s", name)
 }
@@ -757,15 +568,6 @@ func (m *ArtifactMutation) ResetField(name string) error {
 	switch name {
 	case artifact.FieldFileID:
 		m.ResetFileID()
-		return nil
-	case artifact.FieldArtifactHash:
-		m.ResetArtifactHash()
-		return nil
-	case artifact.FieldArtifactSize:
-		m.ResetArtifactSize()
-		return nil
-	case artifact.FieldArtifactAddr:
-		m.ResetArtifactAddr()
 		return nil
 	case artifact.FieldMethod:
 		m.ResetMethod()
