@@ -23,17 +23,36 @@
  *
  */
 
-package service
+package biz
 
 import (
 	"context"
 
-	buguV1 "bugu/api/bugu/service/v1"
-
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	"github.com/go-kratos/kratos/v2/log"
 )
 
-func (s *BuguService) Confusion(ctx context.Context, in *buguV1.ConfusionRequest) (*buguV1.ConfusionReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Confusion not implemented")
+type Obfusion struct {
+	Data []byte `json:"data,omitempty"`
+	Size uint32 `json:"size,omitempty"`
+}
+
+type ObfusionRepo interface {
+	Obfusion(ctx context.Context, data *Obfusion) (*Obfusion, error)
+}
+
+type ObfusionUsecase struct {
+	repo ObfusionRepo
+
+	log *log.Helper
+}
+
+func NewObfusionUsecase(repo ObfusionRepo, logger log.Logger) *ObfusionUsecase {
+	return &ObfusionUsecase{
+		repo: repo,
+		log:  log.NewHelper(logger),
+	}
+}
+
+func (uc *ObfusionUsecase) Obfusion(ctx context.Context, data *Obfusion) (*Obfusion, error) {
+	return uc.repo.Obfusion(ctx, data)
 }

@@ -28,7 +28,7 @@
 #ifndef BUGU_OBFUSION_SERVICE_SRC_BUGU_OBFUSION_SERVER_H_
 #define BUGU_OBFUSION_SERVICE_SRC_BUGU_OBFUSION_SERVER_H_
 
-#include "bugu-obfusion/bugu_obfusion.h"
+#include "bugu_obfusion/bugu_obfusion.h"
 #include "thread/x_thread.h"
 
 #include <grpc++/grpc++.h>

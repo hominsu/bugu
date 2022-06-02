@@ -75,11 +75,11 @@ void bugu::BuguObfusionServer::Main() {
   ::std::unique_ptr<::grpc::Server> server(builder.BuildAndStart());
   server_ = ::std::move(server);
 
-  ::std::clog << "Server listening on " << local_address_ << ::std::endl;
+  ::std::clog << "BuguObfusionServer listening on " << local_address_ << ::std::endl;
 
   server_->Wait();
 
-  ::std::clog << "Rpc Service Shut Down" << ::std::endl;
+  ::std::clog << "BuguObfusionServer Shut Down" << ::std::endl;
 }
 
 void bugu::BuguObfusionServer::set_init_flag(bool _init_flag) {

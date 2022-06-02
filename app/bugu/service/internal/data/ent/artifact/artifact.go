@@ -13,12 +13,6 @@ const (
 	FieldID = "id"
 	// FieldFileID holds the string denoting the file_id field in the database.
 	FieldFileID = "file_id"
-	// FieldArtifactHash holds the string denoting the artifact_hash field in the database.
-	FieldArtifactHash = "artifact_hash"
-	// FieldArtifactSize holds the string denoting the artifact_size field in the database.
-	FieldArtifactSize = "artifact_size"
-	// FieldArtifactAddr holds the string denoting the artifact_addr field in the database.
-	FieldArtifactAddr = "artifact_addr"
 	// FieldMethod holds the string denoting the method field in the database.
 	FieldMethod = "method"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -49,9 +43,6 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldFileID,
-	FieldArtifactHash,
-	FieldArtifactSize,
-	FieldArtifactAddr,
 	FieldMethod,
 	FieldCreatedAt,
 	FieldUpdatedAt,

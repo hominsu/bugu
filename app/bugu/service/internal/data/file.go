@@ -28,7 +28,7 @@ package data
 import (
 	"context"
 
-	v1 "bugu/api/bugu/service/v1"
+	buguV1 "bugu/api/bugu/service/v1"
 	"bugu/app/bugu/service/internal/biz"
 	"bugu/app/bugu/service/internal/data/ent"
 
@@ -54,7 +54,7 @@ func NewFileRepo(data *Data, logger log.Logger) biz.FileRepo {
 func (r *fileRepo) CreateFileMetadata(ctx context.Context, file *biz.File) (*biz.File, error) {
 	//md, ok := metadata.FromClientContext(ctx)
 	//if !ok {
-	//	return nil, v1.ErrorInternalServerError("Openid does not exist in context")
+	//	return nil, buguV1.ErrorInternalServerError("Openid does not exist in context")
 	//}
 	//userid := md.Get("x-md-global-userid")
 
@@ -65,11 +65,11 @@ func (r *fileRepo) CreateFileMetadata(ctx context.Context, file *biz.File) (*biz
 		SetFileAddr(file.FileAddr).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
-		return nil, v1.ErrorCreateConflict("create conflict, err: %v", err)
+		return nil, buguV1.ErrorCreateConflict("create conflict, err: %v", err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.File{
@@ -87,11 +87,11 @@ func (r *fileRepo) UpdateFileMetadata(ctx context.Context, file *biz.File) (*biz
 		SetNillableType(file.Type).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
-		return nil, v1.ErrorCreateConflict("update conflict, err: %v", err)
+		return nil, buguV1.ErrorCreateConflict("update conflict, err: %v", err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.File{
@@ -105,11 +105,11 @@ func (r *fileRepo) UpdateFileMetadata(ctx context.Context, file *biz.File) (*biz
 func (r *fileRepo) GetFileMetadata(ctx context.Context, id uuid.UUID) (*biz.File, error) {
 	target, err := r.data.db.File.Get(ctx, id)
 	if err != nil && ent.IsNotFound(err) {
-		return nil, v1.ErrorNotFoundError("find file id: %s not found, err: %v", id.String(), err)
+		return nil, buguV1.ErrorNotFoundError("find file id: %s not found, err: %v", id.String(), err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.File{

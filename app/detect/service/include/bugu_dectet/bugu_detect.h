@@ -22,11 +22,11 @@
 //
 
 //
-// Created by Homin Su on 2022/5/17.
+// Created by Homin Su on 2022/5/30.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_
-#define BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_
+#ifndef BUGU_DETECT_SERVICE_INCLUDE_BUGU_DECTET_BUGU_DETECT_H_
+#define BUGU_DETECT_SERVICE_INCLUDE_BUGU_DECTET_BUGU_DETECT_H_
 
 #if defined(__has_builtin)
 #define BUGU_HAS_BUILTIN(x) __has_builtin(x)
@@ -89,7 +89,21 @@ typedef unsigned __int64 uint64_t;
 #include <stdint.h>
 #endif /* _MSC_VER < 1700 */
 #else
-#include <cstdint>
+#include <stdint.h>
 #endif /* _MSC_VER */
 
-#endif //BUGU_OBFUSION_SERVICE_INCLUDE_BUGU_OBFUSION_BUGU_OBFUSION_H_
+#ifdef _MSC_VER
+#if _MSC_VER < 1400
+#define PRIdS __PRIS_PREFIX "d"
+#define PRIxS __PRIS_PREFIX "x"
+#define PRIuS __PRIS_PREFIX "u"
+#define PRIXS __PRIS_PREFIX "X"
+#define PRIoS __PRIS_PREFIX "o"
+#else
+#include <inttypes.h>
+#endif /* _MSC_VER < 1400 */
+#else
+#include <inttypes.h>
+#endif /* _MSC_VER */
+
+#endif //BUGU_DETECT_SERVICE_INCLUDE_BUGU_DECTET_BUGU_DETECT_H_

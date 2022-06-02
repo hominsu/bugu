@@ -20,12 +20,6 @@ type Artifact struct {
 	ID uuid.UUID `json:"id,omitempty"`
 	// FileID holds the value of the "file_id" field.
 	FileID uuid.UUID `json:"file_id,omitempty"`
-	// ArtifactHash holds the value of the "artifact_hash" field.
-	ArtifactHash uuid.UUID `json:"artifact_hash,omitempty"`
-	// ArtifactSize holds the value of the "artifact_size" field.
-	ArtifactSize int64 `json:"artifact_size,omitempty"`
-	// ArtifactAddr holds the value of the "artifact_addr" field.
-	ArtifactAddr string `json:"artifact_addr,omitempty"`
 	// Method holds the value of the "method" field.
 	Method string `json:"method,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -76,13 +70,11 @@ func (*Artifact) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case artifact.FieldArtifactSize:
-			values[i] = new(sql.NullInt64)
-		case artifact.FieldArtifactAddr, artifact.FieldMethod:
+		case artifact.FieldMethod:
 			values[i] = new(sql.NullString)
 		case artifact.FieldCreatedAt, artifact.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case artifact.FieldID, artifact.FieldFileID, artifact.FieldArtifactHash:
+		case artifact.FieldID, artifact.FieldFileID:
 			values[i] = new(uuid.UUID)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Artifact", columns[i])
@@ -110,24 +102,6 @@ func (a *Artifact) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field file_id", values[i])
 			} else if value != nil {
 				a.FileID = *value
-			}
-		case artifact.FieldArtifactHash:
-			if value, ok := values[i].(*uuid.UUID); !ok {
-				return fmt.Errorf("unexpected type %T for field artifact_hash", values[i])
-			} else if value != nil {
-				a.ArtifactHash = *value
-			}
-		case artifact.FieldArtifactSize:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field artifact_size", values[i])
-			} else if value.Valid {
-				a.ArtifactSize = value.Int64
-			}
-		case artifact.FieldArtifactAddr:
-			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field artifact_addr", values[i])
-			} else if value.Valid {
-				a.ArtifactAddr = value.String
 			}
 		case artifact.FieldMethod:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -187,12 +161,6 @@ func (a *Artifact) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", a.ID))
 	builder.WriteString(", file_id=")
 	builder.WriteString(fmt.Sprintf("%v", a.FileID))
-	builder.WriteString(", artifact_hash=")
-	builder.WriteString(fmt.Sprintf("%v", a.ArtifactHash))
-	builder.WriteString(", artifact_size=")
-	builder.WriteString(fmt.Sprintf("%v", a.ArtifactSize))
-	builder.WriteString(", artifact_addr=")
-	builder.WriteString(a.ArtifactAddr)
 	builder.WriteString(", method=")
 	builder.WriteString(a.Method)
 	builder.WriteString(", created_at=")

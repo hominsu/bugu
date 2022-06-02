@@ -29,24 +29,6 @@ func (ac *ArtifactCreate) SetFileID(u uuid.UUID) *ArtifactCreate {
 	return ac
 }
 
-// SetArtifactHash sets the "artifact_hash" field.
-func (ac *ArtifactCreate) SetArtifactHash(u uuid.UUID) *ArtifactCreate {
-	ac.mutation.SetArtifactHash(u)
-	return ac
-}
-
-// SetArtifactSize sets the "artifact_size" field.
-func (ac *ArtifactCreate) SetArtifactSize(i int64) *ArtifactCreate {
-	ac.mutation.SetArtifactSize(i)
-	return ac
-}
-
-// SetArtifactAddr sets the "artifact_addr" field.
-func (ac *ArtifactCreate) SetArtifactAddr(s string) *ArtifactCreate {
-	ac.mutation.SetArtifactAddr(s)
-	return ac
-}
-
 // SetMethod sets the "method" field.
 func (ac *ArtifactCreate) SetMethod(s string) *ArtifactCreate {
 	ac.mutation.SetMethod(s)
@@ -207,15 +189,6 @@ func (ac *ArtifactCreate) check() error {
 	if _, ok := ac.mutation.FileID(); !ok {
 		return &ValidationError{Name: "file_id", err: errors.New(`ent: missing required field "Artifact.file_id"`)}
 	}
-	if _, ok := ac.mutation.ArtifactHash(); !ok {
-		return &ValidationError{Name: "artifact_hash", err: errors.New(`ent: missing required field "Artifact.artifact_hash"`)}
-	}
-	if _, ok := ac.mutation.ArtifactSize(); !ok {
-		return &ValidationError{Name: "artifact_size", err: errors.New(`ent: missing required field "Artifact.artifact_size"`)}
-	}
-	if _, ok := ac.mutation.ArtifactAddr(); !ok {
-		return &ValidationError{Name: "artifact_addr", err: errors.New(`ent: missing required field "Artifact.artifact_addr"`)}
-	}
 	if _, ok := ac.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Artifact.created_at"`)}
 	}
@@ -260,30 +233,6 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 	if id, ok := ac.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = &id
-	}
-	if value, ok := ac.mutation.ArtifactHash(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeUUID,
-			Value:  value,
-			Column: artifact.FieldArtifactHash,
-		})
-		_node.ArtifactHash = value
-	}
-	if value, ok := ac.mutation.ArtifactSize(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: artifact.FieldArtifactSize,
-		})
-		_node.ArtifactSize = value
-	}
-	if value, ok := ac.mutation.ArtifactAddr(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: artifact.FieldArtifactAddr,
-		})
-		_node.ArtifactAddr = value
 	}
 	if value, ok := ac.mutation.Method(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

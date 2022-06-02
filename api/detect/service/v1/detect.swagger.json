@@ -1,0 +1,88 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v1/detect.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BuguDetect"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1DetectReply": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/v1Type"
+        }
+      }
+    },
+    "v1Type": {
+      "type": "string",
+      "enum": [
+        "TYPE_ADPOSHEL",
+        "TYPE_AGENT",
+        "TYPE_ALLAPLE",
+        "TYPE_AMONETIZE",
+        "TYPE_ANDROM",
+        "TYPE_AUTORUN",
+        "TYPE_BROWSE_FOX",
+        "TYPE_DINWOD",
+        "TYPE_ELEX",
+        "TYPE_EXPIRO",
+        "TYPE_FASONG",
+        "TYPE_HACK_KMS",
+        "TYPE_HLUX",
+        "TYPE_INJECTOR",
+        "TYPE_INSTALL_CORE",
+        "TYPE_MULTI_Plug",
+        "TYPE_NEOREKLAMI",
+        "TYPE_NESHTA",
+        "TYPE_OTHER",
+        "TYPE_REGRUN",
+        "TYPE_SALITY",
+        "TYPE_SNARASITE",
+        "TYPE_STABTINKO",
+        "TYPE_VBA",
+        "TYPE_VBKRYPT",
+        "TYPE_VILSEL"
+      ],
+      "default": "TYPE_ADPOSHEL"
+    }
+  }
+}

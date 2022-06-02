@@ -61,6 +61,7 @@ class XThread {
    */
   virtual void Main() = 0;
 };
+
 } // namespace bugu
 
 #endif //BUGU_OBFUSION_SERVICE_SRC_THREAD_X_THREAD_H_

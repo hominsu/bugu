@@ -32,7 +32,7 @@ import (
 	"os"
 	"path/filepath"
 
-	v1 "bugu/api/bugu/service/v1"
+	buguV1 "bugu/api/bugu/service/v1"
 	"bugu/app/bugu/service/internal/data/ent/file"
 	"bugu/pkg"
 
@@ -71,17 +71,17 @@ func NewFileUsecase(repo FileRepo, logger log.Logger) *FileUsecase {
 func (uc *FileUsecase) SaveFile(ctx context.Context, metaFile multipart.File, dir string) (*File, error) {
 	u, err := uuid.NewRandom()
 	if err != nil {
-		return nil, v1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
+		return nil, buguV1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
 	}
 
 	dir = filepath.Join(filepath.Dir(dir), u.String())
 
 	ok, err := pkg.PathExists(dir)
 	if err != nil {
-		return nil, v1.ErrorUnknownError("check file failed, err: %v", err)
+		return nil, buguV1.ErrorUnknownError("check file failed, err: %v", err)
 	}
 	if ok {
-		return nil, v1.ErrorCreateConflict("create file conflict")
+		return nil, buguV1.ErrorCreateConflict("create file conflict")
 	}
 
 	f, err := os.OpenFile(dir, os.O_WRONLY|os.O_CREATE, 0o666)
@@ -118,7 +118,7 @@ func (uc *FileUsecase) SaveFile(ctx context.Context, metaFile multipart.File, di
 func (uc *FileUsecase) GetFile(ctx context.Context, id string) (*os.File, func(), error) {
 	u, err := uuid.Parse(id)
 	if err != nil {
-		return nil, nil, v1.ErrorUuidParseFailed("parse file id failed, err: %v", id)
+		return nil, nil, buguV1.ErrorUuidParseFailed("parse file id failed, err: %v", id)
 	}
 
 	dto, err := uc.repo.GetFileMetadata(ctx, u)
@@ -128,10 +128,10 @@ func (uc *FileUsecase) GetFile(ctx context.Context, id string) (*os.File, func()
 
 	ok, err := pkg.PathExists(dto.FileAddr)
 	if err != nil {
-		return nil, nil, v1.ErrorUnknownError("check file failed, err: %v", err)
+		return nil, nil, buguV1.ErrorUnknownError("check file failed, err: %v", err)
 	}
 	if !ok {
-		return nil, nil, v1.ErrorCreateConflict("file not exist")
+		return nil, nil, buguV1.ErrorCreateConflict("file not exist")
 	}
 
 	f, err := os.OpenFile(dto.FileAddr, os.O_RDONLY, 0)

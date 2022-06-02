@@ -40,7 +40,7 @@
 ::bugu::InterruptSleeper interrupt_sleeper;
 
 void handler(int signal) {
-  fprintf(stdout, "terminate with signal: %d\n", signal);
+  fprintf(stdout, "terminate with signal: %" PRId32 "\n", signal);
   interrupt_sleeper.interrupt();
 }
 

@@ -66,7 +66,7 @@ func TestMain(m *testing.M) {
 	entClient := NewEntClient(c, logger)
 	redisCmd := NewRedisCmd(c, logger)
 
-	data, cleanup, err = NewData(entClient, redisCmd, c, logger)
+	data, cleanup, err = NewData(entClient, redisCmd, nil, c, logger)
 	if err != nil {
 		helper.Fatal(err)
 	}

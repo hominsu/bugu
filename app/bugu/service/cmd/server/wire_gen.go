@@ -22,7 +22,8 @@ import (
 func initApp(registry *conf.Registry, confServer *conf.Server, confData *conf.Data, jwt *conf.Jwt, logger log.Logger) (*kratos.App, func(), error) {
 	client := data.NewEntClient(confData, logger)
 	cmdable := data.NewRedisCmd(confData, logger)
-	dataData, cleanup, err := data.NewData(client, cmdable, confData, logger)
+	buguObfusionClient := data.NewOubfusionServiceClient(confServer)
+	dataData, cleanup, err := data.NewData(client, cmdable, buguObfusionClient, confData, logger)
 	if err != nil {
 		return nil, nil, err
 	}

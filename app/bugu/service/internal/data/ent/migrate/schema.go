@@ -11,9 +11,6 @@ var (
 	// ArtifactsColumns holds the columns for the "artifacts" table.
 	ArtifactsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
-		{Name: "artifact_hash", Type: field.TypeUUID, Unique: true},
-		{Name: "artifact_size", Type: field.TypeInt64},
-		{Name: "artifact_addr", Type: field.TypeString},
 		{Name: "method", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
@@ -27,7 +24,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:     "artifacts_files_artifact",
-				Columns:    []*schema.Column{ArtifactsColumns[7]},
+				Columns:    []*schema.Column{ArtifactsColumns[4]},
 				RefColumns: []*schema.Column{FilesColumns[0]},
 				OnDelete:   schema.NoAction,
 			},

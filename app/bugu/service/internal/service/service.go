@@ -40,6 +40,7 @@ type BuguService struct {
 	buguV1.UnimplementedBuguServer
 
 	uu  *biz.UserUsecase
+	au  *biz.ArtifactUsecase
 	log *log.Helper
 }
 

@@ -5,7 +5,7 @@
 #ifndef BUGU_OBFUSION_SERVICE_SRC_CONF_CONFIG_H_
 #define BUGU_OBFUSION_SERVICE_SRC_CONF_CONFIG_H_
 
-#include "bugu-obfusion/bugu_obfusion.h"
+#include "bugu_obfusion/bugu_obfusion.h"
 #include "conf.pb.h"
 
 #include "google/protobuf/message.h"
