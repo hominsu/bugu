@@ -25,6 +25,7 @@
 // Created by Homin Su on 2022/5/30.
 //
 
+#include "bugu_dectet/bugu_detect.h"
 #include "bugu_detect_server.h"
 #include "conf/config.h"
 #include "thread_pool/x_thread_pool.h"
@@ -40,7 +41,7 @@
 ::bugu::InterruptSleeper interrupt_sleeper;
 
 void handler(int signal) {
-  fprintf(stdout, "terminate with signal: %d\n", signal);
+  fprintf(stdout, "terminate with signal: %" PRId32 "\n", signal);
   interrupt_sleeper.interrupt();
 }
 

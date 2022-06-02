@@ -89,7 +89,21 @@ typedef unsigned __int64 uint64_t;
 #include <stdint.h>
 #endif /* _MSC_VER < 1700 */
 #else
-#include <cstdint>
+#include <stdint.h>
+#endif /* _MSC_VER */
+
+#ifdef _MSC_VER
+#if _MSC_VER < 1400
+#define PRIdS __PRIS_PREFIX "d"
+#define PRIxS __PRIS_PREFIX "x"
+#define PRIuS __PRIS_PREFIX "u"
+#define PRIXS __PRIS_PREFIX "X"
+#define PRIoS __PRIS_PREFIX "o"
+#else
+#include <inttypes.h>
+#endif /* _MSC_VER < 1400 */
+#else
+#include <inttypes.h>
 #endif /* _MSC_VER */
 
 #endif //BUGU_DETECT_SERVICE_INCLUDE_BUGU_DECTET_BUGU_DETECT_H_

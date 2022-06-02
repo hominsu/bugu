@@ -29,7 +29,7 @@ if (gRPC_FOUND)
 endif ()
 
 include_directories(../include)
-include_directories(${PROJECT_SOURCE_DIR}/third_party)
+include_directories(${PROJECT_SOURCE_DIR}/resnet/include)
 include_directories(../../../..)
 file(GLOB ProjectSRC
         "../../../../api/detect/service/v1/cpp/*.cc"
