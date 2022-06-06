@@ -66,13 +66,11 @@ func NewHTTPServer(
 ) *http.Server {
 	opts := []http.ServerOption{
 		http.Middleware(
-			recovery.Recovery(
-				recovery.WithLogger(logger),
-			),
+			recovery.Recovery(),
 			logging.Server(logger),
 			ratelimit.Server(),
 			selector.Server(
-				auth.JwtAuth(sc.GetSecret()),
+				auth.JwtAuthServiceMiddleware(sc.GetSecret()),
 			).Match(NewSkipRoutersMatcher()).
 				Build(),
 			validate.Validator(),
@@ -97,7 +95,9 @@ func NewHTTPServer(
 	srv := http.NewServer(opts...)
 
 	buguV1.RegisterBuguHTTPServer(srv, bs)
-	buguV1.RegisterBuguFileHTTPServer(srv, bfs)
+	buguV1.RegisterBuguFileHTTPServer(srv, bfs,
+		auth.JwtAuthRouteFilter(sc.GetSecret()),
+	)
 
 	return srv
 }

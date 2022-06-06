@@ -61,9 +61,10 @@ type ArtifactUsecase struct {
 	log *log.Helper
 }
 
-func NewArtifactUsecase(ar ArtifactRepo, fr FileRepo, dc *conf.Data, logger log.Logger) *ArtifactUsecase {
+func NewArtifactUsecase(ar ArtifactRepo, or ObfusionRepo, fr FileRepo, dc *conf.Data, logger log.Logger) *ArtifactUsecase {
 	return &ArtifactUsecase{
 		ar:  ar,
+		or:  or,
 		fr:  fr,
 		dc:  dc,
 		log: log.NewHelper(logger),
@@ -121,7 +122,7 @@ func (uc *ArtifactUsecase) saveFile(ctx context.Context, oData *Obfusion, dir st
 		return nil, buguV1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
 	}
 
-	dir = filepath.Join(filepath.Dir(dir), u.String())
+	dir = filepath.Join(dir, u.String())
 
 	ok, err := pkg.PathExists(dir)
 	if err != nil {
@@ -131,7 +132,7 @@ func (uc *ArtifactUsecase) saveFile(ctx context.Context, oData *Obfusion, dir st
 		return nil, buguV1.ErrorCreateConflict("create file conflict")
 	}
 
-	f, err := os.OpenFile(dir, os.O_WRONLY|os.O_CREATE, 0o666)
+	f, err := os.OpenFile(dir, os.O_RDWR|os.O_CREATE, 0o666)
 	if err != nil {
 		return nil, err
 	}
@@ -156,10 +157,15 @@ func (uc *ArtifactUsecase) saveFile(ctx context.Context, oData *Obfusion, dir st
 
 	_, err = f.Seek(0, 0)
 	if err != nil {
-		return nil, err
+		uc.log.Error(err)
+		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
 	}
 
 	metadata.FileSha1, err = pkg.FileSha1(f)
+	if err != nil {
+		uc.log.Error(err)
+		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
+	}
 
 	return uc.fr.CreateFileMetadata(ctx, metadata)
 }

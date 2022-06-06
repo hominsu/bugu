@@ -7,3 +7,4 @@
 **/consul/data
 cmake-build-*/
 build/
+deploy/docker-compose/data/file

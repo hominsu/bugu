@@ -27,8 +27,11 @@ package auth
 
 import (
 	"context"
+	nethttp "net/http"
 	"strings"
 	"time"
+
+	pkg "bugu/app/bugu/service/internal/pkg/http/error"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/metadata"
@@ -54,7 +57,7 @@ var (
 	ErrMissingKeyFunc         = errors.Unauthorized(reason, "keyFunc is missing")
 	ErrTokenInvalid           = errors.Unauthorized(reason, "Token is invalid")
 	ErrTokenExpired           = errors.Unauthorized(reason, "JWT token has expired")
-	ErrTokenParseFail         = errors.Unauthorized(reason, "Fail to parse JWT token ")
+	ErrTokenParseFail         = errors.Unauthorized(reason, "Fail to parse JWT token")
 	ErrUnSupportSigningMethod = errors.Unauthorized(reason, "Wrong signing method")
 	ErrWrongContext           = errors.Unauthorized(reason, "Wrong context for middleware")
 	ErrNeedTokenProvider      = errors.Unauthorized(reason, "Token provider is missing")
@@ -88,15 +91,14 @@ func GenerateToken(secret, userid string) (string, error) {
 	return tokenString, nil
 }
 
-func JwtAuth(secret string) middleware.Middleware {
+func JwtAuthServiceMiddleware(secret string) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (interface{}, error) {
 			if header, ok := transport.FromServerContext(ctx); ok {
-				auths := strings.SplitN(header.RequestHeader().Get(authorizationKey), " ", 2)
-				if len(auths) != 2 || !strings.EqualFold(auths[0], bearerWord) {
-					return nil, ErrMissingJwtToken
+				jwtToken, err := getJwtTokenFromTrans(header)
+				if err != nil {
+					return nil, err
 				}
-				jwtToken := auths[1]
 
 				claims := &Claims{}
 				tokenInfo, err := jwt.ParseWithClaims(jwtToken, claims, func(token *jwt.Token) (interface{}, error) {
@@ -120,10 +122,69 @@ func JwtAuth(secret string) middleware.Middleware {
 					return nil, ErrTokenInvalid
 				}
 
-				// append the openid to ctx for next service
+				// append the userid to ctx for next service
 				ctx = metadata.AppendToClientContext(ctx, "x-md-global-userid", claims.UserID)
 			}
 			return handler(ctx, req)
 		}
 	}
+}
+
+func getJwtTokenFromTrans(tr transport.Transporter) (string, error) {
+	auths := strings.SplitN(tr.RequestHeader().Get(authorizationKey), " ", 2)
+	if len(auths) != 2 || !strings.EqualFold(auths[0], bearerWord) {
+		return "", ErrMissingJwtToken
+	}
+	return auths[1], nil
+}
+
+func JwtAuthRouteFilter(secret string) func(nethttp.Handler) nethttp.Handler {
+	return func(next nethttp.Handler) nethttp.Handler {
+		return nethttp.HandlerFunc(func(w nethttp.ResponseWriter, r *nethttp.Request) {
+			jwtToken, err := getJwtTokenFromReq(r)
+			if err != nil {
+				pkg.ErrorEncoder(w, r, &pkg.HTTPError{Code: 401, Message: "JWT token is missing"})
+				return
+			}
+
+			claims := &Claims{}
+			tokenInfo, err := jwt.ParseWithClaims(jwtToken, claims, func(token *jwt.Token) (interface{}, error) {
+				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+					return nil, ErrUnSupportSigningMethod
+				}
+				return []byte(secret), nil
+			})
+			if err != nil {
+				if ve, ok := err.(*jwt.ValidationError); ok {
+					if ve.Errors&jwt.ValidationErrorMalformed != 0 {
+						pkg.ErrorEncoder(w, r, &pkg.HTTPError{Code: 401, Message: "Token is invalid"})
+						return
+					} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
+						pkg.ErrorEncoder(w, r, &pkg.HTTPError{Code: 401, Message: "JWT token has expired"})
+						return
+					} else {
+						pkg.ErrorEncoder(w, r, &pkg.HTTPError{Code: 401, Message: "Fail to parse JWT token"})
+						return
+					}
+				}
+				pkg.ErrorEncoder(w, r, &pkg.HTTPError{Code: 401, Message: err.Error()})
+				return
+			} else if !tokenInfo.Valid {
+				pkg.ErrorEncoder(w, r, &pkg.HTTPError{Code: 401, Message: "Token is invalid"})
+			}
+
+			// append the userid to ctx for next service
+			r.Header.Set("x-md-global-userid", claims.UserID)
+
+			next.ServeHTTP(w, r)
+		})
+	}
+}
+
+func getJwtTokenFromReq(r *nethttp.Request) (string, error) {
+	auths := strings.SplitN(r.Header.Get(authorizationKey), " ", 2)
+	if len(auths) != 2 || !strings.EqualFold(auths[0], bearerWord) {
+		return "", ErrMissingJwtToken
+	}
+	return auths[1], nil
 }

@@ -28,15 +28,22 @@ package service
 import (
 	"mime/multipart"
 	nethttp "net/http"
-	"path/filepath"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/transport/http"
 )
 
 func (s *BuguFileService) UploadFile(ctx http.Context) error {
-	req := ctx.Request()
+	userId := ctx.Vars().Get("userId")
+	if userId == "" {
+		return errors.Unauthorized("UNAUTHORIZED", "userId is inconsistent")
+	}
 
+	if ctx.Header().Get("x-md-global-userid") != userId {
+		return errors.Unauthorized("UNAUTHORIZED", "userId is inconsistent")
+	}
+
+	req := ctx.Request()
 	file, handler, err := req.FormFile("file")
 	if err != nil {
 		return err
@@ -53,7 +60,7 @@ func (s *BuguFileService) UploadFile(ctx http.Context) error {
 		return ctx.String(nethttp.StatusBadRequest, "The file size exceeds the limit")
 	}
 
-	dto, err := s.fu.SaveFile(ctx, file, filepath.Dir(s.dc.File.Path))
+	dto, err := s.fu.SaveFile(ctx, file, s.dc.File.Path)
 	if err != nil {
 		return err
 	}
@@ -62,10 +69,18 @@ func (s *BuguFileService) UploadFile(ctx http.Context) error {
 }
 
 func (s *BuguFileService) DownloadFile(ctx http.Context) error {
-	req := ctx.Request()
-	// userid := req.FormValue("userid")
+	vars := ctx.Vars()
 
-	fileID := req.FormValue("id")
+	userId := vars.Get("userId")
+	if userId == "" {
+		return errors.Unauthorized("UNAUTHORIZED", "userId is inconsistent")
+	}
+
+	if ctx.Header().Get("x-md-global-userid") != userId {
+		return errors.Unauthorized("UNAUTHORIZED", "userId is inconsistent")
+	}
+
+	fileID := vars.Get("fileId")
 	if fileID == "" {
 		return errors.BadRequest("FILE_ID_EMPTY", "file id params empty")
 	}
