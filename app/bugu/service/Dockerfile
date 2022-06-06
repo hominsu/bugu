@@ -28,4 +28,5 @@ COPY --from=builder /src/app/${APP_RELATIVE_PATH}/bin /app
 WORKDIR /app
 EXPOSE 8000
 VOLUME /data/conf
+VOLUME /data/file
 CMD ["./server", "-conf", "/data/conf"]

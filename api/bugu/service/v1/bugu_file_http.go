@@ -1,16 +1,18 @@
 package v1
 
-import "github.com/go-kratos/kratos/v2/transport/http"
+import (
+	"github.com/go-kratos/kratos/v2/transport/http"
+)
 
 type BuguFileHTTPServer interface {
 	UploadFile(http.Context) error
 	DownloadFile(http.Context) error
 }
 
-func RegisterBuguFileHTTPServer(s *http.Server, srv BuguFileHTTPServer) {
-	r := s.Route("/")
-	r.POST("/v1/{userid}/files", BuguUploadFileHTTPHandler(srv))
-	r.GET("/v1/{userid}/file/{id}", BuguDownloadFileHTTPHandler(srv))
+func RegisterBuguFileHTTPServer(s *http.Server, srv BuguFileHTTPServer, filter ...http.FilterFunc) {
+	r := s.Route("/", filter...)
+	r.POST("/v1/{userId}/files", BuguUploadFileHTTPHandler(srv))
+	r.GET("/v1/{userId}/file/{fileId}", BuguDownloadFileHTTPHandler(srv))
 }
 
 func BuguUploadFileHTTPHandler(srv BuguFileHTTPServer) func(ctx http.Context) error {

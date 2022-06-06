@@ -11,6 +11,7 @@ services:
       TZ: "Asia/Shanghai"
     volumes:
       - "../../app/bugu/service/configs:/data/conf"
+      - "./data/file:/data/file"
     ports:
       - "8000:8000"
     networks:
@@ -32,6 +33,21 @@ services:
       net:
         aliases:
           - bugu-obfusion-service
+
+  bugu-detect-service:
+    image: hominsu/bugu-detect-service:latest
+    container_name: bugu-detect-service
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - "../../app/detect/service/configs:/data/conf"
+    ports:
+      - "9000:9000"
+    networks:
+      net:
+        aliases:
+          - bugu-detect-service
 
 networks:
   net:

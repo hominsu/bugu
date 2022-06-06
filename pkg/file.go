@@ -62,7 +62,7 @@ func FileSha1(file *os.File) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return hex.EncodeToString(_sha1.Sum(nil)), nil
+	return hex.EncodeToString(_sha1.Sum([]byte(""))), nil
 }
 
 func MD5(data []byte) string {

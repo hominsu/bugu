@@ -23,47 +23,46 @@
  *
  */
 
-package service
+package pkg
 
 import (
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/conf"
-	"github.com/go-kratos/kratos/v2/log"
-	"github.com/google/wire"
+	"fmt"
+	nethttp "net/http"
+
+	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/go-kratos/kratos/v2/transport/http"
 )
 
-// ProviderSet is service providers.
-var ProviderSet = wire.NewSet(NewBuguService, NewBuguFileService)
-
-type BuguService struct {
-	buguV1.UnimplementedBuguServer
-
-	uu  *biz.UserUsecase
-	au  *biz.ArtifactUsecase
-	log *log.Helper
+// HTTPError is an HTTP error.
+type HTTPError struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
 
-func NewBuguService(uu *biz.UserUsecase, au *biz.ArtifactUsecase, logger log.Logger) *BuguService {
-	return &BuguService{
-		uu:  uu,
-		au:  au,
-		log: log.NewHelper(log.With(logger, "module", "service/bugu")),
+func (e *HTTPError) Error() string {
+	return fmt.Sprintf("HTTPError code: %d message: %s", e.Code, e.Message)
+}
+
+// FromError try to convert an error to *HTTPError.
+func FromError(err error) *HTTPError {
+	if err == nil {
+		return nil
 	}
-}
-
-type BuguFileService struct {
-	buguV1.UnimplementedBuguFileServer
-
-	fu  *biz.FileUsecase
-	dc  *conf.Data
-	log *log.Helper
-}
-
-func NewBuguFileService(fu *biz.FileUsecase, dc *conf.Data, logger log.Logger) *BuguFileService {
-	return &BuguFileService{
-		fu:  fu,
-		dc:  dc,
-		log: log.NewHelper(log.With(logger, "module", "service/bugu-file")),
+	if se := new(HTTPError); errors.As(err, &se) {
+		return se
 	}
+	return &HTTPError{Code: 500}
+}
+
+func ErrorEncoder(w nethttp.ResponseWriter, r *nethttp.Request, err error) {
+	se := FromError(err)
+	codec, _ := http.CodecForRequest(r, "Accept")
+	body, err := codec.Marshal(se)
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	w.Header().Set("Content-Type", "application/"+codec.Name())
+	w.WriteHeader(se.Code)
+	_, _ = w.Write(body)
 }

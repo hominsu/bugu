@@ -29,7 +29,7 @@ import (
 	"context"
 	"time"
 
-	v1 "bugu/api/bugu/service/v1"
+	buguV1 "bugu/api/bugu/service/v1"
 	"bugu/app/bugu/service/internal/biz"
 	"bugu/app/bugu/service/internal/data/ent"
 	"bugu/app/bugu/service/internal/data/ent/user"
@@ -56,7 +56,7 @@ func NewUserRepo(data *Data, logger log.Logger) biz.UserRepo {
 func (r *userRepo) CreateUser(ctx context.Context, user *biz.User) (*biz.User, error) {
 	u, err := uuid.NewRandom()
 	if err != nil {
-		return nil, v1.ErrorUuidGenerateFailed("create follow uuid failed, err: %v", err)
+		return nil, buguV1.ErrorUuidGenerateFailed("create follow uuid failed, err: %v", err)
 	}
 
 	po, err := r.data.db.User.Create().
@@ -66,11 +66,11 @@ func (r *userRepo) CreateUser(ctx context.Context, user *biz.User) (*biz.User, e
 		SetPasswordHash(user.PasswordHash).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
-		return nil, v1.ErrorCreateConflict("create conflict, err: %v", err)
+		return nil, buguV1.ErrorCreateConflict("create conflict, err: %v", err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.User{
@@ -88,11 +88,11 @@ func (r *userRepo) UpdateUser(ctx context.Context, user *biz.User) (*biz.User, e
 		SetUpdatedAt(time.Now()).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
-		return nil, v1.ErrorCreateConflict("update conflict, err: %v", err)
+		return nil, buguV1.ErrorCreateConflict("update conflict, err: %v", err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.User{
@@ -106,11 +106,11 @@ func (r *userRepo) UpdateUser(ctx context.Context, user *biz.User) (*biz.User, e
 func (r *userRepo) GetUserByID(ctx context.Context, id uuid.UUID) (*biz.User, error) {
 	po, err := r.data.db.User.Get(ctx, id)
 	if err != nil && ent.IsNotFound(err) {
-		return nil, v1.ErrorNotFoundError("find user id: %s not found, err: %v", id.String(), err)
+		return nil, buguV1.ErrorNotFoundError("find user id: %s not found, err: %v", id.String(), err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.User{
@@ -126,11 +126,11 @@ func (r *userRepo) FineUserByEmail(ctx context.Context, email string) (*biz.User
 		Where(user.EmailEQ(email)).
 		Only(ctx)
 	if err != nil && ent.IsNotFound(err) {
-		return nil, v1.ErrorNotFoundError("find user email: %s not found, err: %v", email, err)
+		return nil, buguV1.ErrorNotFoundError("find user email: %s not found, err: %v", email, err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
-		return nil, v1.ErrorUnknownError("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
 	}
 
 	return &biz.User{
