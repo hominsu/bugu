@@ -3,10 +3,6 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/predicate"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"context"
 	"errors"
 	"fmt"
@@ -14,6 +10,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/predicate"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 
 	"entgo.io/ent"
 )

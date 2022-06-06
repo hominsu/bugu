@@ -27,7 +27,7 @@ target "bugu-bugu-service" {
   args       = {
     AUTHOR_NAME       = "${AUTHOR_NAME}"
     AUTHOR_EMAIL      = "${AUTHOR_EMAIL}"
-    APP_RELATIVE_PATH = "bugu/service"
+    APP_RELATIVE_PATH = "github.com/hominsu/bugu/service"
   }
   tags = [
     "${REPO}/bugu-bugu-service:latest",

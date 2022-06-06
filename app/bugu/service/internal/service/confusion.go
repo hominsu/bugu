@@ -28,7 +28,7 @@ package service
 import (
 	"context"
 
-	buguV1 "bugu/api/bugu/service/v1"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
 )
 
 func (s *BuguService) Confusion(ctx context.Context, in *buguV1.ConfusionRequest) (*buguV1.ConfusionReply, error) {
@@ -39,5 +39,9 @@ func (s *BuguService) Confusion(ctx context.Context, in *buguV1.ConfusionRequest
 		return nil, err
 	}
 
-	return &buguV1.ConfusionReply{ArtifactId: dto.ID.String()}, nil
+	return &buguV1.ConfusionReply{
+		ArtifactId: dto.ID.String(),
+		FileId:     dto.FileID.String(),
+		Method:     dto.Method,
+	}, nil
 }

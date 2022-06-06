@@ -246,6 +246,12 @@
       "properties": {
         "artifactId": {
           "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
         }
       }
     },

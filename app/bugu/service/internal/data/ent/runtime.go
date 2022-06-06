@@ -3,11 +3,12 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/schema"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"time"
+
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/schema"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code

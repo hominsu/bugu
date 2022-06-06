@@ -4,7 +4,7 @@ package bugu.service.v1;
 
 import "errors/errors.proto";
 
-option go_package = "bugu/service/v1;v1";
+option go_package = "github.com/hominsu/bugu/service/v1;v1";
 option java_multiple_files = true;
 
 enum UserServiceErrorReason {

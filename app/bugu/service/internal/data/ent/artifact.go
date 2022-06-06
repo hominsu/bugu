@@ -3,14 +3,14 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
 	"fmt"
 	"strings"
 	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
 )
 
 // Artifact is the model entity for the Artifact schema.

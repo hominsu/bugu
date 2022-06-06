@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package bugu_detect.service.v1;
 
-option go_package = "bugu/api/detect/service/v1;v1";
+option go_package = "github.com/hominsu/bugu/api/detect/service/v1;v1";
 
 service BuguDetect {
   rpc Detect (DetectRequest) returns (DetectReply) {};

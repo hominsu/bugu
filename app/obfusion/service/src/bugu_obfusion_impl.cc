@@ -58,8 +58,8 @@
   thread_pool_->AddTask(obfusion_task);
   auto ret = obfusion_task->get_return();
 
+  _response->add_data(ret->data(), ret->size());
   _response->set_size(ret->size());
-  _response->set_data(0, ret->data(), ret->size());
 
 //  return {::grpc::StatusCode::UNIMPLEMENTED, "method Obfusion not implemented"};
   return ::grpc::Status::OK;

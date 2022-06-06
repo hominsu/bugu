@@ -31,14 +31,14 @@
 package main
 
 import (
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/conf"
-	"bugu/app/bugu/service/internal/data"
-	"bugu/app/bugu/service/internal/server"
-	"bugu/app/bugu/service/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data"
+	"github.com/hominsu/bugu/app/bugu/service/internal/server"
+	"github.com/hominsu/bugu/app/bugu/service/internal/service"
 )
 
 // initApp init kratos application.

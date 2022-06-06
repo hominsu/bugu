@@ -32,9 +32,9 @@ import (
 	"os"
 	"path/filepath"
 
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/pkg"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/pkg"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"

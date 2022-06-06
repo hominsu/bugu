@@ -28,9 +28,9 @@ package data
 import (
 	"context"
 
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/data/ent"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"

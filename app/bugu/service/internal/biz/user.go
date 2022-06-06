@@ -28,10 +28,10 @@ package biz
 import (
 	"context"
 
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/conf"
-	"bugu/app/bugu/service/internal/pkg/middleware/auth"
-	"bugu/pkg"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
+	"github.com/hominsu/bugu/app/bugu/service/internal/pkg/middleware/auth"
+	"github.com/hominsu/bugu/pkg"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"

@@ -30,8 +30,8 @@ import (
 	"testing"
 	"time"
 
-	"bugu/app/bugu/service/internal/conf"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
 	"google.golang.org/protobuf/types/known/durationpb"
 )
 

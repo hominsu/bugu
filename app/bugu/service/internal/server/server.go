@@ -26,11 +26,11 @@
 package server
 
 import (
-	"bugu/app/bugu/service/internal/conf"
 	"github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
 	consulAPI "github.com/hashicorp/consul/api"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
 )
 
 // ProviderSet is server providers.

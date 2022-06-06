@@ -31,7 +31,7 @@ import (
 	"strings"
 	"time"
 
-	pkg "bugu/app/bugu/service/internal/pkg/http/error"
+	pkg "github.com/hominsu/bugu/app/bugu/service/internal/pkg/http/error"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/metadata"

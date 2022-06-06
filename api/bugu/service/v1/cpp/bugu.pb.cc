@@ -235,7 +235,9 @@ struct ConfusionRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConfusionRequestDefaultTypeInternal _ConfusionRequest_default_instance_;
 constexpr ConfusionReply::ConfusionReply(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , method_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct ConfusionReplyDefaultTypeInternal {
   constexpr ConfusionReplyDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -389,6 +391,8 @@ const uint32_t TableStruct_bugu_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, artifact_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, method_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::bugu::service::v1::RegisterRequest_User)},
@@ -461,28 +465,30 @@ const char descriptor_table_protodef_bugu_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "quest\022\031\n\007file_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\",\n\013Dete"
   "ctReply\022\035\n\013artifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\"-"
   "\n\020ConfusionRequest\022\031\n\007file_id\030\001 \001(\tB\010\372B\005"
-  "r\003\260\001\001\"/\n\016ConfusionReply\022\035\n\013artifact_id\030\001"
-  " \001(\tB\010\372B\005r\003\260\001\0012\200\005\n\004Bugu\022b\n\010Register\022 .bu"
-  "gu.service.v1.RegisterRequest\032\036.bugu.ser"
-  "vice.v1.RegisterReply\"\024\202\323\344\223\002\016\"\t/v1/users"
-  ":\001*\022_\n\005Login\022\035.bugu.service.v1.LoginRequ"
-  "est\032\033.bugu.service.v1.LoginReply\"\032\202\323\344\223\002\024"
-  "\"\017/v1/users/login:\001*\022u\n\016GetCurrentUser\022&"
-  ".bugu.service.v1.GetCurrentUserRequest\032$"
-  ".bugu.service.v1.GetCurrentUserReply\"\025\202\323"
-  "\344\223\002\017\022\r/v1/user/{id}\022h\n\nUpdateUser\022\".bugu"
-  ".service.v1.UpdateUserRequest\032 .bugu.ser"
-  "vice.v1.UpdateUserReply\"\024\202\323\344\223\002\016\032\t/v1/use"
-  "rs:\001*\022b\n\006Detect\022\036.bugu.service.v1.Detect"
-  "Request\032\034.bugu.service.v1.DetectReply\"\032\202"
-  "\323\344\223\002\024\"\017/v1/file/detect:\001*\022n\n\tConfusion\022!"
-  ".bugu.service.v1.ConfusionRequest\032\037.bugu"
-  ".service.v1.ConfusionReply\"\035\202\323\344\223\002\027\"\022/v1/"
-  "file/confusion:\001*B\241\001Z\033bugu/api/bugu/serv"
-  "ice/v1;v1\222A\200\001\022W\n\nE-Code API\"D\n\014Bugu Back"
-  "end\022\037https://github.com/hominsu/bugu\032\023ho"
-  "minsu@foxmail.com2\0031.0*\001\0022\020application/j"
-  "son:\020application/jsonb\006proto3"
+  "r\003\260\001\001\"Z\n\016ConfusionReply\022\035\n\013artifact_id\030\001"
+  " \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010\372B\005r\003\260\001"
+  "\001\022\016\n\006method\030\003 \001(\t2\200\005\n\004Bugu\022b\n\010Register\022 "
+  ".bugu.service.v1.RegisterRequest\032\036.bugu."
+  "service.v1.RegisterReply\"\024\202\323\344\223\002\016\"\t/v1/us"
+  "ers:\001*\022_\n\005Login\022\035.bugu.service.v1.LoginR"
+  "equest\032\033.bugu.service.v1.LoginReply\"\032\202\323\344"
+  "\223\002\024\"\017/v1/users/login:\001*\022u\n\016GetCurrentUse"
+  "r\022&.bugu.service.v1.GetCurrentUserReques"
+  "t\032$.bugu.service.v1.GetCurrentUserReply\""
+  "\025\202\323\344\223\002\017\022\r/v1/user/{id}\022h\n\nUpdateUser\022\".b"
+  "ugu.service.v1.UpdateUserRequest\032 .bugu."
+  "service.v1.UpdateUserReply\"\024\202\323\344\223\002\016\032\t/v1/"
+  "users:\001*\022b\n\006Detect\022\036.bugu.service.v1.Det"
+  "ectRequest\032\034.bugu.service.v1.DetectReply"
+  "\"\032\202\323\344\223\002\024\"\017/v1/file/detect:\001*\022n\n\tConfusio"
+  "n\022!.bugu.service.v1.ConfusionRequest\032\037.b"
+  "ugu.service.v1.ConfusionReply\"\035\202\323\344\223\002\027\"\022/"
+  "v1/file/confusion:\001*B\264\001Z.github.com/homi"
+  "nsu/bugu/api/bugu/service/v1;v1\222A\200\001\022W\n\nE"
+  "-Code API\"D\n\014Bugu Backend\022\037https://githu"
+  "b.com/hominsu/bugu\032\023hominsu@foxmail.com2"
+  "\0031.0*\001\0022\020application/json:\020application/j"
+  "sonb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_bugu_2eproto_deps[3] = {
   &::descriptor_table_google_2fapi_2fannotations_2eproto,
@@ -491,7 +497,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bugu_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bugu_2eproto = {
-  false, false, 1989, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
+  false, false, 2051, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
   &descriptor_table_bugu_2eproto_once, descriptor_table_bugu_2eproto_deps, 3, 18,
   schemas, file_default_instances, TableStruct_bugu_2eproto::offsets,
   file_level_metadata_bugu_2eproto, file_level_enum_descriptors_bugu_2eproto, file_level_service_descriptors_bugu_2eproto,
@@ -4391,6 +4397,22 @@ ConfusionReply::ConfusionReply(const ConfusionReply& from)
     artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_artifact_id(), 
       GetArenaForAllocation());
   }
+  file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_file_id().empty()) {
+    file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_id(), 
+      GetArenaForAllocation());
+  }
+  method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_method().empty()) {
+    method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_method(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:bugu.service.v1.ConfusionReply)
 }
 
@@ -4398,6 +4420,14 @@ inline void ConfusionReply::SharedCtor() {
 artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -4411,6 +4441,8 @@ ConfusionReply::~ConfusionReply() {
 inline void ConfusionReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   artifact_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  method_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void ConfusionReply::ArenaDtor(void* object) {
@@ -4430,6 +4462,8 @@ void ConfusionReply::Clear() {
   (void) cached_has_bits;
 
   artifact_id_.ClearToEmpty();
+  file_id_.ClearToEmpty();
+  method_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4445,6 +4479,26 @@ const char* ConfusionReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           auto str = _internal_mutable_artifact_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.artifact_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string method = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_method();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.method"));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4488,6 +4542,26 @@ uint8_t* ConfusionReply::_InternalSerialize(
         1, this->_internal_artifact_id(), target);
   }
 
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.ConfusionReply.file_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_id(), target);
+  }
+
+  // string method = 3;
+  if (!this->_internal_method().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_method().data(), static_cast<int>(this->_internal_method().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.ConfusionReply.method");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_method(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4509,6 +4583,20 @@ size_t ConfusionReply::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_artifact_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
+  }
+
+  // string method = 3;
+  if (!this->_internal_method().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_method());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -4536,6 +4624,12 @@ void ConfusionReply::MergeFrom(const ConfusionReply& from) {
   if (!from._internal_artifact_id().empty()) {
     _internal_set_artifact_id(from._internal_artifact_id());
   }
+  if (!from._internal_file_id().empty()) {
+    _internal_set_file_id(from._internal_file_id());
+  }
+  if (!from._internal_method().empty()) {
+    _internal_set_method(from._internal_method());
+  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4559,6 +4653,16 @@ void ConfusionReply::InternalSwap(ConfusionReply* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &artifact_id_, lhs_arena,
       &other->artifact_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_id_, lhs_arena,
+      &other->file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &method_, lhs_arena,
+      &other->method_, rhs_arena
   );
 }
 

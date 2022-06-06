@@ -3,10 +3,6 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/predicate"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"context"
 	"database/sql/driver"
 	"errors"
@@ -17,6 +13,10 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/google/uuid"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/predicate"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 // FileQuery is the builder for querying File entities.

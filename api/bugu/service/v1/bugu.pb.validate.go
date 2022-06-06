@@ -1809,6 +1809,20 @@ func (m *ConfusionReply) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = ConfusionReplyValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Method
+
 	if len(errors) > 0 {
 		return ConfusionReplyMultiError(errors)
 	}
