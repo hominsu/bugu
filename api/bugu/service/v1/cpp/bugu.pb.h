@@ -2567,9 +2567,24 @@ class DetectRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFileIdFieldNumber = 1,
+    kUserIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
   };
-  // string file_id = 1 [(.validate.rules) = {
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
   void clear_file_id();
   const std::string& file_id() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -2590,6 +2605,7 @@ class DetectRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bugu_2eproto;
@@ -2869,9 +2885,24 @@ class ConfusionRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kFileIdFieldNumber = 1,
+    kUserIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
   };
-  // string file_id = 1 [(.validate.rules) = {
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
   void clear_file_id();
   const std::string& file_id() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -2892,6 +2923,7 @@ class ConfusionRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bugu_2eproto;
@@ -3022,7 +3054,8 @@ class ConfusionReply final :
   enum : int {
     kArtifactIdFieldNumber = 1,
     kFileIdFieldNumber = 2,
-    kMethodFieldNumber = 3,
+    kAffiliatedFileIdFieldNumber = 3,
+    kMethodFieldNumber = 4,
   };
   // string artifact_id = 1 [(.validate.rules) = {
   void clear_artifact_id();
@@ -3052,7 +3085,21 @@ class ConfusionReply final :
   std::string* _internal_mutable_file_id();
   public:
 
-  // string method = 3;
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  void clear_affiliated_file_id();
+  const std::string& affiliated_file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_affiliated_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_affiliated_file_id();
+  PROTOBUF_NODISCARD std::string* release_affiliated_file_id();
+  void set_allocated_affiliated_file_id(std::string* affiliated_file_id);
+  private:
+  const std::string& _internal_affiliated_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_affiliated_file_id(const std::string& value);
+  std::string* _internal_mutable_affiliated_file_id();
+  public:
+
+  // string method = 4;
   void clear_method();
   const std::string& method() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -3075,6 +3122,7 @@ class ConfusionReply final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr artifact_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr affiliated_file_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr method_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bugu_2eproto;
@@ -4612,7 +4660,58 @@ inline void FileUploadReply::set_allocated_id(std::string* id) {
 
 // DetectRequest
 
-// string file_id = 1 [(.validate.rules) = {
+// string user_id = 1 [(.validate.rules) = {
+inline void DetectRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& DetectRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.DetectRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DetectRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.DetectRequest.user_id)
+}
+inline std::string* DetectRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.DetectRequest.user_id)
+  return _s;
+}
+inline const std::string& DetectRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void DetectRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* DetectRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* DetectRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.DetectRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void DetectRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.DetectRequest.user_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
 inline void DetectRequest::clear_file_id() {
   file_id_.ClearToEmpty();
 }
@@ -4722,7 +4821,58 @@ inline void DetectReply::set_allocated_artifact_id(std::string* artifact_id) {
 
 // ConfusionRequest
 
-// string file_id = 1 [(.validate.rules) = {
+// string user_id = 1 [(.validate.rules) = {
+inline void ConfusionRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& ConfusionRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.ConfusionRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ConfusionRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.ConfusionRequest.user_id)
+}
+inline std::string* ConfusionRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.ConfusionRequest.user_id)
+  return _s;
+}
+inline const std::string& ConfusionRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void ConfusionRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* ConfusionRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* ConfusionRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.ConfusionRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void ConfusionRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.ConfusionRequest.user_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
 inline void ConfusionRequest::clear_file_id() {
   file_id_.ClearToEmpty();
 }
@@ -4879,7 +5029,58 @@ inline void ConfusionReply::set_allocated_file_id(std::string* file_id) {
   // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.ConfusionReply.file_id)
 }
 
-// string method = 3;
+// string affiliated_file_id = 3 [(.validate.rules) = {
+inline void ConfusionReply::clear_affiliated_file_id() {
+  affiliated_file_id_.ClearToEmpty();
+}
+inline const std::string& ConfusionReply::affiliated_file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.ConfusionReply.affiliated_file_id)
+  return _internal_affiliated_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ConfusionReply::set_affiliated_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.ConfusionReply.affiliated_file_id)
+}
+inline std::string* ConfusionReply::mutable_affiliated_file_id() {
+  std::string* _s = _internal_mutable_affiliated_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.ConfusionReply.affiliated_file_id)
+  return _s;
+}
+inline const std::string& ConfusionReply::_internal_affiliated_file_id() const {
+  return affiliated_file_id_.Get();
+}
+inline void ConfusionReply::_internal_set_affiliated_file_id(const std::string& value) {
+  
+  affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* ConfusionReply::_internal_mutable_affiliated_file_id() {
+  
+  return affiliated_file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* ConfusionReply::release_affiliated_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.ConfusionReply.affiliated_file_id)
+  return affiliated_file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void ConfusionReply::set_allocated_affiliated_file_id(std::string* affiliated_file_id) {
+  if (affiliated_file_id != nullptr) {
+    
+  } else {
+    
+  }
+  affiliated_file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), affiliated_file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (affiliated_file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.ConfusionReply.affiliated_file_id)
+}
+
+// string method = 4;
 inline void ConfusionReply::clear_method() {
   method_.ClearToEmpty();
 }

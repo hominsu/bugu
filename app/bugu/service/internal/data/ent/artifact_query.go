@@ -417,7 +417,7 @@ func (aq *ArtifactQuery) sqlAll(ctx context.Context) ([]*Artifact, error) {
 		ids := make([]uuid.UUID, 0, len(nodes))
 		nodeids := make(map[uuid.UUID][]*Artifact)
 		for i := range nodes {
-			fk := nodes[i].FileID
+			fk := nodes[i].AffiliatedFileID
 			if _, ok := nodeids[fk]; !ok {
 				ids = append(ids, fk)
 			}
@@ -431,7 +431,7 @@ func (aq *ArtifactQuery) sqlAll(ctx context.Context) ([]*Artifact, error) {
 		for _, n := range neighbors {
 			nodes, ok := nodeids[n.ID]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "file_id" returned %v`, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "affiliated_file_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
 				nodes[i].Edges.AffiliatedFile = n

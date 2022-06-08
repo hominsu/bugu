@@ -39,45 +39,74 @@ type Sha1Stream struct {
 	_sha1 hash.Hash
 }
 
-func (ss *Sha1Stream) Update(data []byte) {
+func (ss *Sha1Stream) UpdateByte(data []byte) (size int64, err error) {
 	if ss._sha1 == nil {
 		ss._sha1 = sha1.New()
 	}
-	ss._sha1.Write(data)
+
+	rSize, err := ss._sha1.Write(data)
+	if err != nil {
+		return 0, err
+	}
+
+	return int64(rSize), nil
+}
+
+func (ss *Sha1Stream) UpdateIO(ioReader io.Reader) (size int64, err error) {
+	if ss._sha1 == nil {
+		ss._sha1 = sha1.New()
+	}
+
+	rSize, err := io.Copy(ss._sha1, ioReader)
+	if err != nil {
+		return 0, err
+	}
+
+	return rSize, nil
+}
+
+func (ss *Sha1Stream) Reset() {
+	ss._sha1.Reset()
 }
 
 func (ss *Sha1Stream) Sum() string {
 	return hex.EncodeToString(ss._sha1.Sum([]byte("")))
 }
 
-func Sha1(data []byte) string {
+func Sha1(data []byte) (string, int64, error) {
 	_sha1 := sha1.New()
-	_sha1.Write(data)
-	return hex.EncodeToString(_sha1.Sum([]byte("")))
+	size, err := _sha1.Write(data)
+	if err != nil {
+		return "", 0, err
+	}
+	return hex.EncodeToString(_sha1.Sum([]byte(""))), int64(size), nil
 }
 
-func FileSha1(file *os.File) (string, error) {
+func IOSha1(ioReader io.Reader) (string, int64, error) {
 	_sha1 := sha1.New()
-	_, err := io.Copy(_sha1, file)
+	size, err := io.Copy(_sha1, ioReader)
 	if err != nil {
-		return "", err
+		return "", 0, err
 	}
-	return hex.EncodeToString(_sha1.Sum([]byte(""))), nil
+	return hex.EncodeToString(_sha1.Sum([]byte(""))), size, nil
 }
 
-func MD5(data []byte) string {
+func MD5(data []byte) (string, int64, error) {
 	_md5 := md5.New()
-	_md5.Write(data)
-	return hex.EncodeToString(_md5.Sum([]byte("")))
+	size, err := _md5.Write(data)
+	if err != nil {
+		return "", 0, err
+	}
+	return hex.EncodeToString(_md5.Sum([]byte(""))), int64(size), nil
 }
 
-func FileMD5(file *os.File) (string, error) {
+func IOMd5(file io.Reader) (string, int64, error) {
 	_md5 := md5.New()
-	_, err := io.Copy(_md5, file)
+	size, err := io.Copy(_md5, file)
 	if err != nil {
-		return "", err
+		return "", 0, err
 	}
-	return hex.EncodeToString(_md5.Sum(nil)), nil
+	return hex.EncodeToString(_md5.Sum(nil)), size, nil
 }
 
 func PathExists(path string) (bool, error) {

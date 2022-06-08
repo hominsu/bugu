@@ -13,6 +13,8 @@ const (
 	FieldID = "id"
 	// FieldFileID holds the string denoting the file_id field in the database.
 	FieldFileID = "file_id"
+	// FieldAffiliatedFileID holds the string denoting the affiliated_file_id field in the database.
+	FieldAffiliatedFileID = "affiliated_file_id"
 	// FieldMethod holds the string denoting the method field in the database.
 	FieldMethod = "method"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -31,7 +33,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "file" package.
 	AffiliatedFileInverseTable = "files"
 	// AffiliatedFileColumn is the table column denoting the affiliated_file relation/edge.
-	AffiliatedFileColumn = "file_id"
+	AffiliatedFileColumn = "affiliated_file_id"
 	// AffiliatedUserTable is the table that holds the affiliated_user relation/edge. The primary key declared below.
 	AffiliatedUserTable = "user_user_artifact"
 	// AffiliatedUserInverseTable is the table name for the User entity.
@@ -43,6 +45,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldFileID,
+	FieldAffiliatedFileID,
 	FieldMethod,
 	FieldCreatedAt,
 	FieldUpdatedAt,

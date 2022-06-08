@@ -428,10 +428,10 @@ func (fq *FileQuery) sqlAll(ctx context.Context) ([]*File, error) {
 			return nil, err
 		}
 		for _, n := range neighbors {
-			fk := n.FileID
+			fk := n.AffiliatedFileID
 			node, ok := nodeids[fk]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "file_id" returned %v for node %v`, fk, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "affiliated_file_id" returned %v for node %v`, fk, n.ID)
 			}
 			node.Edges.Artifact = n
 		}

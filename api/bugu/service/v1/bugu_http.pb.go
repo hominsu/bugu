@@ -32,8 +32,8 @@ func RegisterBuguHTTPServer(s *http.Server, srv BuguHTTPServer) {
 	r.POST("/v1/users/login", _Bugu_Login0_HTTP_Handler(srv))
 	r.GET("/v1/user/{id}", _Bugu_GetCurrentUser0_HTTP_Handler(srv))
 	r.PUT("/v1/users", _Bugu_UpdateUser0_HTTP_Handler(srv))
-	r.POST("/v1/file/detect", _Bugu_Detect0_HTTP_Handler(srv))
-	r.POST("/v1/file/confusion", _Bugu_Confusion0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/file/{file_id}/detect", _Bugu_Detect0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/file/{file_id}/confusion", _Bugu_Confusion0_HTTP_Handler(srv))
 }
 
 func _Bugu_Register0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
@@ -118,7 +118,10 @@ func _Bugu_UpdateUser0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) e
 func _Bugu_Detect0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in DetectRequest
-		if err := ctx.Bind(&in); err != nil {
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Detect")
@@ -137,7 +140,10 @@ func _Bugu_Detect0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error
 func _Bugu_Confusion0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ConfusionRequest
-		if err := ctx.Bind(&in); err != nil {
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Confusion")
@@ -172,11 +178,11 @@ func NewBuguHTTPClient(client *http.Client) BuguHTTPClient {
 
 func (c *BuguHTTPClientImpl) Confusion(ctx context.Context, in *ConfusionRequest, opts ...http.CallOption) (*ConfusionReply, error) {
 	var out ConfusionReply
-	pattern := "/v1/file/confusion"
-	path := binding.EncodeURL(pattern, in, false)
+	pattern := "/v1/user/{user_id}/file/{file_id}/confusion"
+	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/Confusion"))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -185,11 +191,11 @@ func (c *BuguHTTPClientImpl) Confusion(ctx context.Context, in *ConfusionRequest
 
 func (c *BuguHTTPClientImpl) Detect(ctx context.Context, in *DetectRequest, opts ...http.CallOption) (*DetectReply, error) {
 	var out DetectReply
-	pattern := "/v1/file/detect"
-	path := binding.EncodeURL(pattern, in, false)
+	pattern := "/v1/user/{user_id}/file/{file_id}/detect"
+	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/Detect"))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

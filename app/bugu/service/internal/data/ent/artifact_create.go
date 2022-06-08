@@ -29,6 +29,12 @@ func (ac *ArtifactCreate) SetFileID(u uuid.UUID) *ArtifactCreate {
 	return ac
 }
 
+// SetAffiliatedFileID sets the "affiliated_file_id" field.
+func (ac *ArtifactCreate) SetAffiliatedFileID(u uuid.UUID) *ArtifactCreate {
+	ac.mutation.SetAffiliatedFileID(u)
+	return ac
+}
+
 // SetMethod sets the "method" field.
 func (ac *ArtifactCreate) SetMethod(s string) *ArtifactCreate {
 	ac.mutation.SetMethod(s)
@@ -74,12 +80,6 @@ func (ac *ArtifactCreate) SetNillableUpdatedAt(t *time.Time) *ArtifactCreate {
 // SetID sets the "id" field.
 func (ac *ArtifactCreate) SetID(u uuid.UUID) *ArtifactCreate {
 	ac.mutation.SetID(u)
-	return ac
-}
-
-// SetAffiliatedFileID sets the "affiliated_file" edge to the File entity by ID.
-func (ac *ArtifactCreate) SetAffiliatedFileID(id uuid.UUID) *ArtifactCreate {
-	ac.mutation.SetAffiliatedFileID(id)
 	return ac
 }
 
@@ -189,6 +189,9 @@ func (ac *ArtifactCreate) check() error {
 	if _, ok := ac.mutation.FileID(); !ok {
 		return &ValidationError{Name: "file_id", err: errors.New(`ent: missing required field "Artifact.file_id"`)}
 	}
+	if _, ok := ac.mutation.AffiliatedFileID(); !ok {
+		return &ValidationError{Name: "affiliated_file_id", err: errors.New(`ent: missing required field "Artifact.affiliated_file_id"`)}
+	}
 	if _, ok := ac.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Artifact.created_at"`)}
 	}
@@ -234,6 +237,14 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 		_node.ID = id
 		_spec.ID.Value = &id
 	}
+	if value, ok := ac.mutation.FileID(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: artifact.FieldFileID,
+		})
+		_node.FileID = value
+	}
 	if value, ok := ac.mutation.Method(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -275,7 +286,7 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.FileID = nodes[0]
+		_node.AffiliatedFileID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := ac.mutation.AffiliatedUserIDs(); len(nodes) > 0 {

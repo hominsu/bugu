@@ -20,6 +20,7 @@ func (Artifact) Fields() []ent.Field {
 	return []ent.Field{
 		field.UUID("id", uuid.UUID{}),
 		field.UUID("file_id", uuid.UUID{}),
+		field.UUID("affiliated_file_id", uuid.UUID{}),
 		field.String("method").Optional(),
 		field.Time("created_at").
 			Default(time.Now).
@@ -40,7 +41,7 @@ func (Artifact) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("affiliated_file", File.Type).
 			Ref("artifact").
-			Field("file_id").
+			Field("affiliated_file_id").
 			Unique().
 			Required(),
 		edge.From("affiliated_user", User.Type).

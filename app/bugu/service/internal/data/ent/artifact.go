@@ -20,6 +20,8 @@ type Artifact struct {
 	ID uuid.UUID `json:"id,omitempty"`
 	// FileID holds the value of the "file_id" field.
 	FileID uuid.UUID `json:"file_id,omitempty"`
+	// AffiliatedFileID holds the value of the "affiliated_file_id" field.
+	AffiliatedFileID uuid.UUID `json:"affiliated_file_id,omitempty"`
 	// Method holds the value of the "method" field.
 	Method string `json:"method,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -74,7 +76,7 @@ func (*Artifact) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullString)
 		case artifact.FieldCreatedAt, artifact.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
-		case artifact.FieldID, artifact.FieldFileID:
+		case artifact.FieldID, artifact.FieldFileID, artifact.FieldAffiliatedFileID:
 			values[i] = new(uuid.UUID)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type Artifact", columns[i])
@@ -102,6 +104,12 @@ func (a *Artifact) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field file_id", values[i])
 			} else if value != nil {
 				a.FileID = *value
+			}
+		case artifact.FieldAffiliatedFileID:
+			if value, ok := values[i].(*uuid.UUID); !ok {
+				return fmt.Errorf("unexpected type %T for field affiliated_file_id", values[i])
+			} else if value != nil {
+				a.AffiliatedFileID = *value
 			}
 		case artifact.FieldMethod:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -161,6 +169,8 @@ func (a *Artifact) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", a.ID))
 	builder.WriteString(", file_id=")
 	builder.WriteString(fmt.Sprintf("%v", a.FileID))
+	builder.WriteString(", affiliated_file_id=")
+	builder.WriteString(fmt.Sprintf("%v", a.AffiliatedFileID))
 	builder.WriteString(", method=")
 	builder.WriteString(a.Method)
 	builder.WriteString(", created_at=")

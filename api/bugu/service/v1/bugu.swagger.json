@@ -24,70 +24,6 @@
     "application/json"
   ],
   "paths": {
-    "/v1/file/confusion": {
-      "post": {
-        "operationId": "Bugu_Confusion",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ConfusionReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ConfusionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Bugu"
-        ]
-      }
-    },
-    "/v1/file/detect": {
-      "post": {
-        "operationId": "Bugu_Detect",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DetectReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1DetectRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Bugu"
-        ]
-      }
-    },
     "/v1/user/{id}": {
       "get": {
         "operationId": "Bugu_GetCurrentUser",
@@ -108,6 +44,78 @@
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/file/{fileId}/confusion": {
+      "get": {
+        "operationId": "Bugu_Confusion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConfusionReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/file/{fileId}/detect": {
+      "get": {
+        "operationId": "Bugu_Detect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DetectReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -250,15 +258,10 @@
         "fileId": {
           "type": "string"
         },
-        "method": {
+        "affiliatedFileId": {
           "type": "string"
-        }
-      }
-    },
-    "v1ConfusionRequest": {
-      "type": "object",
-      "properties": {
-        "fileId": {
+        },
+        "method": {
           "type": "string"
         }
       }
@@ -267,14 +270,6 @@
       "type": "object",
       "properties": {
         "artifactId": {
-          "type": "string"
-        }
-      }
-    },
-    "v1DetectRequest": {
-      "type": "object",
-      "properties": {
-        "fileId": {
           "type": "string"
         }
       }

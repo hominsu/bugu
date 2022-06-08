@@ -101,6 +101,13 @@ func FileID(v uuid.UUID) predicate.Artifact {
 	})
 }
 
+// AffiliatedFileID applies equality check predicate on the "affiliated_file_id" field. It's identical to AffiliatedFileIDEQ.
+func AffiliatedFileID(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
 // Method applies equality check predicate on the "method" field. It's identical to MethodEQ.
 func Method(v string) predicate.Artifact {
 	return predicate.Artifact(func(s *sql.Selector) {
@@ -167,6 +174,82 @@ func FileIDNotIn(vs ...uuid.UUID) predicate.Artifact {
 			return
 		}
 		s.Where(sql.NotIn(s.C(FieldFileID), v...))
+	})
+}
+
+// FileIDGT applies the GT predicate on the "file_id" field.
+func FileIDGT(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFileID), v))
+	})
+}
+
+// FileIDGTE applies the GTE predicate on the "file_id" field.
+func FileIDGTE(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFileID), v))
+	})
+}
+
+// FileIDLT applies the LT predicate on the "file_id" field.
+func FileIDLT(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFileID), v))
+	})
+}
+
+// FileIDLTE applies the LTE predicate on the "file_id" field.
+func FileIDLTE(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFileID), v))
+	})
+}
+
+// AffiliatedFileIDEQ applies the EQ predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDEQ(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
+// AffiliatedFileIDNEQ applies the NEQ predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDNEQ(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
+// AffiliatedFileIDIn applies the In predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDIn(vs ...uuid.UUID) predicate.Artifact {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Artifact(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldAffiliatedFileID), v...))
+	})
+}
+
+// AffiliatedFileIDNotIn applies the NotIn predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDNotIn(vs ...uuid.UUID) predicate.Artifact {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Artifact(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldAffiliatedFileID), v...))
 	})
 }
 

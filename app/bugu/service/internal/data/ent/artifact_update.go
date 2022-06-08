@@ -37,6 +37,12 @@ func (au *ArtifactUpdate) SetFileID(u uuid.UUID) *ArtifactUpdate {
 	return au
 }
 
+// SetAffiliatedFileID sets the "affiliated_file_id" field.
+func (au *ArtifactUpdate) SetAffiliatedFileID(u uuid.UUID) *ArtifactUpdate {
+	au.mutation.SetAffiliatedFileID(u)
+	return au
+}
+
 // SetMethod sets the "method" field.
 func (au *ArtifactUpdate) SetMethod(s string) *ArtifactUpdate {
 	au.mutation.SetMethod(s)
@@ -68,12 +74,6 @@ func (au *ArtifactUpdate) SetNillableUpdatedAt(t *time.Time) *ArtifactUpdate {
 	if t != nil {
 		au.SetUpdatedAt(*t)
 	}
-	return au
-}
-
-// SetAffiliatedFileID sets the "affiliated_file" edge to the File entity by ID.
-func (au *ArtifactUpdate) SetAffiliatedFileID(id uuid.UUID) *ArtifactUpdate {
-	au.mutation.SetAffiliatedFileID(id)
 	return au
 }
 
@@ -215,6 +215,13 @@ func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := au.mutation.FileID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: artifact.FieldFileID,
+		})
+	}
 	if value, ok := au.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -349,6 +356,12 @@ func (auo *ArtifactUpdateOne) SetFileID(u uuid.UUID) *ArtifactUpdateOne {
 	return auo
 }
 
+// SetAffiliatedFileID sets the "affiliated_file_id" field.
+func (auo *ArtifactUpdateOne) SetAffiliatedFileID(u uuid.UUID) *ArtifactUpdateOne {
+	auo.mutation.SetAffiliatedFileID(u)
+	return auo
+}
+
 // SetMethod sets the "method" field.
 func (auo *ArtifactUpdateOne) SetMethod(s string) *ArtifactUpdateOne {
 	auo.mutation.SetMethod(s)
@@ -380,12 +393,6 @@ func (auo *ArtifactUpdateOne) SetNillableUpdatedAt(t *time.Time) *ArtifactUpdate
 	if t != nil {
 		auo.SetUpdatedAt(*t)
 	}
-	return auo
-}
-
-// SetAffiliatedFileID sets the "affiliated_file" edge to the File entity by ID.
-func (auo *ArtifactUpdateOne) SetAffiliatedFileID(id uuid.UUID) *ArtifactUpdateOne {
-	auo.mutation.SetAffiliatedFileID(id)
 	return auo
 }
 
@@ -550,6 +557,13 @@ func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := auo.mutation.FileID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: artifact.FieldFileID,
+		})
 	}
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
