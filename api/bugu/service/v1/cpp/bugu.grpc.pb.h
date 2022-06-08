@@ -79,6 +79,20 @@ class Bugu final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::ConfusionReply>> PrepareAsyncConfusion(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::ConfusionReply>>(PrepareAsyncConfusionRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::bugu::service::v1::GetArtifactMetadataReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataReply>> AsyncGetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataReply>>(AsyncGetArtifactMetadataRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataReply>> PrepareAsyncGetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataReply>>(PrepareAsyncGetArtifactMetadataRaw(context, request, cq));
+    }
+    virtual ::grpc::Status GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>> AsyncGetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>>(AsyncGetArtifactMetadataByFileIdRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>> PrepareAsyncGetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>>(PrepareAsyncGetArtifactMetadataByFileIdRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -94,6 +108,10 @@ class Bugu final {
       virtual void Detect(::grpc::ClientContext* context, const ::bugu::service::v1::DetectRequest* request, ::bugu::service::v1::DetectReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void Confusion(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest* request, ::bugu::service::v1::ConfusionReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Confusion(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest* request, ::bugu::service::v1::ConfusionReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -111,6 +129,10 @@ class Bugu final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::DetectReply>* PrepareAsyncDetectRaw(::grpc::ClientContext* context, const ::bugu::service::v1::DetectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::ConfusionReply>* AsyncConfusionRaw(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::ConfusionReply>* PrepareAsyncConfusionRaw(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataReply>* AsyncGetArtifactMetadataRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataReply>* PrepareAsyncGetArtifactMetadataRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* AsyncGetArtifactMetadataByFileIdRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* PrepareAsyncGetArtifactMetadataByFileIdRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -157,6 +179,20 @@ class Bugu final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::ConfusionReply>> PrepareAsyncConfusion(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::ConfusionReply>>(PrepareAsyncConfusionRaw(context, request, cq));
     }
+    ::grpc::Status GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::bugu::service::v1::GetArtifactMetadataReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>> AsyncGetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>>(AsyncGetArtifactMetadataRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>> PrepareAsyncGetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>>(PrepareAsyncGetArtifactMetadataRaw(context, request, cq));
+    }
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>> AsyncGetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>>(AsyncGetArtifactMetadataByFileIdRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>> PrepareAsyncGetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>>(PrepareAsyncGetArtifactMetadataByFileIdRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -172,6 +208,10 @@ class Bugu final {
       void Detect(::grpc::ClientContext* context, const ::bugu::service::v1::DetectRequest* request, ::bugu::service::v1::DetectReply* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Confusion(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest* request, ::bugu::service::v1::ConfusionReply* response, std::function<void(::grpc::Status)>) override;
       void Confusion(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest* request, ::bugu::service::v1::ConfusionReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response, std::function<void(::grpc::Status)>) override;
+      void GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response, std::function<void(::grpc::Status)>) override;
+      void GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -195,12 +235,18 @@ class Bugu final {
     ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::DetectReply>* PrepareAsyncDetectRaw(::grpc::ClientContext* context, const ::bugu::service::v1::DetectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::ConfusionReply>* AsyncConfusionRaw(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::ConfusionReply>* PrepareAsyncConfusionRaw(::grpc::ClientContext* context, const ::bugu::service::v1::ConfusionRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>* AsyncGetArtifactMetadataRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>* PrepareAsyncGetArtifactMetadataRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* AsyncGetArtifactMetadataByFileIdRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* PrepareAsyncGetArtifactMetadataByFileIdRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Register_;
     const ::grpc::internal::RpcMethod rpcmethod_Login_;
     const ::grpc::internal::RpcMethod rpcmethod_GetCurrentUser_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateUser_;
     const ::grpc::internal::RpcMethod rpcmethod_Detect_;
     const ::grpc::internal::RpcMethod rpcmethod_Confusion_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetArtifactMetadata_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetArtifactMetadataByFileId_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -214,6 +260,8 @@ class Bugu final {
     virtual ::grpc::Status UpdateUser(::grpc::ServerContext* context, const ::bugu::service::v1::UpdateUserRequest* request, ::bugu::service::v1::UpdateUserReply* response);
     virtual ::grpc::Status Detect(::grpc::ServerContext* context, const ::bugu::service::v1::DetectRequest* request, ::bugu::service::v1::DetectReply* response);
     virtual ::grpc::Status Confusion(::grpc::ServerContext* context, const ::bugu::service::v1::ConfusionRequest* request, ::bugu::service::v1::ConfusionReply* response);
+    virtual ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response);
+    virtual ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Register : public BaseClass {
@@ -335,7 +383,47 @@ class Bugu final {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Register<WithAsyncMethod_Login<WithAsyncMethod_GetCurrentUser<WithAsyncMethod_UpdateUser<WithAsyncMethod_Detect<WithAsyncMethod_Confusion<Service > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetArtifactMetadata : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetArtifactMetadata() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_GetArtifactMetadata() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetArtifactMetadata(::grpc::ServerContext* context, ::bugu::service::v1::GetArtifactMetadataRequest* request, ::grpc::ServerAsyncResponseWriter< ::bugu::service::v1::GetArtifactMetadataReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetArtifactMetadataByFileId : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetArtifactMetadataByFileId() {
+      ::grpc::Service::MarkMethodAsync(7);
+    }
+    ~WithAsyncMethod_GetArtifactMetadataByFileId() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetArtifactMetadataByFileId(::grpc::ServerContext* context, ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::grpc::ServerAsyncResponseWriter< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Register<WithAsyncMethod_Login<WithAsyncMethod_GetCurrentUser<WithAsyncMethod_UpdateUser<WithAsyncMethod_Detect<WithAsyncMethod_Confusion<WithAsyncMethod_GetArtifactMetadata<WithAsyncMethod_GetArtifactMetadataByFileId<Service > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_Register : public BaseClass {
    private:
@@ -498,7 +586,61 @@ class Bugu final {
     virtual ::grpc::ServerUnaryReactor* Confusion(
       ::grpc::CallbackServerContext* /*context*/, const ::bugu::service::v1::ConfusionRequest* /*request*/, ::bugu::service::v1::ConfusionReply* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_Register<WithCallbackMethod_Login<WithCallbackMethod_GetCurrentUser<WithCallbackMethod_UpdateUser<WithCallbackMethod_Detect<WithCallbackMethod_Confusion<Service > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetArtifactMetadata : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetArtifactMetadata() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response) { return this->GetArtifactMetadata(context, request, response); }));}
+    void SetMessageAllocatorFor_GetArtifactMetadata(
+        ::grpc::MessageAllocator< ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetArtifactMetadata() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetArtifactMetadata(
+      ::grpc::CallbackServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetArtifactMetadataByFileId : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetArtifactMetadataByFileId() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response) { return this->GetArtifactMetadataByFileId(context, request, response); }));}
+    void SetMessageAllocatorFor_GetArtifactMetadataByFileId(
+        ::grpc::MessageAllocator< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetArtifactMetadataByFileId() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetArtifactMetadataByFileId(
+      ::grpc::CallbackServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_Register<WithCallbackMethod_Login<WithCallbackMethod_GetCurrentUser<WithCallbackMethod_UpdateUser<WithCallbackMethod_Detect<WithCallbackMethod_Confusion<WithCallbackMethod_GetArtifactMetadata<WithCallbackMethod_GetArtifactMetadataByFileId<Service > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Register : public BaseClass {
@@ -598,6 +740,40 @@ class Bugu final {
     }
     // disable synchronous version of this method
     ::grpc::Status Confusion(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::ConfusionRequest* /*request*/, ::bugu::service::v1::ConfusionReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetArtifactMetadata : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetArtifactMetadata() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_GetArtifactMetadata() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetArtifactMetadataByFileId : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetArtifactMetadataByFileId() {
+      ::grpc::Service::MarkMethodGeneric(7);
+    }
+    ~WithGenericMethod_GetArtifactMetadataByFileId() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -720,6 +896,46 @@ class Bugu final {
     }
     void RequestConfusion(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetArtifactMetadata : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetArtifactMetadata() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_GetArtifactMetadata() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetArtifactMetadata(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetArtifactMetadataByFileId : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetArtifactMetadataByFileId() {
+      ::grpc::Service::MarkMethodRaw(7);
+    }
+    ~WithRawMethod_GetArtifactMetadataByFileId() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetArtifactMetadataByFileId(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -852,6 +1068,50 @@ class Bugu final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* Confusion(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetArtifactMetadata : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetArtifactMetadata() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetArtifactMetadata(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetArtifactMetadata() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetArtifactMetadata(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetArtifactMetadataByFileId : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetArtifactMetadataByFileId() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetArtifactMetadataByFileId(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetArtifactMetadataByFileId() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetArtifactMetadataByFileId(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -1016,9 +1276,63 @@ class Bugu final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedConfusion(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bugu::service::v1::ConfusionRequest,::bugu::service::v1::ConfusionReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_Login<WithStreamedUnaryMethod_GetCurrentUser<WithStreamedUnaryMethod_UpdateUser<WithStreamedUnaryMethod_Detect<WithStreamedUnaryMethod_Confusion<Service > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetArtifactMetadata : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetArtifactMetadata() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply>* streamer) {
+                       return this->StreamedGetArtifactMetadata(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetArtifactMetadata() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetArtifactMetadata(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetArtifactMetadata(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bugu::service::v1::GetArtifactMetadataRequest,::bugu::service::v1::GetArtifactMetadataReply>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetArtifactMetadataByFileId : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetArtifactMetadataByFileId() {
+      ::grpc::Service::MarkMethodStreamed(7,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* streamer) {
+                       return this->StreamedGetArtifactMetadataByFileId(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetArtifactMetadataByFileId() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetArtifactMetadataByFileId(::grpc::ServerContext* /*context*/, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* /*request*/, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetArtifactMetadataByFileId(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest,::bugu::service::v1::GetArtifactMetadataByFileIdReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_Login<WithStreamedUnaryMethod_GetCurrentUser<WithStreamedUnaryMethod_UpdateUser<WithStreamedUnaryMethod_Detect<WithStreamedUnaryMethod_Confusion<WithStreamedUnaryMethod_GetArtifactMetadata<WithStreamedUnaryMethod_GetArtifactMetadataByFileId<Service > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_Login<WithStreamedUnaryMethod_GetCurrentUser<WithStreamedUnaryMethod_UpdateUser<WithStreamedUnaryMethod_Detect<WithStreamedUnaryMethod_Confusion<Service > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_Login<WithStreamedUnaryMethod_GetCurrentUser<WithStreamedUnaryMethod_UpdateUser<WithStreamedUnaryMethod_Detect<WithStreamedUnaryMethod_Confusion<WithStreamedUnaryMethod_GetArtifactMetadata<WithStreamedUnaryMethod_GetArtifactMetadataByFileId<Service > > > > > > > > StreamedService;
 };
 
 }  // namespace v1

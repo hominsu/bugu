@@ -24,6 +24,70 @@
     "application/json"
   ],
   "paths": {
+    "/v1/user/file/confusion": {
+      "post": {
+        "operationId": "Bugu_Confusion2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ConfusionReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ConfusionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/file/detect": {
+      "post": {
+        "operationId": "Bugu_Detect2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DetectReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1DetectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
     "/v1/user/{id}": {
       "get": {
         "operationId": "Bugu_GetCurrentUser",
@@ -44,6 +108,114 @@
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/artifact/file/{fileId}": {
+      "get": {
+        "operationId": "Bugu_GetArtifactMetadataByFileId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetArtifactMetadataByFileIdReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/artifact/{artifactId}": {
+      "get": {
+        "operationId": "Bugu_GetArtifactMetadata",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetArtifactMetadataReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "artifactId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/file/{fileId}/artifact": {
+      "get": {
+        "operationId": "Bugu_GetArtifactMetadataByFileId2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetArtifactMetadataByFileIdReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -266,10 +438,60 @@
         }
       }
     },
+    "v1ConfusionRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        }
+      }
+    },
     "v1DetectReply": {
       "type": "object",
       "properties": {
         "artifactId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1DetectRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetArtifactMetadataByFileIdReply": {
+      "type": "object",
+      "properties": {
+        "artifactMetadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1GetArtifactMetadataReply"
+          }
+        }
+      }
+    },
+    "v1GetArtifactMetadataReply": {
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        },
+        "affiliatedFileId": {
+          "type": "string"
+        },
+        "method": {
           "type": "string"
         }
       }

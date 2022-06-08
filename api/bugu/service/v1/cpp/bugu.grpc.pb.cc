@@ -30,6 +30,8 @@ static const char* Bugu_method_names[] = {
   "/bugu.service.v1.Bugu/UpdateUser",
   "/bugu.service.v1.Bugu/Detect",
   "/bugu.service.v1.Bugu/Confusion",
+  "/bugu.service.v1.Bugu/GetArtifactMetadata",
+  "/bugu.service.v1.Bugu/GetArtifactMetadataByFileId",
 };
 
 std::unique_ptr< Bugu::Stub> Bugu::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -45,6 +47,8 @@ Bugu::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, cons
   , rpcmethod_UpdateUser_(Bugu_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_Detect_(Bugu_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_Confusion_(Bugu_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetArtifactMetadata_(Bugu_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetArtifactMetadataByFileId_(Bugu_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Bugu::Stub::Register(::grpc::ClientContext* context, const ::bugu::service::v1::RegisterRequest& request, ::bugu::service::v1::RegisterReply* response) {
@@ -185,6 +189,52 @@ void Bugu::Stub::async::Confusion(::grpc::ClientContext* context, const ::bugu::
   return result;
 }
 
+::grpc::Status Bugu::Stub::GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::bugu::service::v1::GetArtifactMetadataReply* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetArtifactMetadata_, context, request, response);
+}
+
+void Bugu::Stub::async::GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetArtifactMetadata_, context, request, response, std::move(f));
+}
+
+void Bugu::Stub::async::GetArtifactMetadata(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetArtifactMetadata_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>* Bugu::Stub::PrepareAsyncGetArtifactMetadataRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::bugu::service::v1::GetArtifactMetadataReply, ::bugu::service::v1::GetArtifactMetadataRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetArtifactMetadata_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataReply>* Bugu::Stub::AsyncGetArtifactMetadataRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetArtifactMetadataRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Bugu::Stub::GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetArtifactMetadataByFileId_, context, request, response);
+}
+
+void Bugu::Stub::async::GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetArtifactMetadataByFileId_, context, request, response, std::move(f));
+}
+
+void Bugu::Stub::async::GetArtifactMetadataByFileId(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetArtifactMetadataByFileId_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* Bugu::Stub::PrepareAsyncGetArtifactMetadataByFileIdRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::bugu::service::v1::GetArtifactMetadataByFileIdReply, ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetArtifactMetadataByFileId_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::bugu::service::v1::GetArtifactMetadataByFileIdReply>* Bugu::Stub::AsyncGetArtifactMetadataByFileIdRaw(::grpc::ClientContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetArtifactMetadataByFileIdRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 Bugu::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Bugu_method_names[0],
@@ -246,6 +296,26 @@ Bugu::Service::Service() {
              ::bugu::service::v1::ConfusionReply* resp) {
                return service->Confusion(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Bugu_method_names[6],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Bugu::Service, ::bugu::service::v1::GetArtifactMetadataRequest, ::bugu::service::v1::GetArtifactMetadataReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Bugu::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::bugu::service::v1::GetArtifactMetadataRequest* req,
+             ::bugu::service::v1::GetArtifactMetadataReply* resp) {
+               return service->GetArtifactMetadata(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Bugu_method_names[7],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Bugu::Service, ::bugu::service::v1::GetArtifactMetadataByFileIdRequest, ::bugu::service::v1::GetArtifactMetadataByFileIdReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Bugu::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* req,
+             ::bugu::service::v1::GetArtifactMetadataByFileIdReply* resp) {
+               return service->GetArtifactMetadataByFileId(ctx, req, resp);
+             }, this)));
 }
 
 Bugu::Service::~Service() {
@@ -287,6 +357,20 @@ Bugu::Service::~Service() {
 }
 
 ::grpc::Status Bugu::Service::Confusion(::grpc::ServerContext* context, const ::bugu::service::v1::ConfusionRequest* request, ::bugu::service::v1::ConfusionReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Bugu::Service::GetArtifactMetadata(::grpc::ServerContext* context, const ::bugu::service::v1::GetArtifactMetadataRequest* request, ::bugu::service::v1::GetArtifactMetadataReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Bugu::Service::GetArtifactMetadataByFileId(::grpc::ServerContext* context, const ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* request, ::bugu::service::v1::GetArtifactMetadataByFileIdReply* response) {
   (void) context;
   (void) request;
   (void) response;

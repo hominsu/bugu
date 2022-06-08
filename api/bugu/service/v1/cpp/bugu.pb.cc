@@ -250,10 +250,63 @@ struct ConfusionReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConfusionReplyDefaultTypeInternal _ConfusionReply_default_instance_;
+constexpr GetArtifactMetadataRequest::GetArtifactMetadataRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct GetArtifactMetadataRequestDefaultTypeInternal {
+  constexpr GetArtifactMetadataRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetArtifactMetadataRequestDefaultTypeInternal() {}
+  union {
+    GetArtifactMetadataRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetArtifactMetadataRequestDefaultTypeInternal _GetArtifactMetadataRequest_default_instance_;
+constexpr GetArtifactMetadataReply::GetArtifactMetadataReply(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , affiliated_file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , method_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct GetArtifactMetadataReplyDefaultTypeInternal {
+  constexpr GetArtifactMetadataReplyDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetArtifactMetadataReplyDefaultTypeInternal() {}
+  union {
+    GetArtifactMetadataReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetArtifactMetadataReplyDefaultTypeInternal _GetArtifactMetadataReply_default_instance_;
+constexpr GetArtifactMetadataByFileIdRequest::GetArtifactMetadataByFileIdRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct GetArtifactMetadataByFileIdRequestDefaultTypeInternal {
+  constexpr GetArtifactMetadataByFileIdRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetArtifactMetadataByFileIdRequestDefaultTypeInternal() {}
+  union {
+    GetArtifactMetadataByFileIdRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetArtifactMetadataByFileIdRequestDefaultTypeInternal _GetArtifactMetadataByFileIdRequest_default_instance_;
+constexpr GetArtifactMetadataByFileIdReply::GetArtifactMetadataByFileIdReply(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : artifact_metadata_(){}
+struct GetArtifactMetadataByFileIdReplyDefaultTypeInternal {
+  constexpr GetArtifactMetadataByFileIdReplyDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetArtifactMetadataByFileIdReplyDefaultTypeInternal() {}
+  union {
+    GetArtifactMetadataByFileIdReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetArtifactMetadataByFileIdReplyDefaultTypeInternal _GetArtifactMetadataByFileIdReply_default_instance_;
 }  // namespace v1
 }  // namespace service
 }  // namespace bugu
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_bugu_2eproto[18];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_bugu_2eproto[22];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_bugu_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_bugu_2eproto = nullptr;
 
@@ -399,6 +452,39 @@ const uint32_t TableStruct_bugu_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, file_id_),
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, affiliated_file_id_),
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, method_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataRequest, user_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataRequest, artifact_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataReply, artifact_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataReply, file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataReply, affiliated_file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataReply, method_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataByFileIdRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataByFileIdRequest, user_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataByFileIdRequest, file_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataByFileIdReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataByFileIdReply, artifact_metadata_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::bugu::service::v1::RegisterRequest_User)},
@@ -419,6 +505,10 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 116, -1, -1, sizeof(::bugu::service::v1::DetectReply)},
   { 123, -1, -1, sizeof(::bugu::service::v1::ConfusionRequest)},
   { 131, -1, -1, sizeof(::bugu::service::v1::ConfusionReply)},
+  { 141, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataRequest)},
+  { 149, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataReply)},
+  { 159, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataByFileIdRequest)},
+  { 167, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataByFileIdReply)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -440,6 +530,10 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_DetectReply_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_ConfusionRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_ConfusionReply_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataReply_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataByFileIdRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataByFileIdReply_default_instance_),
 };
 
 const char descriptor_table_protodef_bugu_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -475,29 +569,51 @@ const char descriptor_table_protodef_bugu_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\"\200\001\n\016ConfusionReply\022\035"
   "\n\013artifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id"
   "\030\002 \001(\tB\010\372B\005r\003\260\001\001\022$\n\022affiliated_file_id\030\003"
-  " \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006method\030\004 \001(\t2\255\005\n\004Bugu\022"
-  "b\n\010Register\022 .bugu.service.v1.RegisterRe"
-  "quest\032\036.bugu.service.v1.RegisterReply\"\024\202"
-  "\323\344\223\002\016\"\t/v1/users:\001*\022_\n\005Login\022\035.bugu.serv"
-  "ice.v1.LoginRequest\032\033.bugu.service.v1.Lo"
-  "ginReply\"\032\202\323\344\223\002\024\"\017/v1/users/login:\001*\022u\n\016"
-  "GetCurrentUser\022&.bugu.service.v1.GetCurr"
-  "entUserRequest\032$.bugu.service.v1.GetCurr"
-  "entUserReply\"\025\202\323\344\223\002\017\022\r/v1/user/{id}\022h\n\nU"
-  "pdateUser\022\".bugu.service.v1.UpdateUserRe"
-  "quest\032 .bugu.service.v1.UpdateUserReply\""
-  "\024\202\323\344\223\002\016\032\t/v1/users:\001*\022x\n\006Detect\022\036.bugu.s"
-  "ervice.v1.DetectRequest\032\034.bugu.service.v"
-  "1.DetectReply\"0\202\323\344\223\002*\022(/v1/user/{user_id"
-  "}/file/{file_id}/detect\022\204\001\n\tConfusion\022!."
-  "bugu.service.v1.ConfusionRequest\032\037.bugu."
-  "service.v1.ConfusionReply\"3\202\323\344\223\002-\022+/v1/u"
-  "ser/{user_id}/file/{file_id}/confusionB\264"
-  "\001Z.github.com/hominsu/bugu/api/bugu/serv"
-  "ice/v1;v1\222A\200\001\022W\n\nE-Code API\"D\n\014Bugu Back"
-  "end\022\037https://github.com/hominsu/bugu\032\023ho"
-  "minsu@foxmail.com2\0031.0*\001\0022\020application/j"
-  "son:\020application/jsonb\006proto3"
+  " \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006method\030\004 \001(\t\"V\n\032GetArt"
+  "ifactMetadataRequest\022\031\n\007user_id\030\001 \001(\tB\010\372"
+  "B\005r\003\260\001\001\022\035\n\013artifact_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\"\212"
+  "\001\n\030GetArtifactMetadataReply\022\035\n\013artifact_"
+  "id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010\372B\005"
+  "r\003\260\001\001\022$\n\022affiliated_file_id\030\003 \001(\tB\010\372B\005r\003"
+  "\260\001\001\022\016\n\006method\030\004 \001(\t\"Z\n\"GetArtifactMetada"
+  "taByFileIdRequest\022\031\n\007user_id\030\001 \001(\tB\010\372B\005r"
+  "\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\"h\n GetAr"
+  "tifactMetadataByFileIdReply\022D\n\021artifact_"
+  "metadata\030\001 \003(\0132).bugu.service.v1.GetArti"
+  "factMetadataReply2\364\010\n\004Bugu\022b\n\010Register\022 "
+  ".bugu.service.v1.RegisterRequest\032\036.bugu."
+  "service.v1.RegisterReply\"\024\202\323\344\223\002\016\"\t/v1/us"
+  "ers:\001*\022_\n\005Login\022\035.bugu.service.v1.LoginR"
+  "equest\032\033.bugu.service.v1.LoginReply\"\032\202\323\344"
+  "\223\002\024\"\017/v1/users/login:\001*\022u\n\016GetCurrentUse"
+  "r\022&.bugu.service.v1.GetCurrentUserReques"
+  "t\032$.bugu.service.v1.GetCurrentUserReply\""
+  "\025\202\323\344\223\002\017\022\r/v1/user/{id}\022h\n\nUpdateUser\022\".b"
+  "ugu.service.v1.UpdateUserRequest\032 .bugu."
+  "service.v1.UpdateUserReply\"\024\202\323\344\223\002\016\032\t/v1/"
+  "users:\001*\022\223\001\n\006Detect\022\036.bugu.service.v1.De"
+  "tectRequest\032\034.bugu.service.v1.DetectRepl"
+  "y\"K\202\323\344\223\002E\022(/v1/user/{user_id}/file/{file"
+  "_id}/detectZ\031\"\024/v1/user/file/detect:\001*\022\242"
+  "\001\n\tConfusion\022!.bugu.service.v1.Confusion"
+  "Request\032\037.bugu.service.v1.ConfusionReply"
+  "\"Q\202\323\344\223\002K\022+/v1/user/{user_id}/file/{file_"
+  "id}/confusionZ\034\"\027/v1/user/file/confusion"
+  ":\001*\022\240\001\n\023GetArtifactMetadata\022+.bugu.servi"
+  "ce.v1.GetArtifactMetadataRequest\032).bugu."
+  "service.v1.GetArtifactMetadataReply\"1\202\323\344"
+  "\223\002+\022)/v1/user/{user_id}/artifact/{artifa"
+  "ct_id}\022\347\001\n\033GetArtifactMetadataByFileId\0223"
+  ".bugu.service.v1.GetArtifactMetadataByFi"
+  "leIdRequest\0321.bugu.service.v1.GetArtifac"
+  "tMetadataByFileIdReply\"`\202\323\344\223\002Z\022*/v1/user"
+  "/{user_id}/artifact/file/{file_id}Z,\022*/v"
+  "1/user/{user_id}/file/{file_id}/artifact"
+  "B\264\001Z.github.com/hominsu/bugu/api/bugu/se"
+  "rvice/v1;v1\222A\200\001\022W\n\nE-Code API\"D\n\014Bugu Ba"
+  "ckend\022\037https://github.com/hominsu/bugu\032\023"
+  "hominsu@foxmail.com2\0031.0*\001\0022\020application"
+  "/json:\020application/jsonb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_bugu_2eproto_deps[3] = {
   &::descriptor_table_google_2fapi_2fannotations_2eproto,
@@ -506,8 +622,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bugu_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bugu_2eproto = {
-  false, false, 2189, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
-  &descriptor_table_bugu_2eproto_once, descriptor_table_bugu_2eproto_deps, 3, 18,
+  false, false, 3071, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
+  &descriptor_table_bugu_2eproto_once, descriptor_table_bugu_2eproto_deps, 3, 22,
   schemas, file_default_instances, TableStruct_bugu_2eproto::offsets,
   file_level_metadata_bugu_2eproto, file_level_enum_descriptors_bugu_2eproto, file_level_service_descriptors_bugu_2eproto,
 };
@@ -4828,6 +4944,1045 @@ void ConfusionReply::InternalSwap(ConfusionReply* other) {
       file_level_metadata_bugu_2eproto[17]);
 }
 
+// ===================================================================
+
+class GetArtifactMetadataRequest::_Internal {
+ public:
+};
+
+GetArtifactMetadataRequest::GetArtifactMetadataRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:bugu.service.v1.GetArtifactMetadataRequest)
+}
+GetArtifactMetadataRequest::GetArtifactMetadataRequest(const GetArtifactMetadataRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_id().empty()) {
+    user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
+  artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_artifact_id().empty()) {
+    artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_artifact_id(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:bugu.service.v1.GetArtifactMetadataRequest)
+}
+
+inline void GetArtifactMetadataRequest::SharedCtor() {
+user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetArtifactMetadataRequest::~GetArtifactMetadataRequest() {
+  // @@protoc_insertion_point(destructor:bugu.service.v1.GetArtifactMetadataRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void GetArtifactMetadataRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  artifact_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetArtifactMetadataRequest::ArenaDtor(void* object) {
+  GetArtifactMetadataRequest* _this = reinterpret_cast< GetArtifactMetadataRequest* >(object);
+  (void)_this;
+}
+void GetArtifactMetadataRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetArtifactMetadataRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetArtifactMetadataRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:bugu.service.v1.GetArtifactMetadataRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  user_id_.ClearToEmpty();
+  artifact_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetArtifactMetadataRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string user_id = 1 [(.validate.rules) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataRequest.user_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string artifact_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_artifact_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataRequest.artifact_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetArtifactMetadataRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bugu.service.v1.GetArtifactMetadataRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_id().data(), static_cast<int>(this->_internal_user_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataRequest.user_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // string artifact_id = 2 [(.validate.rules) = {
+  if (!this->_internal_artifact_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_artifact_id().data(), static_cast<int>(this->_internal_artifact_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataRequest.artifact_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_artifact_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bugu.service.v1.GetArtifactMetadataRequest)
+  return target;
+}
+
+size_t GetArtifactMetadataRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bugu.service.v1.GetArtifactMetadataRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_id());
+  }
+
+  // string artifact_id = 2 [(.validate.rules) = {
+  if (!this->_internal_artifact_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_artifact_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetArtifactMetadataRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    GetArtifactMetadataRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetArtifactMetadataRequest::GetClassData() const { return &_class_data_; }
+
+void GetArtifactMetadataRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<GetArtifactMetadataRequest *>(to)->MergeFrom(
+      static_cast<const GetArtifactMetadataRequest &>(from));
+}
+
+
+void GetArtifactMetadataRequest::MergeFrom(const GetArtifactMetadataRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bugu.service.v1.GetArtifactMetadataRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_user_id().empty()) {
+    _internal_set_user_id(from._internal_user_id());
+  }
+  if (!from._internal_artifact_id().empty()) {
+    _internal_set_artifact_id(from._internal_artifact_id());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetArtifactMetadataRequest::CopyFrom(const GetArtifactMetadataRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bugu.service.v1.GetArtifactMetadataRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetArtifactMetadataRequest::IsInitialized() const {
+  return true;
+}
+
+void GetArtifactMetadataRequest::InternalSwap(GetArtifactMetadataRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &artifact_id_, lhs_arena,
+      &other->artifact_id_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataRequest::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
+      file_level_metadata_bugu_2eproto[18]);
+}
+
+// ===================================================================
+
+class GetArtifactMetadataReply::_Internal {
+ public:
+};
+
+GetArtifactMetadataReply::GetArtifactMetadataReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:bugu.service.v1.GetArtifactMetadataReply)
+}
+GetArtifactMetadataReply::GetArtifactMetadataReply(const GetArtifactMetadataReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_artifact_id().empty()) {
+    artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_artifact_id(), 
+      GetArenaForAllocation());
+  }
+  file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_file_id().empty()) {
+    file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_id(), 
+      GetArenaForAllocation());
+  }
+  affiliated_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_affiliated_file_id().empty()) {
+    affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_affiliated_file_id(), 
+      GetArenaForAllocation());
+  }
+  method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_method().empty()) {
+    method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_method(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:bugu.service.v1.GetArtifactMetadataReply)
+}
+
+inline void GetArtifactMetadataReply::SharedCtor() {
+artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+affiliated_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetArtifactMetadataReply::~GetArtifactMetadataReply() {
+  // @@protoc_insertion_point(destructor:bugu.service.v1.GetArtifactMetadataReply)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void GetArtifactMetadataReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  artifact_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  affiliated_file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  method_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetArtifactMetadataReply::ArenaDtor(void* object) {
+  GetArtifactMetadataReply* _this = reinterpret_cast< GetArtifactMetadataReply* >(object);
+  (void)_this;
+}
+void GetArtifactMetadataReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetArtifactMetadataReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetArtifactMetadataReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:bugu.service.v1.GetArtifactMetadataReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  artifact_id_.ClearToEmpty();
+  file_id_.ClearToEmpty();
+  affiliated_file_id_.ClearToEmpty();
+  method_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetArtifactMetadataReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string artifact_id = 1 [(.validate.rules) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_artifact_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataReply.artifact_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataReply.file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string affiliated_file_id = 3 [(.validate.rules) = {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_affiliated_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string method = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_method();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataReply.method"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetArtifactMetadataReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bugu.service.v1.GetArtifactMetadataReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string artifact_id = 1 [(.validate.rules) = {
+  if (!this->_internal_artifact_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_artifact_id().data(), static_cast<int>(this->_internal_artifact_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataReply.artifact_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_artifact_id(), target);
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataReply.file_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_id(), target);
+  }
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  if (!this->_internal_affiliated_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_affiliated_file_id().data(), static_cast<int>(this->_internal_affiliated_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_affiliated_file_id(), target);
+  }
+
+  // string method = 4;
+  if (!this->_internal_method().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_method().data(), static_cast<int>(this->_internal_method().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataReply.method");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_method(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bugu.service.v1.GetArtifactMetadataReply)
+  return target;
+}
+
+size_t GetArtifactMetadataReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bugu.service.v1.GetArtifactMetadataReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string artifact_id = 1 [(.validate.rules) = {
+  if (!this->_internal_artifact_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_artifact_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
+  }
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  if (!this->_internal_affiliated_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_affiliated_file_id());
+  }
+
+  // string method = 4;
+  if (!this->_internal_method().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_method());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetArtifactMetadataReply::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    GetArtifactMetadataReply::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetArtifactMetadataReply::GetClassData() const { return &_class_data_; }
+
+void GetArtifactMetadataReply::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<GetArtifactMetadataReply *>(to)->MergeFrom(
+      static_cast<const GetArtifactMetadataReply &>(from));
+}
+
+
+void GetArtifactMetadataReply::MergeFrom(const GetArtifactMetadataReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bugu.service.v1.GetArtifactMetadataReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_artifact_id().empty()) {
+    _internal_set_artifact_id(from._internal_artifact_id());
+  }
+  if (!from._internal_file_id().empty()) {
+    _internal_set_file_id(from._internal_file_id());
+  }
+  if (!from._internal_affiliated_file_id().empty()) {
+    _internal_set_affiliated_file_id(from._internal_affiliated_file_id());
+  }
+  if (!from._internal_method().empty()) {
+    _internal_set_method(from._internal_method());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetArtifactMetadataReply::CopyFrom(const GetArtifactMetadataReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bugu.service.v1.GetArtifactMetadataReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetArtifactMetadataReply::IsInitialized() const {
+  return true;
+}
+
+void GetArtifactMetadataReply::InternalSwap(GetArtifactMetadataReply* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &artifact_id_, lhs_arena,
+      &other->artifact_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_id_, lhs_arena,
+      &other->file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &affiliated_file_id_, lhs_arena,
+      &other->affiliated_file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &method_, lhs_arena,
+      &other->method_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataReply::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
+      file_level_metadata_bugu_2eproto[19]);
+}
+
+// ===================================================================
+
+class GetArtifactMetadataByFileIdRequest::_Internal {
+ public:
+};
+
+GetArtifactMetadataByFileIdRequest::GetArtifactMetadataByFileIdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+}
+GetArtifactMetadataByFileIdRequest::GetArtifactMetadataByFileIdRequest(const GetArtifactMetadataByFileIdRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_id().empty()) {
+    user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
+  file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_file_id().empty()) {
+    file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_id(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+}
+
+inline void GetArtifactMetadataByFileIdRequest::SharedCtor() {
+user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+GetArtifactMetadataByFileIdRequest::~GetArtifactMetadataByFileIdRequest() {
+  // @@protoc_insertion_point(destructor:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void GetArtifactMetadataByFileIdRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetArtifactMetadataByFileIdRequest::ArenaDtor(void* object) {
+  GetArtifactMetadataByFileIdRequest* _this = reinterpret_cast< GetArtifactMetadataByFileIdRequest* >(object);
+  (void)_this;
+}
+void GetArtifactMetadataByFileIdRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetArtifactMetadataByFileIdRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetArtifactMetadataByFileIdRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  user_id_.ClearToEmpty();
+  file_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetArtifactMetadataByFileIdRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string user_id = 1 [(.validate.rules) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetArtifactMetadataByFileIdRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_id().data(), static_cast<int>(this->_internal_user_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  return target;
+}
+
+size_t GetArtifactMetadataByFileIdRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetArtifactMetadataByFileIdRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    GetArtifactMetadataByFileIdRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetArtifactMetadataByFileIdRequest::GetClassData() const { return &_class_data_; }
+
+void GetArtifactMetadataByFileIdRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<GetArtifactMetadataByFileIdRequest *>(to)->MergeFrom(
+      static_cast<const GetArtifactMetadataByFileIdRequest &>(from));
+}
+
+
+void GetArtifactMetadataByFileIdRequest::MergeFrom(const GetArtifactMetadataByFileIdRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_user_id().empty()) {
+    _internal_set_user_id(from._internal_user_id());
+  }
+  if (!from._internal_file_id().empty()) {
+    _internal_set_file_id(from._internal_file_id());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetArtifactMetadataByFileIdRequest::CopyFrom(const GetArtifactMetadataByFileIdRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetArtifactMetadataByFileIdRequest::IsInitialized() const {
+  return true;
+}
+
+void GetArtifactMetadataByFileIdRequest::InternalSwap(GetArtifactMetadataByFileIdRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_id_, lhs_arena,
+      &other->file_id_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataByFileIdRequest::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
+      file_level_metadata_bugu_2eproto[20]);
+}
+
+// ===================================================================
+
+class GetArtifactMetadataByFileIdReply::_Internal {
+ public:
+};
+
+GetArtifactMetadataByFileIdReply::GetArtifactMetadataByFileIdReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  artifact_metadata_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+}
+GetArtifactMetadataByFileIdReply::GetArtifactMetadataByFileIdReply(const GetArtifactMetadataByFileIdReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      artifact_metadata_(from.artifact_metadata_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+}
+
+inline void GetArtifactMetadataByFileIdReply::SharedCtor() {
+}
+
+GetArtifactMetadataByFileIdReply::~GetArtifactMetadataByFileIdReply() {
+  // @@protoc_insertion_point(destructor:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void GetArtifactMetadataByFileIdReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetArtifactMetadataByFileIdReply::ArenaDtor(void* object) {
+  GetArtifactMetadataByFileIdReply* _this = reinterpret_cast< GetArtifactMetadataByFileIdReply* >(object);
+  (void)_this;
+}
+void GetArtifactMetadataByFileIdReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetArtifactMetadataByFileIdReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetArtifactMetadataByFileIdReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  artifact_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetArtifactMetadataByFileIdReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .bugu.service.v1.GetArtifactMetadataReply artifact_metadata = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_artifact_metadata(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetArtifactMetadataByFileIdReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated .bugu.service.v1.GetArtifactMetadataReply artifact_metadata = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_artifact_metadata_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_artifact_metadata(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  return target;
+}
+
+size_t GetArtifactMetadataByFileIdReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .bugu.service.v1.GetArtifactMetadataReply artifact_metadata = 1;
+  total_size += 1UL * this->_internal_artifact_metadata_size();
+  for (const auto& msg : this->artifact_metadata_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetArtifactMetadataByFileIdReply::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    GetArtifactMetadataByFileIdReply::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetArtifactMetadataByFileIdReply::GetClassData() const { return &_class_data_; }
+
+void GetArtifactMetadataByFileIdReply::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<GetArtifactMetadataByFileIdReply *>(to)->MergeFrom(
+      static_cast<const GetArtifactMetadataByFileIdReply &>(from));
+}
+
+
+void GetArtifactMetadataByFileIdReply::MergeFrom(const GetArtifactMetadataByFileIdReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  artifact_metadata_.MergeFrom(from.artifact_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetArtifactMetadataByFileIdReply::CopyFrom(const GetArtifactMetadataByFileIdReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetArtifactMetadataByFileIdReply::IsInitialized() const {
+  return true;
+}
+
+void GetArtifactMetadataByFileIdReply::InternalSwap(GetArtifactMetadataByFileIdReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  artifact_metadata_.InternalSwap(&other->artifact_metadata_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataByFileIdReply::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
+      file_level_metadata_bugu_2eproto[21]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace v1
 }  // namespace service
@@ -4886,6 +6041,18 @@ template<> PROTOBUF_NOINLINE ::bugu::service::v1::ConfusionRequest* Arena::Creat
 }
 template<> PROTOBUF_NOINLINE ::bugu::service::v1::ConfusionReply* Arena::CreateMaybeMessage< ::bugu::service::v1::ConfusionReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::bugu::service::v1::ConfusionReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bugu::service::v1::GetArtifactMetadataRequest* Arena::CreateMaybeMessage< ::bugu::service::v1::GetArtifactMetadataRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bugu::service::v1::GetArtifactMetadataRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bugu::service::v1::GetArtifactMetadataReply* Arena::CreateMaybeMessage< ::bugu::service::v1::GetArtifactMetadataReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bugu::service::v1::GetArtifactMetadataReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* Arena::CreateMaybeMessage< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bugu::service::v1::GetArtifactMetadataByFileIdRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bugu::service::v1::GetArtifactMetadataByFileIdReply* Arena::CreateMaybeMessage< ::bugu::service::v1::GetArtifactMetadataByFileIdReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bugu::service::v1::GetArtifactMetadataByFileIdReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

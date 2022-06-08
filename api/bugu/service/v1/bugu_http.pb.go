@@ -20,6 +20,8 @@ const _ = http.SupportPackageIsVersion1
 type BuguHTTPServer interface {
 	Confusion(context.Context, *ConfusionRequest) (*ConfusionReply, error)
 	Detect(context.Context, *DetectRequest) (*DetectReply, error)
+	GetArtifactMetadata(context.Context, *GetArtifactMetadataRequest) (*GetArtifactMetadataReply, error)
+	GetArtifactMetadataByFileId(context.Context, *GetArtifactMetadataByFileIdRequest) (*GetArtifactMetadataByFileIdReply, error)
 	GetCurrentUser(context.Context, *GetCurrentUserRequest) (*GetCurrentUserReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
 	Register(context.Context, *RegisterRequest) (*RegisterReply, error)
@@ -32,8 +34,13 @@ func RegisterBuguHTTPServer(s *http.Server, srv BuguHTTPServer) {
 	r.POST("/v1/users/login", _Bugu_Login0_HTTP_Handler(srv))
 	r.GET("/v1/user/{id}", _Bugu_GetCurrentUser0_HTTP_Handler(srv))
 	r.PUT("/v1/users", _Bugu_UpdateUser0_HTTP_Handler(srv))
-	r.GET("/v1/user/{user_id}/file/{file_id}/detect", _Bugu_Detect0_HTTP_Handler(srv))
-	r.GET("/v1/user/{user_id}/file/{file_id}/confusion", _Bugu_Confusion0_HTTP_Handler(srv))
+	r.POST("/v1/user/file/detect", _Bugu_Detect0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/file/{file_id}/detect", _Bugu_Detect1_HTTP_Handler(srv))
+	r.POST("/v1/user/file/confusion", _Bugu_Confusion0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/file/{file_id}/confusion", _Bugu_Confusion1_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/artifact/{artifact_id}", _Bugu_GetArtifactMetadata0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/file/{file_id}/artifact", _Bugu_GetArtifactMetadataByFileId0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/artifact/file/{file_id}", _Bugu_GetArtifactMetadataByFileId1_HTTP_Handler(srv))
 }
 
 func _Bugu_Register0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
@@ -118,6 +125,25 @@ func _Bugu_UpdateUser0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) e
 func _Bugu_Detect0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in DetectRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Detect")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Detect(ctx, req.(*DetectRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DetectReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Bugu_Detect1_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DetectRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
@@ -140,6 +166,25 @@ func _Bugu_Detect0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error
 func _Bugu_Confusion0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ConfusionRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Confusion")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Confusion(ctx, req.(*ConfusionRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ConfusionReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Bugu_Confusion1_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ConfusionRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
@@ -159,9 +204,77 @@ func _Bugu_Confusion0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) er
 	}
 }
 
+func _Bugu_GetArtifactMetadata0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetArtifactMetadataRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/GetArtifactMetadata")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetArtifactMetadata(ctx, req.(*GetArtifactMetadataRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetArtifactMetadataReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Bugu_GetArtifactMetadataByFileId0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetArtifactMetadataByFileIdRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/GetArtifactMetadataByFileId")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetArtifactMetadataByFileId(ctx, req.(*GetArtifactMetadataByFileIdRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetArtifactMetadataByFileIdReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Bugu_GetArtifactMetadataByFileId1_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetArtifactMetadataByFileIdRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/GetArtifactMetadataByFileId")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetArtifactMetadataByFileId(ctx, req.(*GetArtifactMetadataByFileIdRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetArtifactMetadataByFileIdReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type BuguHTTPClient interface {
 	Confusion(ctx context.Context, req *ConfusionRequest, opts ...http.CallOption) (rsp *ConfusionReply, err error)
 	Detect(ctx context.Context, req *DetectRequest, opts ...http.CallOption) (rsp *DetectReply, err error)
+	GetArtifactMetadata(ctx context.Context, req *GetArtifactMetadataRequest, opts ...http.CallOption) (rsp *GetArtifactMetadataReply, err error)
+	GetArtifactMetadataByFileId(ctx context.Context, req *GetArtifactMetadataByFileIdRequest, opts ...http.CallOption) (rsp *GetArtifactMetadataByFileIdReply, err error)
 	GetCurrentUser(ctx context.Context, req *GetCurrentUserRequest, opts ...http.CallOption) (rsp *GetCurrentUserReply, err error)
 	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
 	Register(ctx context.Context, req *RegisterRequest, opts ...http.CallOption) (rsp *RegisterReply, err error)
@@ -194,6 +307,32 @@ func (c *BuguHTTPClientImpl) Detect(ctx context.Context, in *DetectRequest, opts
 	pattern := "/v1/user/{user_id}/file/{file_id}/detect"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/Detect"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *BuguHTTPClientImpl) GetArtifactMetadata(ctx context.Context, in *GetArtifactMetadataRequest, opts ...http.CallOption) (*GetArtifactMetadataReply, error) {
+	var out GetArtifactMetadataReply
+	pattern := "/v1/user/{user_id}/artifact/{artifact_id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/GetArtifactMetadata"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *BuguHTTPClientImpl) GetArtifactMetadataByFileId(ctx context.Context, in *GetArtifactMetadataByFileIdRequest, opts ...http.CallOption) (*GetArtifactMetadataByFileIdReply, error) {
+	var out GetArtifactMetadataByFileIdReply
+	pattern := "/v1/user/{user_id}/artifact/file/{file_id}"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/GetArtifactMetadataByFileId"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

@@ -50,7 +50,8 @@ type Artifact struct {
 type ArtifactRepo interface {
 	CreateArtifactMetadata(ctx context.Context, userId uuid.UUID, artifact *Artifact) (*Artifact, error)
 	UpdateArtifactMetadata(ctx context.Context, artifact *Artifact) (*Artifact, error)
-	GetArtifactMetadata(ctx context.Context, userId uuid.UUID, artifactId uuid.UUID) (*Artifact, error)
+	GetArtifactMetadata(ctx context.Context, userId, artifactId uuid.UUID) (*Artifact, error)
+	GetArtifactMetadataByFileId(ctx context.Context, userId, fileId uuid.UUID) ([]*Artifact, error)
 }
 
 type ArtifactUsecase struct {
@@ -204,4 +205,32 @@ func (uc *ArtifactUsecase) getFile(ctx context.Context, userId, fileId uuid.UUID
 			uc.log.Error(err)
 		}
 	}, nil
+}
+
+func (uc *ArtifactUsecase) GetArtifactMetadata(ctx context.Context, userId, artifactId string) (*Artifact, error) {
+	userid, err := uuid.Parse(userId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse userId failed, err: %v", userId)
+	}
+
+	aid, err := uuid.Parse(artifactId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse artifactId failed, err: %v", artifactId)
+	}
+
+	return uc.ar.GetArtifactMetadata(ctx, userid, aid)
+}
+
+func (uc *ArtifactUsecase) GetArtifactMetadataByFileId(ctx context.Context, userId, fileId string) ([]*Artifact, error) {
+	userid, err := uuid.Parse(userId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse userId failed, err: %v", userId)
+	}
+
+	fid, err := uuid.Parse(fileId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse artifactId failed, err: %v", fileId)
+	}
+
+	return uc.ar.GetArtifactMetadataByFileId(ctx, userid, fid)
 }

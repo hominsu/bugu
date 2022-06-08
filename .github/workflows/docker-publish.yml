@@ -61,8 +61,6 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     needs: [ set-matrix, build ]
-    environment:
-      name: production_environment
     strategy:
       matrix: ${{fromJSON(needs.set-matrix.outputs.matrix)}}
 

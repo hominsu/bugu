@@ -27,10 +27,12 @@ package data
 
 import (
 	"context"
+
 	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
 	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
 	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
 	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
 	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -96,7 +98,7 @@ func (r *artifactRepo) UpdateArtifactMetadata(ctx context.Context, artifact *biz
 	}, nil
 }
 
-func (r *artifactRepo) GetArtifactMetadata(ctx context.Context, userId uuid.UUID, artifactId uuid.UUID) (*biz.Artifact, error) {
+func (r *artifactRepo) GetArtifactMetadata(ctx context.Context, userId, artifactId uuid.UUID) (*biz.Artifact, error) {
 	target, err := r.data.db.Artifact.Query().
 		Where(artifact.And(
 			artifact.HasAffiliatedUserWith(user.IDEQ(userId)),
@@ -117,4 +119,32 @@ func (r *artifactRepo) GetArtifactMetadata(ctx context.Context, userId uuid.UUID
 		AffiliatedFileID: target.AffiliatedFileID,
 		Method:           target.Method,
 	}, nil
+}
+
+func (r *artifactRepo) GetArtifactMetadataByFileId(ctx context.Context, userId, fileId uuid.UUID) ([]*biz.Artifact, error) {
+	targets, err := r.data.db.Artifact.Query().
+		Where(artifact.And(
+			artifact.HasAffiliatedUserWith(user.IDEQ(userId)),
+			artifact.HasAffiliatedFileWith(file.IDEQ(fileId)),
+		)).
+		All(ctx)
+	if err != nil && ent.IsNotFound(err) {
+		return nil, buguV1.ErrorNotFoundError("find fileId: %s not found, err: %v", fileId.String(), err)
+	}
+	if err != nil {
+		r.log.Errorf("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
+	}
+
+	var rets []*biz.Artifact
+	for _, target := range targets {
+		rets = append(rets, &biz.Artifact{
+			ID:               target.ID,
+			FileID:           target.FileID,
+			AffiliatedFileID: target.AffiliatedFileID,
+			Method:           target.Method,
+		})
+	}
+
+	return rets, nil
 }

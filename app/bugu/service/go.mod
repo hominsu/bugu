@@ -13,8 +13,8 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/hashicorp/consul/api v1.13.0
-	github.com/hominsu/bugu v0.0.0-20220606132106-28e8ecc35f6e
-	github.com/hominsu/bugu/pkg v0.0.0-00010101000000-000000000000
+	github.com/hominsu/bugu v1.0.0
+	github.com/hominsu/bugu/pkg v0.0.0-20220608071005-03611bdc29ab
 	google.golang.org/grpc v1.47.0
 	google.golang.org/protobuf v1.28.0
 )

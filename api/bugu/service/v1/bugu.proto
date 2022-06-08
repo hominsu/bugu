@@ -55,12 +55,35 @@ service Bugu {
   rpc Detect (DetectRequest) returns (DetectReply) {
     option (google.api.http) = {
       get: "/v1/user/{user_id}/file/{file_id}/detect",
+      additional_bindings: {
+        post: "/v1/user/file/detect",
+        body: "*"
+      }
     };
   };
 
   rpc Confusion (ConfusionRequest) returns (ConfusionReply) {
     option (google.api.http) = {
       get: "/v1/user/{user_id}/file/{file_id}/confusion",
+      additional_bindings: {
+        post: "/v1/user/file/confusion",
+        body: "*"
+      }
+    };
+  };
+
+  rpc GetArtifactMetadata (GetArtifactMetadataRequest) returns (GetArtifactMetadataReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/artifact/{artifact_id}",
+    };
+  };
+
+  rpc GetArtifactMetadataByFileId (GetArtifactMetadataByFileIdRequest) returns (GetArtifactMetadataByFileIdReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/artifact/file/{file_id}",
+      additional_bindings: {
+        get: "/v1/user/{user_id}/file/{file_id}/artifact",
+      }
     };
   };
 };
@@ -147,4 +170,25 @@ message ConfusionReply {
   string file_id = 2 [(validate.rules).string = {uuid: true}];
   string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];
   string method = 4;
+}
+
+message GetArtifactMetadataRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string artifact_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message GetArtifactMetadataReply {
+  string artifact_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+  string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];
+  string method = 4;
+}
+
+message GetArtifactMetadataByFileIdRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message GetArtifactMetadataByFileIdReply {
+  repeated GetArtifactMetadataReply artifact_metadata = 1;
 }

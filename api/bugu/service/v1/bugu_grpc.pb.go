@@ -28,6 +28,8 @@ type BuguClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserReply, error)
 	Detect(ctx context.Context, in *DetectRequest, opts ...grpc.CallOption) (*DetectReply, error)
 	Confusion(ctx context.Context, in *ConfusionRequest, opts ...grpc.CallOption) (*ConfusionReply, error)
+	GetArtifactMetadata(ctx context.Context, in *GetArtifactMetadataRequest, opts ...grpc.CallOption) (*GetArtifactMetadataReply, error)
+	GetArtifactMetadataByFileId(ctx context.Context, in *GetArtifactMetadataByFileIdRequest, opts ...grpc.CallOption) (*GetArtifactMetadataByFileIdReply, error)
 }
 
 type buguClient struct {
@@ -92,6 +94,24 @@ func (c *buguClient) Confusion(ctx context.Context, in *ConfusionRequest, opts .
 	return out, nil
 }
 
+func (c *buguClient) GetArtifactMetadata(ctx context.Context, in *GetArtifactMetadataRequest, opts ...grpc.CallOption) (*GetArtifactMetadataReply, error) {
+	out := new(GetArtifactMetadataReply)
+	err := c.cc.Invoke(ctx, "/bugu.service.v1.Bugu/GetArtifactMetadata", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *buguClient) GetArtifactMetadataByFileId(ctx context.Context, in *GetArtifactMetadataByFileIdRequest, opts ...grpc.CallOption) (*GetArtifactMetadataByFileIdReply, error) {
+	out := new(GetArtifactMetadataByFileIdReply)
+	err := c.cc.Invoke(ctx, "/bugu.service.v1.Bugu/GetArtifactMetadataByFileId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BuguServer is the server API for Bugu service.
 // All implementations must embed UnimplementedBuguServer
 // for forward compatibility
@@ -102,6 +122,8 @@ type BuguServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserReply, error)
 	Detect(context.Context, *DetectRequest) (*DetectReply, error)
 	Confusion(context.Context, *ConfusionRequest) (*ConfusionReply, error)
+	GetArtifactMetadata(context.Context, *GetArtifactMetadataRequest) (*GetArtifactMetadataReply, error)
+	GetArtifactMetadataByFileId(context.Context, *GetArtifactMetadataByFileIdRequest) (*GetArtifactMetadataByFileIdReply, error)
 	mustEmbedUnimplementedBuguServer()
 }
 
@@ -126,6 +148,12 @@ func (UnimplementedBuguServer) Detect(context.Context, *DetectRequest) (*DetectR
 }
 func (UnimplementedBuguServer) Confusion(context.Context, *ConfusionRequest) (*ConfusionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Confusion not implemented")
+}
+func (UnimplementedBuguServer) GetArtifactMetadata(context.Context, *GetArtifactMetadataRequest) (*GetArtifactMetadataReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetArtifactMetadata not implemented")
+}
+func (UnimplementedBuguServer) GetArtifactMetadataByFileId(context.Context, *GetArtifactMetadataByFileIdRequest) (*GetArtifactMetadataByFileIdReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetArtifactMetadataByFileId not implemented")
 }
 func (UnimplementedBuguServer) mustEmbedUnimplementedBuguServer() {}
 
@@ -248,6 +276,42 @@ func _Bugu_Confusion_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Bugu_GetArtifactMetadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetArtifactMetadataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BuguServer).GetArtifactMetadata(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bugu.service.v1.Bugu/GetArtifactMetadata",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BuguServer).GetArtifactMetadata(ctx, req.(*GetArtifactMetadataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Bugu_GetArtifactMetadataByFileId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetArtifactMetadataByFileIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BuguServer).GetArtifactMetadataByFileId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bugu.service.v1.Bugu/GetArtifactMetadataByFileId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BuguServer).GetArtifactMetadataByFileId(ctx, req.(*GetArtifactMetadataByFileIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Bugu_ServiceDesc is the grpc.ServiceDesc for Bugu service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -278,6 +342,14 @@ var Bugu_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Confusion",
 			Handler:    _Bugu_Confusion_Handler,
+		},
+		{
+			MethodName: "GetArtifactMetadata",
+			Handler:    _Bugu_GetArtifactMetadata_Handler,
+		},
+		{
+			MethodName: "GetArtifactMetadataByFileId",
+			Handler:    _Bugu_GetArtifactMetadataByFileId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

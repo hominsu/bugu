@@ -1945,6 +1945,564 @@ var _ interface {
 	ErrorName() string
 } = ConfusionReplyValidationError{}
 
+// Validate checks the field values on GetArtifactMetadataRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetArtifactMetadataRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetArtifactMetadataRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetArtifactMetadataRequestMultiError, or nil if none found.
+func (m *GetArtifactMetadataRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetArtifactMetadataRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = GetArtifactMetadataRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetArtifactId()); err != nil {
+		err = GetArtifactMetadataRequestValidationError{
+			field:  "ArtifactId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetArtifactMetadataRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *GetArtifactMetadataRequest) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// GetArtifactMetadataRequestMultiError is an error wrapping multiple
+// validation errors returned by GetArtifactMetadataRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetArtifactMetadataRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetArtifactMetadataRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetArtifactMetadataRequestMultiError) AllErrors() []error { return m }
+
+// GetArtifactMetadataRequestValidationError is the validation error returned
+// by GetArtifactMetadataRequest.Validate if the designated constraints aren't met.
+type GetArtifactMetadataRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetArtifactMetadataRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetArtifactMetadataRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetArtifactMetadataRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetArtifactMetadataRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetArtifactMetadataRequestValidationError) ErrorName() string {
+	return "GetArtifactMetadataRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetArtifactMetadataRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetArtifactMetadataRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetArtifactMetadataRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetArtifactMetadataRequestValidationError{}
+
+// Validate checks the field values on GetArtifactMetadataReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetArtifactMetadataReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetArtifactMetadataReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetArtifactMetadataReplyMultiError, or nil if none found.
+func (m *GetArtifactMetadataReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetArtifactMetadataReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetArtifactId()); err != nil {
+		err = GetArtifactMetadataReplyValidationError{
+			field:  "ArtifactId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = GetArtifactMetadataReplyValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetAffiliatedFileId()); err != nil {
+		err = GetArtifactMetadataReplyValidationError{
+			field:  "AffiliatedFileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Method
+
+	if len(errors) > 0 {
+		return GetArtifactMetadataReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *GetArtifactMetadataReply) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// GetArtifactMetadataReplyMultiError is an error wrapping multiple validation
+// errors returned by GetArtifactMetadataReply.ValidateAll() if the designated
+// constraints aren't met.
+type GetArtifactMetadataReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetArtifactMetadataReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetArtifactMetadataReplyMultiError) AllErrors() []error { return m }
+
+// GetArtifactMetadataReplyValidationError is the validation error returned by
+// GetArtifactMetadataReply.Validate if the designated constraints aren't met.
+type GetArtifactMetadataReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetArtifactMetadataReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetArtifactMetadataReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetArtifactMetadataReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetArtifactMetadataReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetArtifactMetadataReplyValidationError) ErrorName() string {
+	return "GetArtifactMetadataReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetArtifactMetadataReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetArtifactMetadataReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetArtifactMetadataReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetArtifactMetadataReplyValidationError{}
+
+// Validate checks the field values on GetArtifactMetadataByFileIdRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetArtifactMetadataByFileIdRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetArtifactMetadataByFileIdRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GetArtifactMetadataByFileIdRequestMultiError, or nil if none found.
+func (m *GetArtifactMetadataByFileIdRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetArtifactMetadataByFileIdRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = GetArtifactMetadataByFileIdRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = GetArtifactMetadataByFileIdRequestValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetArtifactMetadataByFileIdRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *GetArtifactMetadataByFileIdRequest) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// GetArtifactMetadataByFileIdRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// GetArtifactMetadataByFileIdRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetArtifactMetadataByFileIdRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetArtifactMetadataByFileIdRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetArtifactMetadataByFileIdRequestMultiError) AllErrors() []error { return m }
+
+// GetArtifactMetadataByFileIdRequestValidationError is the validation error
+// returned by GetArtifactMetadataByFileIdRequest.Validate if the designated
+// constraints aren't met.
+type GetArtifactMetadataByFileIdRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetArtifactMetadataByFileIdRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetArtifactMetadataByFileIdRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetArtifactMetadataByFileIdRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetArtifactMetadataByFileIdRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetArtifactMetadataByFileIdRequestValidationError) ErrorName() string {
+	return "GetArtifactMetadataByFileIdRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetArtifactMetadataByFileIdRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetArtifactMetadataByFileIdRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetArtifactMetadataByFileIdRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetArtifactMetadataByFileIdRequestValidationError{}
+
+// Validate checks the field values on GetArtifactMetadataByFileIdReply with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetArtifactMetadataByFileIdReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetArtifactMetadataByFileIdReply with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetArtifactMetadataByFileIdReplyMultiError, or nil if none found.
+func (m *GetArtifactMetadataByFileIdReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetArtifactMetadataByFileIdReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetArtifactMetadata() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetArtifactMetadataByFileIdReplyValidationError{
+						field:  fmt.Sprintf("ArtifactMetadata[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetArtifactMetadataByFileIdReplyValidationError{
+						field:  fmt.Sprintf("ArtifactMetadata[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetArtifactMetadataByFileIdReplyValidationError{
+					field:  fmt.Sprintf("ArtifactMetadata[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetArtifactMetadataByFileIdReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetArtifactMetadataByFileIdReplyMultiError is an error wrapping multiple
+// validation errors returned by
+// GetArtifactMetadataByFileIdReply.ValidateAll() if the designated
+// constraints aren't met.
+type GetArtifactMetadataByFileIdReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetArtifactMetadataByFileIdReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetArtifactMetadataByFileIdReplyMultiError) AllErrors() []error { return m }
+
+// GetArtifactMetadataByFileIdReplyValidationError is the validation error
+// returned by GetArtifactMetadataByFileIdReply.Validate if the designated
+// constraints aren't met.
+type GetArtifactMetadataByFileIdReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetArtifactMetadataByFileIdReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetArtifactMetadataByFileIdReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetArtifactMetadataByFileIdReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetArtifactMetadataByFileIdReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetArtifactMetadataByFileIdReplyValidationError) ErrorName() string {
+	return "GetArtifactMetadataByFileIdReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetArtifactMetadataByFileIdReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetArtifactMetadataByFileIdReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetArtifactMetadataByFileIdReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetArtifactMetadataByFileIdReplyValidationError{}
+
 // Validate checks the field values on RegisterRequest_User with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
