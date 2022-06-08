@@ -253,6 +253,34 @@ func AffiliatedFileIDNotIn(vs ...uuid.UUID) predicate.Artifact {
 	})
 }
 
+// AffiliatedFileIDGT applies the GT predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDGT(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
+// AffiliatedFileIDGTE applies the GTE predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDGTE(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
+// AffiliatedFileIDLT applies the LT predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDLT(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
+// AffiliatedFileIDLTE applies the LTE predicate on the "affiliated_file_id" field.
+func AffiliatedFileIDLTE(v uuid.UUID) predicate.Artifact {
+	return predicate.Artifact(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldAffiliatedFileID), v))
+	})
+}
+
 // MethodEQ applies the EQ predicate on the "method" field.
 func MethodEQ(v string) predicate.Artifact {
 	return predicate.Artifact(func(s *sql.Selector) {
@@ -536,7 +564,7 @@ func HasAffiliatedFile() predicate.Artifact {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(AffiliatedFileTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, AffiliatedFileTable, AffiliatedFileColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, AffiliatedFileTable, AffiliatedFileColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
@@ -548,7 +576,7 @@ func HasAffiliatedFileWith(preds ...predicate.File) predicate.Artifact {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(AffiliatedFileInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, AffiliatedFileTable, AffiliatedFileColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, AffiliatedFileTable, AffiliatedFileColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

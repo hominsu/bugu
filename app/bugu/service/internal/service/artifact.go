@@ -122,3 +122,24 @@ func (s *BuguService) GetArtifactMetadataByFileId(ctx context.Context, in *buguV
 
 	return &buguV1.GetArtifactMetadataByFileIdReply{ArtifactMetadata: metadataReplies}, nil
 }
+
+func (s *BuguService) DeleteArtifactMetadata(ctx context.Context, in *buguV1.DeleteArtifactMetadataRequest) (*buguV1.DeleteArtifactMetadataReply, error) {
+	userId := in.GetUserId()
+
+	md, ok := metadata.FromClientContext(ctx)
+	if !ok {
+		return nil, buguV1.ErrorInternalServerError("Openid does not exist in context")
+	}
+	if md.Get("x-md-global-userid") != userId {
+		return nil, errors.Unauthorized("UNAUTHORIZED", "userid is inconsistent")
+	}
+
+	artifactId := in.GetArtifactId()
+
+	err := s.au.DeleteArtifactMetadata(ctx, userId, artifactId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &buguV1.DeleteArtifactMetadataReply{}, nil
+}

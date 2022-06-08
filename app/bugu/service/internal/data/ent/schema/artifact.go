@@ -40,10 +40,7 @@ func (Artifact) Fields() []ent.Field {
 func (Artifact) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("affiliated_file", File.Type).
-			Ref("artifact").
-			Field("affiliated_file_id").
-			Unique().
-			Required(),
+			Ref("artifact"),
 		edge.From("affiliated_user", User.Type).
 			Ref("user_artifact"),
 	}

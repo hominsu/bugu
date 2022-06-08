@@ -10,7 +10,6 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
 	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
-	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
 )
 
 // Artifact is the model entity for the Artifact schema.
@@ -36,7 +35,7 @@ type Artifact struct {
 // ArtifactEdges holds the relations/edges for other nodes in the graph.
 type ArtifactEdges struct {
 	// AffiliatedFile holds the value of the affiliated_file edge.
-	AffiliatedFile *File `json:"affiliated_file,omitempty"`
+	AffiliatedFile []*File `json:"affiliated_file,omitempty"`
 	// AffiliatedUser holds the value of the affiliated_user edge.
 	AffiliatedUser []*User `json:"affiliated_user,omitempty"`
 	// loadedTypes holds the information for reporting if a
@@ -45,14 +44,9 @@ type ArtifactEdges struct {
 }
 
 // AffiliatedFileOrErr returns the AffiliatedFile value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e ArtifactEdges) AffiliatedFileOrErr() (*File, error) {
+// was not loaded in eager-loading.
+func (e ArtifactEdges) AffiliatedFileOrErr() ([]*File, error) {
 	if e.loadedTypes[0] {
-		if e.AffiliatedFile == nil {
-			// The edge affiliated_file was loaded in eager-loading,
-			// but was not found.
-			return nil, &NotFoundError{label: file.Label}
-		}
 		return e.AffiliatedFile, nil
 	}
 	return nil, &NotLoadedError{edge: "affiliated_file"}

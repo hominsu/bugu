@@ -81,7 +81,7 @@ func (aq *ArtifactQuery) QueryAffiliatedFile() *FileQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(artifact.Table, artifact.FieldID, selector),
 			sqlgraph.To(file.Table, file.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, artifact.AffiliatedFileTable, artifact.AffiliatedFileColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, artifact.AffiliatedFileTable, artifact.AffiliatedFileColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(aq.driver.Dialect(), step)
 		return fromU, nil
@@ -414,28 +414,31 @@ func (aq *ArtifactQuery) sqlAll(ctx context.Context) ([]*Artifact, error) {
 	}
 
 	if query := aq.withAffiliatedFile; query != nil {
-		ids := make([]uuid.UUID, 0, len(nodes))
-		nodeids := make(map[uuid.UUID][]*Artifact)
+		fks := make([]driver.Value, 0, len(nodes))
+		nodeids := make(map[uuid.UUID]*Artifact)
 		for i := range nodes {
-			fk := nodes[i].AffiliatedFileID
-			if _, ok := nodeids[fk]; !ok {
-				ids = append(ids, fk)
-			}
-			nodeids[fk] = append(nodeids[fk], nodes[i])
+			fks = append(fks, nodes[i].ID)
+			nodeids[nodes[i].ID] = nodes[i]
+			nodes[i].Edges.AffiliatedFile = []*File{}
 		}
-		query.Where(file.IDIn(ids...))
+		query.withFKs = true
+		query.Where(predicate.File(func(s *sql.Selector) {
+			s.Where(sql.InValues(artifact.AffiliatedFileColumn, fks...))
+		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
 			return nil, err
 		}
 		for _, n := range neighbors {
-			nodes, ok := nodeids[n.ID]
+			fk := n.file_artifact
+			if fk == nil {
+				return nil, fmt.Errorf(`foreign-key "file_artifact" is nil for node %v`, n.ID)
+			}
+			node, ok := nodeids[*fk]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "affiliated_file_id" returned %v`, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "file_artifact" returned %v for node %v`, *fk, n.ID)
 			}
-			for i := range nodes {
-				nodes[i].Edges.AffiliatedFile = n
-			}
+			node.Edges.AffiliatedFile = append(node.Edges.AffiliatedFile, n)
 		}
 	}
 

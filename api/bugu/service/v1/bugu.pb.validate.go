@@ -1190,137 +1190,43 @@ var _ interface {
 	ErrorName() string
 } = UserStructValidationError{}
 
-// Validate checks the field values on FileUploadRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *FileUploadRequest) Validate() error {
+// Validate checks the field values on GetFileMetaRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetFileMetaRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on FileUploadRequest with the rules
+// ValidateAll checks the field values on GetFileMetaRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// FileUploadRequestMultiError, or nil if none found.
-func (m *FileUploadRequest) ValidateAll() error {
+// GetFileMetaRequestMultiError, or nil if none found.
+func (m *GetFileMetaRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *FileUploadRequest) validate(all bool) error {
+func (m *GetFileMetaRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	// no validation rules for Size
-
-	// no validation rules for Content
-
-	if len(errors) > 0 {
-		return FileUploadRequestMultiError(errors)
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = GetFileMetaRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	return nil
-}
-
-// FileUploadRequestMultiError is an error wrapping multiple validation errors
-// returned by FileUploadRequest.ValidateAll() if the designated constraints
-// aren't met.
-type FileUploadRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m FileUploadRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m FileUploadRequestMultiError) AllErrors() []error { return m }
-
-// FileUploadRequestValidationError is the validation error returned by
-// FileUploadRequest.Validate if the designated constraints aren't met.
-type FileUploadRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e FileUploadRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e FileUploadRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e FileUploadRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e FileUploadRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e FileUploadRequestValidationError) ErrorName() string {
-	return "FileUploadRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e FileUploadRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sFileUploadRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = FileUploadRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = FileUploadRequestValidationError{}
-
-// Validate checks the field values on FileUploadReply with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *FileUploadReply) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on FileUploadReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// FileUploadReplyMultiError, or nil if none found.
-func (m *FileUploadReply) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *FileUploadReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if err := m._validateUuid(m.GetId()); err != nil {
-		err = FileUploadReplyValidationError{
-			field:  "Id",
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = GetFileMetaRequestValidationError{
+			field:  "FileId",
 			reason: "value must be a valid UUID",
 			cause:  err,
 		}
@@ -1331,13 +1237,13 @@ func (m *FileUploadReply) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return FileUploadReplyMultiError(errors)
+		return GetFileMetaRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-func (m *FileUploadReply) _validateUuid(uuid string) error {
+func (m *GetFileMetaRequest) _validateUuid(uuid string) error {
 	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
 		return errors.New("invalid uuid format")
 	}
@@ -1345,13 +1251,13 @@ func (m *FileUploadReply) _validateUuid(uuid string) error {
 	return nil
 }
 
-// FileUploadReplyMultiError is an error wrapping multiple validation errors
-// returned by FileUploadReply.ValidateAll() if the designated constraints
+// GetFileMetaRequestMultiError is an error wrapping multiple validation errors
+// returned by GetFileMetaRequest.ValidateAll() if the designated constraints
 // aren't met.
-type FileUploadReplyMultiError []error
+type GetFileMetaRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m FileUploadReplyMultiError) Error() string {
+func (m GetFileMetaRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1360,11 +1266,11 @@ func (m FileUploadReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m FileUploadReplyMultiError) AllErrors() []error { return m }
+func (m GetFileMetaRequestMultiError) AllErrors() []error { return m }
 
-// FileUploadReplyValidationError is the validation error returned by
-// FileUploadReply.Validate if the designated constraints aren't met.
-type FileUploadReplyValidationError struct {
+// GetFileMetaRequestValidationError is the validation error returned by
+// GetFileMetaRequest.Validate if the designated constraints aren't met.
+type GetFileMetaRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1372,22 +1278,24 @@ type FileUploadReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e FileUploadReplyValidationError) Field() string { return e.field }
+func (e GetFileMetaRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e FileUploadReplyValidationError) Reason() string { return e.reason }
+func (e GetFileMetaRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e FileUploadReplyValidationError) Cause() error { return e.cause }
+func (e GetFileMetaRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e FileUploadReplyValidationError) Key() bool { return e.key }
+func (e GetFileMetaRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e FileUploadReplyValidationError) ErrorName() string { return "FileUploadReplyValidationError" }
+func (e GetFileMetaRequestValidationError) ErrorName() string {
+	return "GetFileMetaRequestValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e FileUploadReplyValidationError) Error() string {
+func (e GetFileMetaRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1399,14 +1307,14 @@ func (e FileUploadReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sFileUploadReply.%s: %s%s",
+		"invalid %sGetFileMetaRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = FileUploadReplyValidationError{}
+var _ error = GetFileMetaRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -1414,7 +1322,629 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = FileUploadReplyValidationError{}
+} = GetFileMetaRequestValidationError{}
+
+// Validate checks the field values on GetFileMetaReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetFileMetaReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetFileMetaReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetFileMetaReplyMultiError, or nil if none found.
+func (m *GetFileMetaReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetFileMetaReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = GetFileMetaReplyValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for FileSha_1
+
+	// no validation rules for FileSize
+
+	// no validation rules for FileAddr
+
+	// no validation rules for Type
+
+	if len(errors) > 0 {
+		return GetFileMetaReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *GetFileMetaReply) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// GetFileMetaReplyMultiError is an error wrapping multiple validation errors
+// returned by GetFileMetaReply.ValidateAll() if the designated constraints
+// aren't met.
+type GetFileMetaReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetFileMetaReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetFileMetaReplyMultiError) AllErrors() []error { return m }
+
+// GetFileMetaReplyValidationError is the validation error returned by
+// GetFileMetaReply.Validate if the designated constraints aren't met.
+type GetFileMetaReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetFileMetaReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetFileMetaReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetFileMetaReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetFileMetaReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetFileMetaReplyValidationError) ErrorName() string { return "GetFileMetaReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetFileMetaReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetFileMetaReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetFileMetaReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetFileMetaReplyValidationError{}
+
+// Validate checks the field values on GetFileMetaByUserIdRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetFileMetaByUserIdRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetFileMetaByUserIdRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetFileMetaByUserIdRequestMultiError, or nil if none found.
+func (m *GetFileMetaByUserIdRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetFileMetaByUserIdRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = GetFileMetaByUserIdRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetFileMetaByUserIdRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *GetFileMetaByUserIdRequest) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// GetFileMetaByUserIdRequestMultiError is an error wrapping multiple
+// validation errors returned by GetFileMetaByUserIdRequest.ValidateAll() if
+// the designated constraints aren't met.
+type GetFileMetaByUserIdRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetFileMetaByUserIdRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetFileMetaByUserIdRequestMultiError) AllErrors() []error { return m }
+
+// GetFileMetaByUserIdRequestValidationError is the validation error returned
+// by GetFileMetaByUserIdRequest.Validate if the designated constraints aren't met.
+type GetFileMetaByUserIdRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetFileMetaByUserIdRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetFileMetaByUserIdRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetFileMetaByUserIdRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetFileMetaByUserIdRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetFileMetaByUserIdRequestValidationError) ErrorName() string {
+	return "GetFileMetaByUserIdRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetFileMetaByUserIdRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetFileMetaByUserIdRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetFileMetaByUserIdRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetFileMetaByUserIdRequestValidationError{}
+
+// Validate checks the field values on GetFileMetaByUserIdReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetFileMetaByUserIdReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetFileMetaByUserIdReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetFileMetaByUserIdReplyMultiError, or nil if none found.
+func (m *GetFileMetaByUserIdReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetFileMetaByUserIdReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetFileMetadata() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetFileMetaByUserIdReplyValidationError{
+						field:  fmt.Sprintf("FileMetadata[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetFileMetaByUserIdReplyValidationError{
+						field:  fmt.Sprintf("FileMetadata[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetFileMetaByUserIdReplyValidationError{
+					field:  fmt.Sprintf("FileMetadata[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetFileMetaByUserIdReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetFileMetaByUserIdReplyMultiError is an error wrapping multiple validation
+// errors returned by GetFileMetaByUserIdReply.ValidateAll() if the designated
+// constraints aren't met.
+type GetFileMetaByUserIdReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetFileMetaByUserIdReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetFileMetaByUserIdReplyMultiError) AllErrors() []error { return m }
+
+// GetFileMetaByUserIdReplyValidationError is the validation error returned by
+// GetFileMetaByUserIdReply.Validate if the designated constraints aren't met.
+type GetFileMetaByUserIdReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetFileMetaByUserIdReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetFileMetaByUserIdReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetFileMetaByUserIdReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetFileMetaByUserIdReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetFileMetaByUserIdReplyValidationError) ErrorName() string {
+	return "GetFileMetaByUserIdReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetFileMetaByUserIdReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetFileMetaByUserIdReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetFileMetaByUserIdReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetFileMetaByUserIdReplyValidationError{}
+
+// Validate checks the field values on DeleteFileMetadataRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteFileMetadataRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteFileMetadataRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteFileMetadataRequestMultiError, or nil if none found.
+func (m *DeleteFileMetadataRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteFileMetadataRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = DeleteFileMetadataRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = DeleteFileMetadataRequestValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteFileMetadataRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *DeleteFileMetadataRequest) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// DeleteFileMetadataRequestMultiError is an error wrapping multiple validation
+// errors returned by DeleteFileMetadataRequest.ValidateAll() if the
+// designated constraints aren't met.
+type DeleteFileMetadataRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteFileMetadataRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteFileMetadataRequestMultiError) AllErrors() []error { return m }
+
+// DeleteFileMetadataRequestValidationError is the validation error returned by
+// DeleteFileMetadataRequest.Validate if the designated constraints aren't met.
+type DeleteFileMetadataRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteFileMetadataRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteFileMetadataRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteFileMetadataRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteFileMetadataRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteFileMetadataRequestValidationError) ErrorName() string {
+	return "DeleteFileMetadataRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteFileMetadataRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteFileMetadataRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteFileMetadataRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteFileMetadataRequestValidationError{}
+
+// Validate checks the field values on DeleteFileMetadataReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteFileMetadataReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteFileMetadataReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteFileMetadataReplyMultiError, or nil if none found.
+func (m *DeleteFileMetadataReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteFileMetadataReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteFileMetadataReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteFileMetadataReplyMultiError is an error wrapping multiple validation
+// errors returned by DeleteFileMetadataReply.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteFileMetadataReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteFileMetadataReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteFileMetadataReplyMultiError) AllErrors() []error { return m }
+
+// DeleteFileMetadataReplyValidationError is the validation error returned by
+// DeleteFileMetadataReply.Validate if the designated constraints aren't met.
+type DeleteFileMetadataReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteFileMetadataReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteFileMetadataReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteFileMetadataReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteFileMetadataReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteFileMetadataReplyValidationError) ErrorName() string {
+	return "DeleteFileMetadataReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteFileMetadataReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteFileMetadataReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteFileMetadataReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteFileMetadataReplyValidationError{}
 
 // Validate checks the field values on DetectRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -2502,6 +3032,244 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetArtifactMetadataByFileIdReplyValidationError{}
+
+// Validate checks the field values on DeleteArtifactMetadataRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteArtifactMetadataRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteArtifactMetadataRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// DeleteArtifactMetadataRequestMultiError, or nil if none found.
+func (m *DeleteArtifactMetadataRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteArtifactMetadataRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = DeleteArtifactMetadataRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetArtifactId()); err != nil {
+		err = DeleteArtifactMetadataRequestValidationError{
+			field:  "ArtifactId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteArtifactMetadataRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *DeleteArtifactMetadataRequest) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// DeleteArtifactMetadataRequestMultiError is an error wrapping multiple
+// validation errors returned by DeleteArtifactMetadataRequest.ValidateAll()
+// if the designated constraints aren't met.
+type DeleteArtifactMetadataRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteArtifactMetadataRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteArtifactMetadataRequestMultiError) AllErrors() []error { return m }
+
+// DeleteArtifactMetadataRequestValidationError is the validation error
+// returned by DeleteArtifactMetadataRequest.Validate if the designated
+// constraints aren't met.
+type DeleteArtifactMetadataRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteArtifactMetadataRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteArtifactMetadataRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteArtifactMetadataRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteArtifactMetadataRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteArtifactMetadataRequestValidationError) ErrorName() string {
+	return "DeleteArtifactMetadataRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteArtifactMetadataRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteArtifactMetadataRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteArtifactMetadataRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteArtifactMetadataRequestValidationError{}
+
+// Validate checks the field values on DeleteArtifactMetadataReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteArtifactMetadataReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteArtifactMetadataReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteArtifactMetadataReplyMultiError, or nil if none found.
+func (m *DeleteArtifactMetadataReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteArtifactMetadataReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return DeleteArtifactMetadataReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteArtifactMetadataReplyMultiError is an error wrapping multiple
+// validation errors returned by DeleteArtifactMetadataReply.ValidateAll() if
+// the designated constraints aren't met.
+type DeleteArtifactMetadataReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteArtifactMetadataReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteArtifactMetadataReplyMultiError) AllErrors() []error { return m }
+
+// DeleteArtifactMetadataReplyValidationError is the validation error returned
+// by DeleteArtifactMetadataReply.Validate if the designated constraints
+// aren't met.
+type DeleteArtifactMetadataReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteArtifactMetadataReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteArtifactMetadataReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteArtifactMetadataReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteArtifactMetadataReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteArtifactMetadataReplyValidationError) ErrorName() string {
+	return "DeleteArtifactMetadataReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteArtifactMetadataReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteArtifactMetadataReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteArtifactMetadataReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteArtifactMetadataReplyValidationError{}
 
 // Validate checks the field values on RegisterRequest_User with the rules
 // defined in the proto definition for this message. If any rules are

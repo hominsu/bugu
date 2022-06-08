@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
 
       - id: set-matrix
         run: |
@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Log into Registry ${{ matrix.name }}
         uses: docker/login-action@v2
@@ -105,9 +105,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ docker ]
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -115,12 +118,13 @@ jobs:
         run: |
           current_tag=$(git tag -l --format "%(refname:strip=2)" --sort=taggerdate | sed -n '$p')
           last_tag=$(git tag -l --format "%(refname:strip=2)" --sort=taggerdate | sed -e '$d' | sed -n '$p')
-          git log --pretty=oneline --pretty=format:"%s%n%b" $last_tag...$current_tag > ${{ github.workspace }}-CHANGELOG.txt
+          git log --pretty=oneline --pretty=format:"%s%n%b" $last_tag...$current_tag > ${{ github.workspace }}/CHANGELOG.txt
+          cat ${{ github.workspace }}/CHANGELOG.txt
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body_path: ${{ github.workspace }}-CHANGELOG.txt
+          body_path: ${{ github.workspace }}/CHANGELOG.txt
           generate_release_notes: true

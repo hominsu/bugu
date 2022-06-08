@@ -126,7 +126,6 @@ buildx:
 .PHONY: wire
 # generate wire
 wire:
-	cd cmd/server && wire
 
 .PHONY: api
 # generate api

@@ -154,7 +154,7 @@
         ]
       }
     },
-    "/v1/user/{userId}/artifact/{artifactId}": {
+    "/v1/user/{userId}/artifact/{artifactId}/metadata": {
       "get": {
         "operationId": "Bugu_GetArtifactMetadata",
         "responses": {
@@ -188,16 +188,14 @@
         "tags": [
           "Bugu"
         ]
-      }
-    },
-    "/v1/user/{userId}/file/{fileId}/artifact": {
-      "get": {
-        "operationId": "Bugu_GetArtifactMetadataByFileId2",
+      },
+      "delete": {
+        "operationId": "Bugu_DeleteArtifactMetadata",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetArtifactMetadataByFileIdReply"
+              "$ref": "#/definitions/v1DeleteArtifactMetadataReply"
             }
           },
           "default": {
@@ -215,7 +213,7 @@
             "type": "string"
           },
           {
-            "name": "fileId",
+            "name": "artifactId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -288,6 +286,106 @@
           },
           {
             "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/file/{fileId}/metadata": {
+      "get": {
+        "operationId": "Bugu_GetFileMeta",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetFileMetaReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      },
+      "delete": {
+        "operationId": "Bugu_DeleteFileMetadata",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteFileMetadataReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/files": {
+      "get": {
+        "operationId": "Bugu_GetFileMetaByUserId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetFileMetaByUserIdReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -421,6 +519,38 @@
         }
       }
     },
+    "servicev1Type": {
+      "type": "string",
+      "enum": [
+        "TYPE_ADPOSHEL",
+        "TYPE_AGENT",
+        "TYPE_ALLAPLE",
+        "TYPE_AMONETIZE",
+        "TYPE_ANDROM",
+        "TYPE_AUTORUN",
+        "TYPE_BROWSE_FOX",
+        "TYPE_DINWOD",
+        "TYPE_ELEX",
+        "TYPE_EXPIRO",
+        "TYPE_FASONG",
+        "TYPE_HACK_KMS",
+        "TYPE_HLUX",
+        "TYPE_INJECTOR",
+        "TYPE_INSTALL_CORE",
+        "TYPE_MULTI_Plug",
+        "TYPE_NEOREKLAMI",
+        "TYPE_NESHTA",
+        "TYPE_OTHER",
+        "TYPE_REGRUN",
+        "TYPE_SALITY",
+        "TYPE_SNARASITE",
+        "TYPE_STABTINKO",
+        "TYPE_VBA",
+        "TYPE_VBKRYPT",
+        "TYPE_VILSEL"
+      ],
+      "default": "TYPE_ADPOSHEL"
+    },
     "v1ConfusionReply": {
       "type": "object",
       "properties": {
@@ -448,6 +578,12 @@
           "type": "string"
         }
       }
+    },
+    "v1DeleteArtifactMetadataReply": {
+      "type": "object"
+    },
+    "v1DeleteFileMetadataReply": {
+      "type": "object"
     },
     "v1DetectReply": {
       "type": "object",
@@ -501,6 +637,38 @@
       "properties": {
         "user": {
           "$ref": "#/definitions/v1UserStruct"
+        }
+      }
+    },
+    "v1GetFileMetaByUserIdReply": {
+      "type": "object",
+      "properties": {
+        "fileMetadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1GetFileMetaReply"
+          }
+        }
+      }
+    },
+    "v1GetFileMetaReply": {
+      "type": "object",
+      "properties": {
+        "fileId": {
+          "type": "string"
+        },
+        "fileSha1": {
+          "type": "string"
+        },
+        "fileSize": {
+          "type": "string",
+          "format": "int64"
+        },
+        "fileAddr": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/servicev1Type"
         }
       }
     },

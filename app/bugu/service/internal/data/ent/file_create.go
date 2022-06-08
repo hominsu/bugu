@@ -194,6 +194,10 @@ func (fc *FileCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (fc *FileCreate) defaults() {
+	if _, ok := fc.mutation.GetType(); !ok {
+		v := file.DefaultType
+		fc.mutation.SetType(v)
+	}
 	if _, ok := fc.mutation.CreatedAt(); !ok {
 		v := file.DefaultCreatedAt()
 		fc.mutation.SetCreatedAt(v)
@@ -214,6 +218,9 @@ func (fc *FileCreate) check() error {
 	}
 	if _, ok := fc.mutation.FileAddr(); !ok {
 		return &ValidationError{Name: "file_addr", err: errors.New(`ent: missing required field "File.file_addr"`)}
+	}
+	if _, ok := fc.mutation.GetType(); !ok {
+		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "File.type"`)}
 	}
 	if v, ok := fc.mutation.GetType(); ok {
 		if err := file.TypeValidator(v); err != nil {
@@ -312,7 +319,7 @@ func (fc *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 	}
 	if nodes := fc.mutation.ArtifactIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   file.ArtifactTable,
 			Columns: []string{file.ArtifactColumn},
@@ -327,6 +334,7 @@ func (fc *FileCreate) createSpec() (*File, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
+		_node.file_artifact = &nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := fc.mutation.AffiliatedUserIDs(); len(nodes) > 0 {

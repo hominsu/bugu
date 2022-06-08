@@ -77,9 +77,19 @@ func (au *ArtifactUpdate) SetNillableUpdatedAt(t *time.Time) *ArtifactUpdate {
 	return au
 }
 
-// SetAffiliatedFile sets the "affiliated_file" edge to the File entity.
-func (au *ArtifactUpdate) SetAffiliatedFile(f *File) *ArtifactUpdate {
-	return au.SetAffiliatedFileID(f.ID)
+// AddAffiliatedFileIDs adds the "affiliated_file" edge to the File entity by IDs.
+func (au *ArtifactUpdate) AddAffiliatedFileIDs(ids ...uuid.UUID) *ArtifactUpdate {
+	au.mutation.AddAffiliatedFileIDs(ids...)
+	return au
+}
+
+// AddAffiliatedFile adds the "affiliated_file" edges to the File entity.
+func (au *ArtifactUpdate) AddAffiliatedFile(f ...*File) *ArtifactUpdate {
+	ids := make([]uuid.UUID, len(f))
+	for i := range f {
+		ids[i] = f[i].ID
+	}
+	return au.AddAffiliatedFileIDs(ids...)
 }
 
 // AddAffiliatedUserIDs adds the "affiliated_user" edge to the User entity by IDs.
@@ -102,10 +112,25 @@ func (au *ArtifactUpdate) Mutation() *ArtifactMutation {
 	return au.mutation
 }
 
-// ClearAffiliatedFile clears the "affiliated_file" edge to the File entity.
+// ClearAffiliatedFile clears all "affiliated_file" edges to the File entity.
 func (au *ArtifactUpdate) ClearAffiliatedFile() *ArtifactUpdate {
 	au.mutation.ClearAffiliatedFile()
 	return au
+}
+
+// RemoveAffiliatedFileIDs removes the "affiliated_file" edge to File entities by IDs.
+func (au *ArtifactUpdate) RemoveAffiliatedFileIDs(ids ...uuid.UUID) *ArtifactUpdate {
+	au.mutation.RemoveAffiliatedFileIDs(ids...)
+	return au
+}
+
+// RemoveAffiliatedFile removes "affiliated_file" edges to File entities.
+func (au *ArtifactUpdate) RemoveAffiliatedFile(f ...*File) *ArtifactUpdate {
+	ids := make([]uuid.UUID, len(f))
+	for i := range f {
+		ids[i] = f[i].ID
+	}
+	return au.RemoveAffiliatedFileIDs(ids...)
 }
 
 // ClearAffiliatedUser clears all "affiliated_user" edges to the User entity.
@@ -136,18 +161,12 @@ func (au *ArtifactUpdate) Save(ctx context.Context) (int, error) {
 		affected int
 	)
 	if len(au.hooks) == 0 {
-		if err = au.check(); err != nil {
-			return 0, err
-		}
 		affected, err = au.sqlSave(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 			mutation, ok := m.(*ArtifactMutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			if err = au.check(); err != nil {
-				return 0, err
 			}
 			au.mutation = mutation
 			affected, err = au.sqlSave(ctx)
@@ -189,14 +208,6 @@ func (au *ArtifactUpdate) ExecX(ctx context.Context) {
 	}
 }
 
-// check runs all checks and user-defined validators on the builder.
-func (au *ArtifactUpdate) check() error {
-	if _, ok := au.mutation.AffiliatedFileID(); au.mutation.AffiliatedFileCleared() && !ok {
-		return errors.New(`ent: clearing a required unique edge "Artifact.affiliated_file"`)
-	}
-	return nil
-}
-
 func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
@@ -222,6 +233,13 @@ func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: artifact.FieldFileID,
 		})
 	}
+	if value, ok := au.mutation.AffiliatedFileID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: artifact.FieldAffiliatedFileID,
+		})
+	}
 	if value, ok := au.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -244,7 +262,7 @@ func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if au.mutation.AffiliatedFileCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   artifact.AffiliatedFileTable,
 			Columns: []string{artifact.AffiliatedFileColumn},
@@ -258,9 +276,28 @@ func (au *ArtifactUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
+	if nodes := au.mutation.RemovedAffiliatedFileIDs(); len(nodes) > 0 && !au.mutation.AffiliatedFileCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   artifact.AffiliatedFileTable,
+			Columns: []string{artifact.AffiliatedFileColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: file.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
 	if nodes := au.mutation.AffiliatedFileIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   artifact.AffiliatedFileTable,
 			Columns: []string{artifact.AffiliatedFileColumn},
@@ -396,9 +433,19 @@ func (auo *ArtifactUpdateOne) SetNillableUpdatedAt(t *time.Time) *ArtifactUpdate
 	return auo
 }
 
-// SetAffiliatedFile sets the "affiliated_file" edge to the File entity.
-func (auo *ArtifactUpdateOne) SetAffiliatedFile(f *File) *ArtifactUpdateOne {
-	return auo.SetAffiliatedFileID(f.ID)
+// AddAffiliatedFileIDs adds the "affiliated_file" edge to the File entity by IDs.
+func (auo *ArtifactUpdateOne) AddAffiliatedFileIDs(ids ...uuid.UUID) *ArtifactUpdateOne {
+	auo.mutation.AddAffiliatedFileIDs(ids...)
+	return auo
+}
+
+// AddAffiliatedFile adds the "affiliated_file" edges to the File entity.
+func (auo *ArtifactUpdateOne) AddAffiliatedFile(f ...*File) *ArtifactUpdateOne {
+	ids := make([]uuid.UUID, len(f))
+	for i := range f {
+		ids[i] = f[i].ID
+	}
+	return auo.AddAffiliatedFileIDs(ids...)
 }
 
 // AddAffiliatedUserIDs adds the "affiliated_user" edge to the User entity by IDs.
@@ -421,10 +468,25 @@ func (auo *ArtifactUpdateOne) Mutation() *ArtifactMutation {
 	return auo.mutation
 }
 
-// ClearAffiliatedFile clears the "affiliated_file" edge to the File entity.
+// ClearAffiliatedFile clears all "affiliated_file" edges to the File entity.
 func (auo *ArtifactUpdateOne) ClearAffiliatedFile() *ArtifactUpdateOne {
 	auo.mutation.ClearAffiliatedFile()
 	return auo
+}
+
+// RemoveAffiliatedFileIDs removes the "affiliated_file" edge to File entities by IDs.
+func (auo *ArtifactUpdateOne) RemoveAffiliatedFileIDs(ids ...uuid.UUID) *ArtifactUpdateOne {
+	auo.mutation.RemoveAffiliatedFileIDs(ids...)
+	return auo
+}
+
+// RemoveAffiliatedFile removes "affiliated_file" edges to File entities.
+func (auo *ArtifactUpdateOne) RemoveAffiliatedFile(f ...*File) *ArtifactUpdateOne {
+	ids := make([]uuid.UUID, len(f))
+	for i := range f {
+		ids[i] = f[i].ID
+	}
+	return auo.RemoveAffiliatedFileIDs(ids...)
 }
 
 // ClearAffiliatedUser clears all "affiliated_user" edges to the User entity.
@@ -462,18 +524,12 @@ func (auo *ArtifactUpdateOne) Save(ctx context.Context) (*Artifact, error) {
 		node *Artifact
 	)
 	if len(auo.hooks) == 0 {
-		if err = auo.check(); err != nil {
-			return nil, err
-		}
 		node, err = auo.sqlSave(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 			mutation, ok := m.(*ArtifactMutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
-			}
-			if err = auo.check(); err != nil {
-				return nil, err
 			}
 			auo.mutation = mutation
 			node, err = auo.sqlSave(ctx)
@@ -513,14 +569,6 @@ func (auo *ArtifactUpdateOne) ExecX(ctx context.Context) {
 	if err := auo.Exec(ctx); err != nil {
 		panic(err)
 	}
-}
-
-// check runs all checks and user-defined validators on the builder.
-func (auo *ArtifactUpdateOne) check() error {
-	if _, ok := auo.mutation.AffiliatedFileID(); auo.mutation.AffiliatedFileCleared() && !ok {
-		return errors.New(`ent: clearing a required unique edge "Artifact.affiliated_file"`)
-	}
-	return nil
 }
 
 func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err error) {
@@ -565,6 +613,13 @@ func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err
 			Column: artifact.FieldFileID,
 		})
 	}
+	if value, ok := auo.mutation.AffiliatedFileID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: artifact.FieldAffiliatedFileID,
+		})
+	}
 	if value, ok := auo.mutation.Method(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -587,7 +642,7 @@ func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err
 	}
 	if auo.mutation.AffiliatedFileCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   artifact.AffiliatedFileTable,
 			Columns: []string{artifact.AffiliatedFileColumn},
@@ -601,9 +656,28 @@ func (auo *ArtifactUpdateOne) sqlSave(ctx context.Context) (_node *Artifact, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
+	if nodes := auo.mutation.RemovedAffiliatedFileIDs(); len(nodes) > 0 && !auo.mutation.AffiliatedFileCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: true,
+			Table:   artifact.AffiliatedFileTable,
+			Columns: []string{artifact.AffiliatedFileColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeUUID,
+					Column: file.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
 	if nodes := auo.mutation.AffiliatedFileIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   artifact.AffiliatedFileTable,
 			Columns: []string{artifact.AffiliatedFileColumn},

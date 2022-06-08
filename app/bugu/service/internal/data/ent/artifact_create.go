@@ -83,9 +83,19 @@ func (ac *ArtifactCreate) SetID(u uuid.UUID) *ArtifactCreate {
 	return ac
 }
 
-// SetAffiliatedFile sets the "affiliated_file" edge to the File entity.
-func (ac *ArtifactCreate) SetAffiliatedFile(f *File) *ArtifactCreate {
-	return ac.SetAffiliatedFileID(f.ID)
+// AddAffiliatedFileIDs adds the "affiliated_file" edge to the File entity by IDs.
+func (ac *ArtifactCreate) AddAffiliatedFileIDs(ids ...uuid.UUID) *ArtifactCreate {
+	ac.mutation.AddAffiliatedFileIDs(ids...)
+	return ac
+}
+
+// AddAffiliatedFile adds the "affiliated_file" edges to the File entity.
+func (ac *ArtifactCreate) AddAffiliatedFile(f ...*File) *ArtifactCreate {
+	ids := make([]uuid.UUID, len(f))
+	for i := range f {
+		ids[i] = f[i].ID
+	}
+	return ac.AddAffiliatedFileIDs(ids...)
 }
 
 // AddAffiliatedUserIDs adds the "affiliated_user" edge to the User entity by IDs.
@@ -198,9 +208,6 @@ func (ac *ArtifactCreate) check() error {
 	if _, ok := ac.mutation.UpdatedAt(); !ok {
 		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Artifact.updated_at"`)}
 	}
-	if _, ok := ac.mutation.AffiliatedFileID(); !ok {
-		return &ValidationError{Name: "affiliated_file", err: errors.New(`ent: missing required edge "Artifact.affiliated_file"`)}
-	}
 	return nil
 }
 
@@ -245,6 +252,14 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 		})
 		_node.FileID = value
 	}
+	if value, ok := ac.mutation.AffiliatedFileID(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUUID,
+			Value:  value,
+			Column: artifact.FieldAffiliatedFileID,
+		})
+		_node.AffiliatedFileID = value
+	}
 	if value, ok := ac.mutation.Method(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -271,7 +286,7 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 	}
 	if nodes := ac.mutation.AffiliatedFileIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.O2M,
 			Inverse: true,
 			Table:   artifact.AffiliatedFileTable,
 			Columns: []string{artifact.AffiliatedFileColumn},
@@ -286,7 +301,6 @@ func (ac *ArtifactCreate) createSpec() (*Artifact, *sqlgraph.CreateSpec) {
 		for _, k := range nodes {
 			edge.Target.Nodes = append(edge.Target.Nodes, k)
 		}
-		_node.AffiliatedFileID = nodes[0]
 		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := ac.mutation.AffiliatedUserIDs(); len(nodes) > 0 {

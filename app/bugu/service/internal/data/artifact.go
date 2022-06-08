@@ -54,12 +54,12 @@ func NewArtifactRepo(data *Data, logger log.Logger) biz.ArtifactRepo {
 	}
 }
 
-func (r *artifactRepo) CreateArtifactMetadata(ctx context.Context, userId uuid.UUID, artifact *biz.Artifact) (*biz.Artifact, error) {
+func (r *artifactRepo) CreateArtifactMetadata(ctx context.Context, userId uuid.UUID, a *biz.Artifact) (*biz.Artifact, error) {
 	po, err := r.data.db.Artifact.Create().
-		SetAffiliatedFileID(artifact.AffiliatedFileID).
-		SetFileID(artifact.FileID).
-		SetID(artifact.ID).
-		SetMethod(artifact.Method).
+		SetAffiliatedFileID(a.AffiliatedFileID).
+		SetFileID(a.FileID).
+		SetID(a.ID).
+		SetMethod(a.Method).
 		AddAffiliatedUserIDs(userId).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
@@ -81,6 +81,58 @@ func (r *artifactRepo) CreateArtifactMetadata(ctx context.Context, userId uuid.U
 func (r *artifactRepo) UpdateArtifactMetadata(ctx context.Context, artifact *biz.Artifact) (*biz.Artifact, error) {
 	po, err := r.data.db.Artifact.UpdateOneID(artifact.ID).
 		SetMethod(artifact.Method).
+		Save(ctx)
+	if err != nil && ent.IsConstraintError(err) {
+		return nil, buguV1.ErrorCreateConflict("update conflict, err: %v", err)
+	}
+	if err != nil {
+		r.log.Errorf("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
+	}
+
+	return &biz.Artifact{
+		ID:               po.ID,
+		FileID:           po.FileID,
+		AffiliatedFileID: po.AffiliatedFileID,
+		Method:           po.Method,
+	}, nil
+}
+
+func (r *artifactRepo) AppendArtifactMetadataByArtifactFileIdToUser(ctx context.Context, userId, fileId uuid.UUID) (*biz.Artifact, error) {
+	err := r.data.db.Artifact.Update().
+		Where(artifact.FileIDEQ(fileId)).
+		AddAffiliatedUserIDs(userId).
+		Exec(ctx)
+	if err != nil && ent.IsConstraintError(err) {
+		return nil, buguV1.ErrorCreateConflict("update conflict, err: %v", err)
+	}
+	if err != nil {
+		r.log.Errorf("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
+	}
+
+	target, err := r.data.db.Artifact.Query().
+		Where(artifact.FileIDEQ(fileId)).
+		Only(ctx)
+	if err != nil && ent.IsNotFound(err) {
+		return nil, buguV1.ErrorNotFoundError("find fileId: %s not found, err: %v", fileId.String(), err)
+	}
+	if err != nil {
+		r.log.Errorf("unknown err: %v", err)
+		return nil, buguV1.ErrorUnknownError("unknown err: %v", err)
+	}
+
+	return &biz.Artifact{
+		ID:               target.ID,
+		FileID:           target.FileID,
+		AffiliatedFileID: target.AffiliatedFileID,
+		Method:           target.Method,
+	}, nil
+}
+
+func (r *artifactRepo) AppendArtifactMetadataToUser(ctx context.Context, userId, artifactId uuid.UUID) (*biz.Artifact, error) {
+	po, err := r.data.db.Artifact.UpdateOneID(artifactId).
+		AddAffiliatedUserIDs(userId).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
 		return nil, buguV1.ErrorCreateConflict("update conflict, err: %v", err)
@@ -147,4 +199,28 @@ func (r *artifactRepo) GetArtifactMetadataByFileId(ctx context.Context, userId, 
 	}
 
 	return rets, nil
+}
+
+func (r *artifactRepo) DeleteArtifactMetadata(ctx context.Context, userId, artifactId uuid.UUID) error {
+	po, err := r.data.db.Artifact.UpdateOneID(artifactId).
+		RemoveAffiliatedUserIDs(userId).
+		Save(ctx)
+	if err != nil {
+		r.log.Errorf("unknown err: %v", err)
+		return buguV1.ErrorUnknownError("unknown err: %v", err)
+	}
+
+	err = r.data.db.File.Update().
+		Where(file.And(
+			file.HasAffiliatedUserWith(user.IDEQ(userId)),
+			file.IDEQ(po.FileID),
+		)).
+		RemoveAffiliatedUserIDs(userId).
+		Exec(ctx)
+	if err != nil && !ent.IsNotFound(err) {
+		r.log.Errorf("unknown err: %v", err)
+		return buguV1.ErrorUnknownError("unknown err: %v", err)
+	}
+
+	return nil
 }
