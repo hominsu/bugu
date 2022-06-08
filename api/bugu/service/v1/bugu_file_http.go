@@ -11,8 +11,8 @@ type BuguFileHTTPServer interface {
 
 func RegisterBuguFileHTTPServer(s *http.Server, srv BuguFileHTTPServer, filter ...http.FilterFunc) {
 	r := s.Route("/", filter...)
-	r.POST("/v1/{userId}/files", BuguUploadFileHTTPHandler(srv))
-	r.GET("/v1/{userId}/file/{fileId}", BuguDownloadFileHTTPHandler(srv))
+	r.POST("/v1/user/{userId}/files", BuguUploadFileHTTPHandler(srv))
+	r.GET("/v1/user/{userId}/file/{fileId}", BuguDownloadFileHTTPHandler(srv))
 }
 
 func BuguUploadFileHTTPHandler(srv BuguFileHTTPServer) func(ctx http.Context) error {

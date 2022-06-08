@@ -26,11 +26,11 @@
 package service
 
 import (
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/conf"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
 )
 
 // ProviderSet is service providers.

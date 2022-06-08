@@ -32,9 +32,9 @@ import (
 	"os"
 	"path/filepath"
 
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/pkg"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/pkg"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"
@@ -50,9 +50,9 @@ type File struct {
 }
 
 type FileRepo interface {
-	CreateFileMetadata(ctx context.Context, file *File) (*File, error)
+	CreateFileMetadata(ctx context.Context, userId uuid.UUID, file *File) (*File, error)
 	UpdateFileMetadata(ctx context.Context, file *File) (*File, error)
-	GetFileMetadata(ctx context.Context, id uuid.UUID) (*File, error)
+	GetFileMetadata(ctx context.Context, userId uuid.UUID, fileId uuid.UUID) (*File, error)
 }
 
 type FileUsecase struct {
@@ -68,7 +68,12 @@ func NewFileUsecase(repo FileRepo, logger log.Logger) *FileUsecase {
 	}
 }
 
-func (uc *FileUsecase) SaveFile(ctx context.Context, metaFile multipart.File, dir string) (*File, error) {
+func (uc *FileUsecase) SaveFile(ctx context.Context, userId string, metaFile multipart.File, dir string) (*File, error) {
+	userid, err := uuid.Parse(userId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse userId failed, err: %v", userId)
+	}
+
 	u, err := uuid.NewRandom()
 	if err != nil {
 		return nil, buguV1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
@@ -84,6 +89,28 @@ func (uc *FileUsecase) SaveFile(ctx context.Context, metaFile multipart.File, di
 		return nil, buguV1.ErrorCreateConflict("create file conflict")
 	}
 
+	sha1, size, err := pkg.IOSha1(metaFile)
+	if err != nil {
+		uc.log.Error(err)
+		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
+	}
+
+	_, err = metaFile.Seek(0, 0)
+	if err != nil {
+		uc.log.Error(err)
+		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
+	}
+
+	dto, err := uc.repo.CreateFileMetadata(ctx, userid, &File{
+		ID:       u,
+		FileSha1: sha1,
+		FileSize: size,
+		FileAddr: dir,
+	})
+	if err != nil {
+		return nil, err
+	}
+
 	f, err := os.OpenFile(dir, os.O_RDWR|os.O_CREATE, 0o666)
 	if err != nil {
 		return nil, err
@@ -95,38 +122,26 @@ func (uc *FileUsecase) SaveFile(ctx context.Context, metaFile multipart.File, di
 		}
 	}(f)
 
-	metadata := &File{
-		ID:       u,
-		FileAddr: dir,
-	}
-
-	metadata.FileSize, err = io.Copy(f, metaFile)
+	_, err = io.Copy(f, metaFile)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = f.Seek(0, 0)
-	if err != nil {
-		uc.log.Error(err)
-		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
-	}
-
-	metadata.FileSha1, err = pkg.FileSha1(f)
-	if err != nil {
-		uc.log.Error(err)
-		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
-	}
-
-	return uc.repo.CreateFileMetadata(ctx, metadata)
+	return dto, nil
 }
 
-func (uc *FileUsecase) GetFile(ctx context.Context, fileId string) (*os.File, func(), error) {
+func (uc *FileUsecase) GetFile(ctx context.Context, userId, fileId string) (*os.File, func(), error) {
+	userid, err := uuid.Parse(userId)
+	if err != nil {
+		return nil, nil, buguV1.ErrorUuidParseFailed("parse userId failed, err: %v", userId)
+	}
+
 	u, err := uuid.Parse(fileId)
 	if err != nil {
 		return nil, nil, buguV1.ErrorUuidParseFailed("parse fileId failed, err: %v", fileId)
 	}
 
-	dto, err := uc.repo.GetFileMetadata(ctx, u)
+	dto, err := uc.repo.GetFileMetadata(ctx, userid, u)
 	if err != nil {
 		return nil, nil, err
 	}

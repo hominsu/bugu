@@ -199,7 +199,8 @@ struct FileUploadReplyDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FileUploadReplyDefaultTypeInternal _FileUploadReply_default_instance_;
 constexpr DetectRequest::DetectRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct DetectRequestDefaultTypeInternal {
   constexpr DetectRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -223,7 +224,8 @@ struct DetectReplyDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DetectReplyDefaultTypeInternal _DetectReply_default_instance_;
 constexpr ConfusionRequest::ConfusionRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct ConfusionRequestDefaultTypeInternal {
   constexpr ConfusionRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -235,7 +237,10 @@ struct ConfusionRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConfusionRequestDefaultTypeInternal _ConfusionRequest_default_instance_;
 constexpr ConfusionReply::ConfusionReply(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , affiliated_file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , method_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct ConfusionReplyDefaultTypeInternal {
   constexpr ConfusionReplyDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -367,6 +372,7 @@ const uint32_t TableStruct_bugu_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::DetectRequest, user_id_),
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::DetectRequest, file_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::DetectReply, _internal_metadata_),
@@ -381,6 +387,7 @@ const uint32_t TableStruct_bugu_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionRequest, user_id_),
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionRequest, file_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, _internal_metadata_),
@@ -389,6 +396,9 @@ const uint32_t TableStruct_bugu_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, artifact_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, affiliated_file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, method_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::bugu::service::v1::RegisterRequest_User)},
@@ -406,9 +416,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 93, -1, -1, sizeof(::bugu::service::v1::FileUploadRequest)},
   { 101, -1, -1, sizeof(::bugu::service::v1::FileUploadReply)},
   { 108, -1, -1, sizeof(::bugu::service::v1::DetectRequest)},
-  { 115, -1, -1, sizeof(::bugu::service::v1::DetectReply)},
-  { 122, -1, -1, sizeof(::bugu::service::v1::ConfusionRequest)},
-  { 129, -1, -1, sizeof(::bugu::service::v1::ConfusionReply)},
+  { 116, -1, -1, sizeof(::bugu::service::v1::DetectReply)},
+  { 123, -1, -1, sizeof(::bugu::service::v1::ConfusionRequest)},
+  { 131, -1, -1, sizeof(::bugu::service::v1::ConfusionReply)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -457,28 +467,33 @@ const char descriptor_table_protodef_bugu_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\022\024\n\002id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\r\n\005email\030\002 \001(\t\022\020\n"
   "\010username\030\003 \001(\t\"2\n\021FileUploadRequest\022\014\n\004"
   "size\030\001 \001(\003\022\017\n\007content\030\002 \001(\014\"\'\n\017FileUploa"
-  "dReply\022\024\n\002id\030\001 \001(\tB\010\372B\005r\003\260\001\001\"*\n\rDetectRe"
-  "quest\022\031\n\007file_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\",\n\013Dete"
-  "ctReply\022\035\n\013artifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\"-"
-  "\n\020ConfusionRequest\022\031\n\007file_id\030\001 \001(\tB\010\372B\005"
-  "r\003\260\001\001\"/\n\016ConfusionReply\022\035\n\013artifact_id\030\001"
-  " \001(\tB\010\372B\005r\003\260\001\0012\200\005\n\004Bugu\022b\n\010Register\022 .bu"
-  "gu.service.v1.RegisterRequest\032\036.bugu.ser"
-  "vice.v1.RegisterReply\"\024\202\323\344\223\002\016\"\t/v1/users"
-  ":\001*\022_\n\005Login\022\035.bugu.service.v1.LoginRequ"
-  "est\032\033.bugu.service.v1.LoginReply\"\032\202\323\344\223\002\024"
-  "\"\017/v1/users/login:\001*\022u\n\016GetCurrentUser\022&"
-  ".bugu.service.v1.GetCurrentUserRequest\032$"
-  ".bugu.service.v1.GetCurrentUserReply\"\025\202\323"
-  "\344\223\002\017\022\r/v1/user/{id}\022h\n\nUpdateUser\022\".bugu"
-  ".service.v1.UpdateUserRequest\032 .bugu.ser"
-  "vice.v1.UpdateUserReply\"\024\202\323\344\223\002\016\032\t/v1/use"
-  "rs:\001*\022b\n\006Detect\022\036.bugu.service.v1.Detect"
-  "Request\032\034.bugu.service.v1.DetectReply\"\032\202"
-  "\323\344\223\002\024\"\017/v1/file/detect:\001*\022n\n\tConfusion\022!"
-  ".bugu.service.v1.ConfusionRequest\032\037.bugu"
-  ".service.v1.ConfusionReply\"\035\202\323\344\223\002\027\"\022/v1/"
-  "file/confusion:\001*B\241\001Z\033bugu/api/bugu/serv"
+  "dReply\022\024\n\002id\030\001 \001(\tB\010\372B\005r\003\260\001\001\"E\n\rDetectRe"
+  "quest\022\031\n\007user_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file"
+  "_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\",\n\013DetectReply\022\035\n\013ar"
+  "tifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\"H\n\020ConfusionRe"
+  "quest\022\031\n\007user_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file"
+  "_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\"\200\001\n\016ConfusionReply\022\035"
+  "\n\013artifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id"
+  "\030\002 \001(\tB\010\372B\005r\003\260\001\001\022$\n\022affiliated_file_id\030\003"
+  " \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006method\030\004 \001(\t2\255\005\n\004Bugu\022"
+  "b\n\010Register\022 .bugu.service.v1.RegisterRe"
+  "quest\032\036.bugu.service.v1.RegisterReply\"\024\202"
+  "\323\344\223\002\016\"\t/v1/users:\001*\022_\n\005Login\022\035.bugu.serv"
+  "ice.v1.LoginRequest\032\033.bugu.service.v1.Lo"
+  "ginReply\"\032\202\323\344\223\002\024\"\017/v1/users/login:\001*\022u\n\016"
+  "GetCurrentUser\022&.bugu.service.v1.GetCurr"
+  "entUserRequest\032$.bugu.service.v1.GetCurr"
+  "entUserReply\"\025\202\323\344\223\002\017\022\r/v1/user/{id}\022h\n\nU"
+  "pdateUser\022\".bugu.service.v1.UpdateUserRe"
+  "quest\032 .bugu.service.v1.UpdateUserReply\""
+  "\024\202\323\344\223\002\016\032\t/v1/users:\001*\022x\n\006Detect\022\036.bugu.s"
+  "ervice.v1.DetectRequest\032\034.bugu.service.v"
+  "1.DetectReply\"0\202\323\344\223\002*\022(/v1/user/{user_id"
+  "}/file/{file_id}/detect\022\204\001\n\tConfusion\022!."
+  "bugu.service.v1.ConfusionRequest\032\037.bugu."
+  "service.v1.ConfusionReply\"3\202\323\344\223\002-\022+/v1/u"
+  "ser/{user_id}/file/{file_id}/confusionB\264"
+  "\001Z.github.com/hominsu/bugu/api/bugu/serv"
   "ice/v1;v1\222A\200\001\022W\n\nE-Code API\"D\n\014Bugu Back"
   "end\022\037https://github.com/hominsu/bugu\032\023ho"
   "minsu@foxmail.com2\0031.0*\001\0022\020application/j"
@@ -491,7 +506,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bugu_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bugu_2eproto = {
-  false, false, 1989, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
+  false, false, 2189, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
   &descriptor_table_bugu_2eproto_once, descriptor_table_bugu_2eproto_deps, 3, 18,
   schemas, file_default_instances, TableStruct_bugu_2eproto::offsets,
   file_level_metadata_bugu_2eproto, file_level_enum_descriptors_bugu_2eproto, file_level_service_descriptors_bugu_2eproto,
@@ -3774,6 +3789,14 @@ DetectRequest::DetectRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 DetectRequest::DetectRequest(const DetectRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_id().empty()) {
+    user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
   file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
@@ -3786,6 +3809,10 @@ DetectRequest::DetectRequest(const DetectRequest& from)
 }
 
 inline void DetectRequest::SharedCtor() {
+user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
@@ -3801,6 +3828,7 @@ DetectRequest::~DetectRequest() {
 
 inline void DetectRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -3820,6 +3848,7 @@ void DetectRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  user_id_.ClearToEmpty();
   file_id_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -3830,9 +3859,19 @@ const char* DetectRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // string file_id = 1 [(.validate.rules) = {
+      // string user_id = 1 [(.validate.rules) = {
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.DetectRequest.user_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_file_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.DetectRequest.file_id"));
@@ -3869,14 +3908,24 @@ uint8_t* DetectRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string file_id = 1 [(.validate.rules) = {
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_id().data(), static_cast<int>(this->_internal_user_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.DetectRequest.user_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
   if (!this->_internal_file_id().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "bugu.service.v1.DetectRequest.file_id");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_file_id(), target);
+        2, this->_internal_file_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3895,7 +3944,14 @@ size_t DetectRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string file_id = 1 [(.validate.rules) = {
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
   if (!this->_internal_file_id().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -3924,6 +3980,9 @@ void DetectRequest::MergeFrom(const DetectRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_user_id().empty()) {
+    _internal_set_user_id(from._internal_user_id());
+  }
   if (!from._internal_file_id().empty()) {
     _internal_set_file_id(from._internal_file_id());
   }
@@ -3946,6 +4005,11 @@ void DetectRequest::InternalSwap(DetectRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &file_id_, lhs_arena,
@@ -4180,6 +4244,14 @@ ConfusionRequest::ConfusionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 ConfusionRequest::ConfusionRequest(const ConfusionRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_id().empty()) {
+    user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
   file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
@@ -4192,6 +4264,10 @@ ConfusionRequest::ConfusionRequest(const ConfusionRequest& from)
 }
 
 inline void ConfusionRequest::SharedCtor() {
+user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
@@ -4207,6 +4283,7 @@ ConfusionRequest::~ConfusionRequest() {
 
 inline void ConfusionRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -4226,6 +4303,7 @@ void ConfusionRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  user_id_.ClearToEmpty();
   file_id_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -4236,9 +4314,19 @@ const char* ConfusionRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // string file_id = 1 [(.validate.rules) = {
+      // string user_id = 1 [(.validate.rules) = {
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionRequest.user_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_file_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionRequest.file_id"));
@@ -4275,14 +4363,24 @@ uint8_t* ConfusionRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string file_id = 1 [(.validate.rules) = {
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_id().data(), static_cast<int>(this->_internal_user_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.ConfusionRequest.user_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
   if (!this->_internal_file_id().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "bugu.service.v1.ConfusionRequest.file_id");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_file_id(), target);
+        2, this->_internal_file_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4301,7 +4399,14 @@ size_t ConfusionRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string file_id = 1 [(.validate.rules) = {
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
   if (!this->_internal_file_id().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -4330,6 +4435,9 @@ void ConfusionRequest::MergeFrom(const ConfusionRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_user_id().empty()) {
+    _internal_set_user_id(from._internal_user_id());
+  }
   if (!from._internal_file_id().empty()) {
     _internal_set_file_id(from._internal_file_id());
   }
@@ -4352,6 +4460,11 @@ void ConfusionRequest::InternalSwap(ConfusionRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &file_id_, lhs_arena,
@@ -4391,6 +4504,30 @@ ConfusionReply::ConfusionReply(const ConfusionReply& from)
     artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_artifact_id(), 
       GetArenaForAllocation());
   }
+  file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_file_id().empty()) {
+    file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_id(), 
+      GetArenaForAllocation());
+  }
+  affiliated_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_affiliated_file_id().empty()) {
+    affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_affiliated_file_id(), 
+      GetArenaForAllocation());
+  }
+  method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_method().empty()) {
+    method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_method(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:bugu.service.v1.ConfusionReply)
 }
 
@@ -4398,6 +4535,18 @@ inline void ConfusionReply::SharedCtor() {
 artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+affiliated_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -4411,6 +4560,9 @@ ConfusionReply::~ConfusionReply() {
 inline void ConfusionReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   artifact_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  affiliated_file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  method_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void ConfusionReply::ArenaDtor(void* object) {
@@ -4430,6 +4582,9 @@ void ConfusionReply::Clear() {
   (void) cached_has_bits;
 
   artifact_id_.ClearToEmpty();
+  file_id_.ClearToEmpty();
+  affiliated_file_id_.ClearToEmpty();
+  method_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4445,6 +4600,36 @@ const char* ConfusionReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           auto str = _internal_mutable_artifact_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.artifact_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string affiliated_file_id = 3 [(.validate.rules) = {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_affiliated_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.affiliated_file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string method = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_method();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.ConfusionReply.method"));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4488,6 +4673,36 @@ uint8_t* ConfusionReply::_InternalSerialize(
         1, this->_internal_artifact_id(), target);
   }
 
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.ConfusionReply.file_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_id(), target);
+  }
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  if (!this->_internal_affiliated_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_affiliated_file_id().data(), static_cast<int>(this->_internal_affiliated_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.ConfusionReply.affiliated_file_id");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_affiliated_file_id(), target);
+  }
+
+  // string method = 4;
+  if (!this->_internal_method().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_method().data(), static_cast<int>(this->_internal_method().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.ConfusionReply.method");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_method(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4509,6 +4724,27 @@ size_t ConfusionReply::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_artifact_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
+  }
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  if (!this->_internal_affiliated_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_affiliated_file_id());
+  }
+
+  // string method = 4;
+  if (!this->_internal_method().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_method());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -4536,6 +4772,15 @@ void ConfusionReply::MergeFrom(const ConfusionReply& from) {
   if (!from._internal_artifact_id().empty()) {
     _internal_set_artifact_id(from._internal_artifact_id());
   }
+  if (!from._internal_file_id().empty()) {
+    _internal_set_file_id(from._internal_file_id());
+  }
+  if (!from._internal_affiliated_file_id().empty()) {
+    _internal_set_affiliated_file_id(from._internal_affiliated_file_id());
+  }
+  if (!from._internal_method().empty()) {
+    _internal_set_method(from._internal_method());
+  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4559,6 +4804,21 @@ void ConfusionReply::InternalSwap(ConfusionReply* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &artifact_id_, lhs_arena,
       &other->artifact_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_id_, lhs_arena,
+      &other->file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &affiliated_file_id_, lhs_arena,
+      &other->affiliated_file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &method_, lhs_arena,
+      &other->method_, rhs_arena
   );
 }
 

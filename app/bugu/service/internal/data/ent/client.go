@@ -7,16 +7,16 @@ import (
 	"fmt"
 	"log"
 
-	"bugu/app/bugu/service/internal/data/ent/migrate"
+	"github.com/google/uuid"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/migrate"
 
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/user"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/google/uuid"
 )
 
 // Client is the client that holds all ent builders.

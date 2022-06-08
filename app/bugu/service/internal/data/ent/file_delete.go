@@ -3,14 +3,14 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/predicate"
 	"context"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/predicate"
 )
 
 // FileDelete is the builder for deleting a File entity.

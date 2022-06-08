@@ -3,9 +3,10 @@
 package hook
 
 import (
-	"bugu/app/bugu/service/internal/data/ent"
 	"context"
 	"fmt"
+
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
 )
 
 // The ArtifactFunc type is an adapter to allow the use of ordinary

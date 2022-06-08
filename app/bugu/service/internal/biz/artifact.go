@@ -31,9 +31,9 @@ import (
 	"os"
 	"path/filepath"
 
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/conf"
-	"bugu/pkg"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
+	"github.com/hominsu/bugu/pkg"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"
@@ -41,15 +41,16 @@ import (
 
 // Artifact is the model entity for the Artifact schema.
 type Artifact struct {
-	ID     uuid.UUID `json:"id,omitempty"`
-	FileID uuid.UUID `json:"file_id,omitempty"`
-	Method string    `json:"method,omitempty"`
+	ID               uuid.UUID `json:"id,omitempty"`
+	FileID           uuid.UUID `json:"file_id,omitempty"`
+	AffiliatedFileID uuid.UUID `json:"affiliated_file_id,omitempty"`
+	Method           string    `json:"method,omitempty"`
 }
 
 type ArtifactRepo interface {
-	CreateArtifactMetadata(ctx context.Context, artifact *Artifact) (*Artifact, error)
+	CreateArtifactMetadata(ctx context.Context, userId uuid.UUID, artifact *Artifact) (*Artifact, error)
 	UpdateArtifactMetadata(ctx context.Context, artifact *Artifact) (*Artifact, error)
-	GetArtifactMetadata(ctx context.Context, id uuid.UUID) (*Artifact, error)
+	GetArtifactMetadata(ctx context.Context, userId uuid.UUID, artifactId uuid.UUID) (*Artifact, error)
 }
 
 type ArtifactUsecase struct {
@@ -71,8 +72,18 @@ func NewArtifactUsecase(ar ArtifactRepo, or ObfusionRepo, fr FileRepo, dc *conf.
 	}
 }
 
-func (uc *ArtifactUsecase) Confusion(ctx context.Context, fileId string) (*Artifact, error) {
-	f, cleanup, err := uc.getFile(ctx, fileId)
+func (uc *ArtifactUsecase) Confusion(ctx context.Context, userId, fileId string) (*Artifact, error) {
+	userid, err := uuid.Parse(userId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse userId failed, err: %v", userId)
+	}
+
+	fid, err := uuid.Parse(fileId)
+	if err != nil {
+		return nil, buguV1.ErrorUuidParseFailed("parse fileId failed, err: %v", fileId)
+	}
+
+	f, cleanup, err := uc.getFile(ctx, userid, fid)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +102,7 @@ func (uc *ArtifactUsecase) Confusion(ctx context.Context, fileId string) (*Artif
 		return nil, err
 	}
 
-	fileMetadata, err := uc.saveFile(ctx, dto, uc.dc.File.Path)
+	fileMetadata, err := uc.saveFile(ctx, userid, dto, uc.dc.File.Path)
 	if err != nil {
 		return nil, err
 	}
@@ -101,22 +112,24 @@ func (uc *ArtifactUsecase) Confusion(ctx context.Context, fileId string) (*Artif
 		return nil, buguV1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
 	}
 
-	artifactMetadata, err := uc.ar.CreateArtifactMetadata(ctx, &Artifact{
-		ID:     u,
-		FileID: fileMetadata.ID,
+	artifactMetadata, err := uc.ar.CreateArtifactMetadata(ctx, userid, &Artifact{
+		ID:               u,
+		FileID:           fileMetadata.ID,
+		AffiliatedFileID: fid,
 	})
 	if err != nil {
 		return nil, err
 	}
 
 	return &Artifact{
-		ID:     artifactMetadata.ID,
-		FileID: artifactMetadata.FileID,
-		Method: artifactMetadata.Method,
+		ID:               artifactMetadata.ID,
+		FileID:           artifactMetadata.FileID,
+		AffiliatedFileID: artifactMetadata.AffiliatedFileID,
+		Method:           artifactMetadata.Method,
 	}, nil
 }
 
-func (uc *ArtifactUsecase) saveFile(ctx context.Context, oData *Obfusion, dir string) (*File, error) {
+func (uc *ArtifactUsecase) saveFile(ctx context.Context, userId uuid.UUID, oData *Obfusion, dir string) (*File, error) {
 	u, err := uuid.NewRandom()
 	if err != nil {
 		return nil, buguV1.ErrorUuidGenerateFailed("create file uuid failed, err: %v", err)
@@ -132,6 +145,22 @@ func (uc *ArtifactUsecase) saveFile(ctx context.Context, oData *Obfusion, dir st
 		return nil, buguV1.ErrorCreateConflict("create file conflict")
 	}
 
+	sha1, size, err := pkg.Sha1(oData.Data)
+	if err != nil {
+		uc.log.Error(err)
+		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
+	}
+
+	dto, err := uc.fr.CreateFileMetadata(ctx, userId, &File{
+		ID:       u,
+		FileSha1: sha1,
+		FileSize: size,
+		FileAddr: dir,
+	})
+	if err != nil {
+		return nil, err
+	}
+
 	f, err := os.OpenFile(dir, os.O_RDWR|os.O_CREATE, 0o666)
 	if err != nil {
 		return nil, err
@@ -143,40 +172,16 @@ func (uc *ArtifactUsecase) saveFile(ctx context.Context, oData *Obfusion, dir st
 		}
 	}(f)
 
-	metadata := &File{
-		ID:       u,
-		FileAddr: dir,
-	}
-
-	wSize, err := f.Write(oData.Data)
+	_, err = f.Write(oData.Data)
 	if err != nil {
 		return nil, err
 	}
 
-	metadata.FileSize = int64(wSize)
-
-	_, err = f.Seek(0, 0)
-	if err != nil {
-		uc.log.Error(err)
-		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
-	}
-
-	metadata.FileSha1, err = pkg.FileSha1(f)
-	if err != nil {
-		uc.log.Error(err)
-		return nil, buguV1.ErrorInternalServerError("Internal Server Error")
-	}
-
-	return uc.fr.CreateFileMetadata(ctx, metadata)
+	return dto, nil
 }
 
-func (uc *ArtifactUsecase) getFile(ctx context.Context, fileId string) (*os.File, func(), error) {
-	u, err := uuid.Parse(fileId)
-	if err != nil {
-		return nil, nil, buguV1.ErrorUuidParseFailed("parse fileId failed, err: %v", fileId)
-	}
-
-	dto, err := uc.fr.GetFileMetadata(ctx, u)
+func (uc *ArtifactUsecase) getFile(ctx context.Context, userId, fileId uuid.UUID) (*os.File, func(), error) {
+	dto, err := uc.fr.GetFileMetadata(ctx, userId, fileId)
 	if err != nil {
 		return nil, nil, err
 	}

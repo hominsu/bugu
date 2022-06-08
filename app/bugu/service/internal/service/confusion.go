@@ -27,17 +27,34 @@ package service
 
 import (
 	"context"
+	"github.com/go-kratos/kratos/v2/errors"
+	"github.com/go-kratos/kratos/v2/metadata"
 
-	buguV1 "bugu/api/bugu/service/v1"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
 )
 
 func (s *BuguService) Confusion(ctx context.Context, in *buguV1.ConfusionRequest) (*buguV1.ConfusionReply, error) {
+	userId := in.GetUserId()
+
+	md, ok := metadata.FromClientContext(ctx)
+	if !ok {
+		return nil, buguV1.ErrorInternalServerError("Openid does not exist in context")
+	}
+	if md.Get("x-md-global-userid") != userId {
+		return nil, errors.Unauthorized("UNAUTHORIZED", "userid is inconsistent")
+	}
+
 	fileId := in.GetFileId()
 
-	dto, err := s.au.Confusion(ctx, fileId)
+	dto, err := s.au.Confusion(ctx, userId, fileId)
 	if err != nil {
 		return nil, err
 	}
 
-	return &buguV1.ConfusionReply{ArtifactId: dto.ID.String()}, nil
+	return &buguV1.ConfusionReply{
+		ArtifactId:       dto.ID.String(),
+		FileId:           dto.FileID.String(),
+		AffiliatedFileId: dto.AffiliatedFileID.String(),
+		Method:           dto.Method,
+	}, nil
 }

@@ -27,13 +27,13 @@ package data
 
 import (
 	"context"
-
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/data/ent"
-
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 var _ biz.FileRepo = (*fileRepo)(nil)
@@ -51,18 +51,13 @@ func NewFileRepo(data *Data, logger log.Logger) biz.FileRepo {
 	}
 }
 
-func (r *fileRepo) CreateFileMetadata(ctx context.Context, file *biz.File) (*biz.File, error) {
-	//md, ok := metadata.FromClientContext(ctx)
-	//if !ok {
-	//	return nil, buguV1.ErrorInternalServerError("Openid does not exist in context")
-	//}
-	//userid := md.Get("x-md-global-userid")
-
+func (r *fileRepo) CreateFileMetadata(ctx context.Context, userId uuid.UUID, file *biz.File) (*biz.File, error) {
 	po, err := r.data.db.File.Create().
 		SetID(file.ID).
 		SetFileSha1(file.FileSha1).
 		SetFileSize(file.FileSize).
 		SetFileAddr(file.FileAddr).
+		AddAffiliatedUserIDs(userId).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
 		return nil, buguV1.ErrorCreateConflict("create conflict, err: %v", err)
@@ -102,10 +97,15 @@ func (r *fileRepo) UpdateFileMetadata(ctx context.Context, file *biz.File) (*biz
 	}, nil
 }
 
-func (r *fileRepo) GetFileMetadata(ctx context.Context, id uuid.UUID) (*biz.File, error) {
-	target, err := r.data.db.File.Get(ctx, id)
+func (r *fileRepo) GetFileMetadata(ctx context.Context, userId uuid.UUID, fileId uuid.UUID) (*biz.File, error) {
+	target, err := r.data.db.File.Query().
+		Where(file.And(
+			file.HasAffiliatedUserWith(user.IDEQ(userId)),
+			file.IDEQ(fileId),
+		)).
+		Only(ctx)
 	if err != nil && ent.IsNotFound(err) {
-		return nil, buguV1.ErrorNotFoundError("find file id: %s not found, err: %v", id.String(), err)
+		return nil, buguV1.ErrorNotFoundError("find fileId: %s not found, err: %v", fileId.String(), err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)

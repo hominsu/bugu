@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in bugu/app/bugu/service/internal/data/ent/runtime.go
+// The schema-stitching logic is generated in github.com/hominsu/bugu/app/bugu/service/internal/data/ent/runtime.go
 
 const (
 	Version = "v0.10.1"                                         // Version of ent codegen.

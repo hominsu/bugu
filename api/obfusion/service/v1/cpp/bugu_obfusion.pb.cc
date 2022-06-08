@@ -84,15 +84,15 @@ const char descriptor_table_protodef_bugu_5fobfusion_2eproto[] PROTOBUF_SECTION_
   "\n\023bugu_obfusion.proto\022\030bugu_obfusion.ser"
   "vice.v1\"-\n\017ObfusionRequest\022\014\n\004data\030\001 \003(\014"
   "\022\014\n\004size\030\002 \001(\r\"+\n\rObfusionReply\022\014\n\004data\030"
-  "\001 \003(\014\022\014\n\004size\030\003 \001(\r2p\n\014BuguObfusion\022`\n\010O"
+  "\001 \003(\014\022\014\n\004size\030\002 \001(\r2p\n\014BuguObfusion\022`\n\010O"
   "bfusion\022).bugu_obfusion.service.v1.Obfus"
   "ionRequest\032\'.bugu_obfusion.service.v1.Ob"
-  "fusionReply\"\000B!Z\037bugu/api/obfusion/servi"
-  "ce/v1;v1b\006proto3"
+  "fusionReply\"\000B4Z2github.com/hominsu/bugu"
+  "/api/obfusion/service/v1;v1b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bugu_5fobfusion_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bugu_5fobfusion_2eproto = {
-  false, false, 296, descriptor_table_protodef_bugu_5fobfusion_2eproto, "bugu_obfusion.proto", 
+  false, false, 315, descriptor_table_protodef_bugu_5fobfusion_2eproto, "bugu_obfusion.proto", 
   &descriptor_table_bugu_5fobfusion_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_bugu_5fobfusion_2eproto::offsets,
   file_level_metadata_bugu_5fobfusion_2eproto, file_level_enum_descriptors_bugu_5fobfusion_2eproto, file_level_service_descriptors_bugu_5fobfusion_2eproto,
@@ -398,9 +398,9 @@ const char* ObfusionReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         } else
           goto handle_unusual;
         continue;
-      // uint32 size = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+      // uint32 size = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
@@ -441,10 +441,10 @@ uint8_t* ObfusionReply::_InternalSerialize(
     target = stream->WriteBytes(1, s, target);
   }
 
-  // uint32 size = 3;
+  // uint32 size = 2;
   if (this->_internal_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_size(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -471,7 +471,7 @@ size_t ObfusionReply::ByteSizeLong() const {
       data_.Get(i));
   }
 
-  // uint32 size = 3;
+  // uint32 size = 2;
   if (this->_internal_size() != 0) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_size());
   }

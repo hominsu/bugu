@@ -3,11 +3,12 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/schema"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"time"
+
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/schema"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -17,11 +18,11 @@ func init() {
 	artifactFields := schema.Artifact{}.Fields()
 	_ = artifactFields
 	// artifactDescCreatedAt is the schema descriptor for created_at field.
-	artifactDescCreatedAt := artifactFields[3].Descriptor()
+	artifactDescCreatedAt := artifactFields[4].Descriptor()
 	// artifact.DefaultCreatedAt holds the default value on creation for the created_at field.
 	artifact.DefaultCreatedAt = artifactDescCreatedAt.Default.(func() time.Time)
 	// artifactDescUpdatedAt is the schema descriptor for updated_at field.
-	artifactDescUpdatedAt := artifactFields[4].Descriptor()
+	artifactDescUpdatedAt := artifactFields[5].Descriptor()
 	// artifact.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	artifact.DefaultUpdatedAt = artifactDescUpdatedAt.Default.(func() time.Time)
 	fileFields := schema.File{}.Fields()

@@ -1,7 +1,7 @@
 server:
   http:
     addr: 0.0.0.0:8000
-    timeout: 5s
+    timeout: 60s
 data:
   database:
     driver: mysql

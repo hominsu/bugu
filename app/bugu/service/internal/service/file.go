@@ -60,7 +60,7 @@ func (s *BuguFileService) UploadFile(ctx http.Context) error {
 		return ctx.String(nethttp.StatusBadRequest, "The file size exceeds the limit")
 	}
 
-	dto, err := s.fu.SaveFile(ctx, file, s.dc.File.Path)
+	dto, err := s.fu.SaveFile(ctx, userId, file, s.dc.File.Path)
 	if err != nil {
 		return err
 	}
@@ -80,12 +80,12 @@ func (s *BuguFileService) DownloadFile(ctx http.Context) error {
 		return errors.Unauthorized("UNAUTHORIZED", "userId is inconsistent")
 	}
 
-	fileID := vars.Get("fileId")
-	if fileID == "" {
+	fileId := vars.Get("fileId")
+	if fileId == "" {
 		return errors.BadRequest("FILE_ID_EMPTY", "file id params empty")
 	}
 
-	f, cleanup, err := s.fu.GetFile(ctx, fileID)
+	f, cleanup, err := s.fu.GetFile(ctx, userId, fileId)
 	if err != nil {
 		return err
 	}

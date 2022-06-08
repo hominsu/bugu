@@ -27,10 +27,11 @@ package data
 
 import (
 	"context"
-
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/data/ent"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"
@@ -51,11 +52,13 @@ func NewArtifactRepo(data *Data, logger log.Logger) biz.ArtifactRepo {
 	}
 }
 
-func (r *artifactRepo) CreateArtifactMetadata(ctx context.Context, artifact *biz.Artifact) (*biz.Artifact, error) {
+func (r *artifactRepo) CreateArtifactMetadata(ctx context.Context, userId uuid.UUID, artifact *biz.Artifact) (*biz.Artifact, error) {
 	po, err := r.data.db.Artifact.Create().
-		SetAffiliatedFileID(artifact.FileID).
+		SetAffiliatedFileID(artifact.AffiliatedFileID).
+		SetFileID(artifact.FileID).
 		SetID(artifact.ID).
 		SetMethod(artifact.Method).
+		AddAffiliatedUserIDs(userId).
 		Save(ctx)
 	if err != nil && ent.IsConstraintError(err) {
 		return nil, buguV1.ErrorCreateConflict("create conflict, err: %v", err)
@@ -66,9 +69,10 @@ func (r *artifactRepo) CreateArtifactMetadata(ctx context.Context, artifact *biz
 	}
 
 	return &biz.Artifact{
-		ID:     po.ID,
-		FileID: po.FileID,
-		Method: po.Method,
+		ID:               po.ID,
+		FileID:           po.FileID,
+		AffiliatedFileID: po.AffiliatedFileID,
+		Method:           po.Method,
 	}, nil
 }
 
@@ -85,16 +89,22 @@ func (r *artifactRepo) UpdateArtifactMetadata(ctx context.Context, artifact *biz
 	}
 
 	return &biz.Artifact{
-		ID:     po.ID,
-		FileID: po.FileID,
-		Method: po.Method,
+		ID:               po.ID,
+		FileID:           po.FileID,
+		AffiliatedFileID: po.AffiliatedFileID,
+		Method:           po.Method,
 	}, nil
 }
 
-func (r *artifactRepo) GetArtifactMetadata(ctx context.Context, id uuid.UUID) (*biz.Artifact, error) {
-	target, err := r.data.db.Artifact.Get(ctx, id)
+func (r *artifactRepo) GetArtifactMetadata(ctx context.Context, userId uuid.UUID, artifactId uuid.UUID) (*biz.Artifact, error) {
+	target, err := r.data.db.Artifact.Query().
+		Where(artifact.And(
+			artifact.HasAffiliatedUserWith(user.IDEQ(userId)),
+			artifact.IDEQ(artifactId),
+		)).
+		Only(ctx)
 	if err != nil && ent.IsNotFound(err) {
-		return nil, buguV1.ErrorNotFoundError("find file id: %s not found, err: %v", id.String(), err)
+		return nil, buguV1.ErrorNotFoundError("find artifactId: %s not found, err: %v", artifactId.String(), err)
 	}
 	if err != nil {
 		r.log.Errorf("unknown err: %v", err)
@@ -102,8 +112,9 @@ func (r *artifactRepo) GetArtifactMetadata(ctx context.Context, id uuid.UUID) (*
 	}
 
 	return &biz.Artifact{
-		ID:     target.ID,
-		FileID: target.FileID,
-		Method: target.Method,
+		ID:               target.ID,
+		FileID:           target.FileID,
+		AffiliatedFileID: target.AffiliatedFileID,
+		Method:           target.Method,
 	}, nil
 }

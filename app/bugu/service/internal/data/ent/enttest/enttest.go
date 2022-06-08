@@ -3,10 +3,11 @@
 package enttest
 
 import (
-	"bugu/app/bugu/service/internal/data/ent"
 	"context"
+
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
 	// required by schema hooks.
-	_ "bugu/app/bugu/service/internal/data/ent/runtime"
+	_ "github.com/hominsu/bugu/app/bugu/service/internal/data/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

@@ -1438,6 +1438,18 @@ func (m *DetectRequest) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = DetectRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if err := m._validateUuid(m.GetFileId()); err != nil {
 		err = DetectRequestValidationError{
 			field:  "FileId",
@@ -1677,6 +1689,18 @@ func (m *ConfusionRequest) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = ConfusionRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if err := m._validateUuid(m.GetFileId()); err != nil {
 		err = ConfusionRequestValidationError{
 			field:  "FileId",
@@ -1808,6 +1832,32 @@ func (m *ConfusionReply) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = ConfusionReplyValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetAffiliatedFileId()); err != nil {
+		err = ConfusionReplyValidationError{
+			field:  "AffiliatedFileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Method
 
 	if len(errors) > 0 {
 		return ConfusionReplyMultiError(errors)

@@ -30,7 +30,7 @@ import (
 
 	"github.com/google/uuid"
 
-	buguV1 "bugu/api/bugu/service/v1"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
 )
 
 func (s *BuguService) Register(ctx context.Context, in *buguV1.RegisterRequest) (*buguV1.RegisterReply, error) {

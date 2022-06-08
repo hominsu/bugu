@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "validate/validate.proto";
 
-option go_package = "bugu/api/bugu/service/v1;v1";
+option go_package = "github.com/hominsu/bugu/api/bugu/service/v1;v1";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
@@ -54,15 +54,13 @@ service Bugu {
 
   rpc Detect (DetectRequest) returns (DetectReply) {
     option (google.api.http) = {
-      post: "/v1/file/detect",
-      body: "*",
+      get: "/v1/user/{user_id}/file/{file_id}/detect",
     };
   };
 
   rpc Confusion (ConfusionRequest) returns (ConfusionReply) {
     option (google.api.http) = {
-      post: "/v1/file/confusion",
-      body: "*",
+      get: "/v1/user/{user_id}/file/{file_id}/confusion",
     };
   };
 };
@@ -131,7 +129,8 @@ message FileUploadReply {
 }
 
 message DetectRequest {
-  string file_id = 1 [(validate.rules).string = {uuid: true}];
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
 }
 
 message DetectReply {
@@ -139,9 +138,13 @@ message DetectReply {
 }
 
 message ConfusionRequest {
-  string file_id = 1 [(validate.rules).string = {uuid: true}];
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
 }
 
 message ConfusionReply {
   string artifact_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+  string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];
+  string method = 4;
 }

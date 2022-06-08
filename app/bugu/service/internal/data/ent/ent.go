@@ -3,14 +3,14 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"errors"
 	"fmt"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

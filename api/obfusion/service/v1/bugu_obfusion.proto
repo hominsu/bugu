@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package bugu_obfusion.service.v1;
 
-option go_package = "bugu/api/obfusion/service/v1;v1";
+option go_package = "github.com/hominsu/bugu/api/obfusion/service/v1;v1";
 
 service BuguObfusion {
   rpc Obfusion (ObfusionRequest) returns (ObfusionReply) {};
@@ -15,5 +15,5 @@ message ObfusionRequest {
 
 message ObfusionReply {
   repeated bytes data = 1;
-  uint32 size = 3;
+  uint32 size = 2;
 }

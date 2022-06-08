@@ -36,7 +36,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "artifact" package.
 	ArtifactInverseTable = "artifacts"
 	// ArtifactColumn is the table column denoting the artifact relation/edge.
-	ArtifactColumn = "file_id"
+	ArtifactColumn = "affiliated_file_id"
 	// AffiliatedUserTable is the table that holds the affiliated_user relation/edge. The primary key declared below.
 	AffiliatedUserTable = "user_user_file"
 	// AffiliatedUserInverseTable is the table name for the User entity.

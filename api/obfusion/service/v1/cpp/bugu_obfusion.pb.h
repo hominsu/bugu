@@ -370,7 +370,7 @@ class ObfusionReply final :
 
   enum : int {
     kDataFieldNumber = 1,
-    kSizeFieldNumber = 3,
+    kSizeFieldNumber = 2,
   };
   // repeated bytes data = 1;
   int data_size() const;
@@ -396,7 +396,7 @@ class ObfusionReply final :
   std::string* _internal_add_data();
   public:
 
-  // uint32 size = 3;
+  // uint32 size = 2;
   void clear_size();
   uint32_t size() const;
   void set_size(uint32_t value);
@@ -602,7 +602,7 @@ ObfusionReply::mutable_data() {
   return &data_;
 }
 
-// uint32 size = 3;
+// uint32 size = 2;
 inline void ObfusionReply::clear_size() {
   size_ = 0u;
 }

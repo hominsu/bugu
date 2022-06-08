@@ -3,13 +3,13 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"fmt"
 	"strings"
 	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"github.com/google/uuid"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 // User is the model entity for the User schema.

@@ -29,7 +29,7 @@ import (
 	"flag"
 	"os"
 
-	"bugu/app/bugu/service/internal/conf"
+	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"

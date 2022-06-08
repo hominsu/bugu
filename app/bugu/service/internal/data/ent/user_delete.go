@@ -3,14 +3,14 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/predicate"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"context"
 	"fmt"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/predicate"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 )
 
 // UserDelete is the builder for deleting a User entity.

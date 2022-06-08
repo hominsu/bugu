@@ -29,10 +29,10 @@ import (
 	"context"
 	"time"
 
-	buguV1 "bugu/api/bugu/service/v1"
-	"bugu/app/bugu/service/internal/biz"
-	"bugu/app/bugu/service/internal/data/ent"
-	"bugu/app/bugu/service/internal/data/ent/user"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/uuid"

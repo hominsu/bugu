@@ -28,8 +28,8 @@ package data
 import (
 	"context"
 
-	obfusionV1 "bugu/api/obfusion/service/v1"
-	"bugu/app/bugu/service/internal/biz"
+	obfusionV1 "github.com/hominsu/bugu/api/obfusion/service/v1"
+	"github.com/hominsu/bugu/app/bugu/service/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 )

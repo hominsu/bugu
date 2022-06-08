@@ -28,7 +28,7 @@ package service
 import (
 	"context"
 
-	buguV1 "bugu/api/bugu/service/v1"
+	buguV1 "github.com/hominsu/bugu/api/bugu/service/v1"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

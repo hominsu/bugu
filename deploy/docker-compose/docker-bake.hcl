@@ -33,7 +33,7 @@ target "bugu-bugu-service" {
     "${REPO}/bugu-bugu-service:latest",
     notequal("", VERSION) ? "${REPO}/bugu-bugu-service:${VERSION}" : "",
   ]
-  platforms = ["linux/arm64"]
+  platforms = ["linux/amd64"]
 }
 
 target "bugu-obfusion-service" {
@@ -48,5 +48,5 @@ target "bugu-obfusion-service" {
     "${REPO}/bugu-obfusion-service:latest",
     notequal("", VERSION) ? "${REPO}/bugu-obfusion-service:${VERSION}" : "",
   ]
-  platforms = ["linux/arm64"]
+  platforms = ["linux/amd64"]
 }

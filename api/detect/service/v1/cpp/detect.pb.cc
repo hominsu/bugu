@@ -98,12 +98,12 @@ const char descriptor_table_protodef_detect_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "T\020\030\022\017\n\013TYPE_VILSEL\020\0312d\n\nBuguDetect\022V\n\006De"
   "tect\022%.bugu_detect.service.v1.DetectRequ"
   "est\032#.bugu_detect.service.v1.DetectReply"
-  "\"\000B\037Z\035bugu/api/detect/service/v1;v1b\006pro"
-  "to3"
+  "\"\000B2Z0github.com/hominsu/bugu/api/detect"
+  "/service/v1;v1b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_detect_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_detect_2eproto = {
-  false, false, 763, descriptor_table_protodef_detect_2eproto, "detect.proto", 
+  false, false, 782, descriptor_table_protodef_detect_2eproto, "detect.proto", 
   &descriptor_table_detect_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_detect_2eproto::offsets,
   file_level_metadata_detect_2eproto, file_level_enum_descriptors_detect_2eproto, file_level_service_descriptors_detect_2eproto,

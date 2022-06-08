@@ -3,10 +3,6 @@
 package ent
 
 import (
-	"bugu/app/bugu/service/internal/data/ent/artifact"
-	"bugu/app/bugu/service/internal/data/ent/file"
-	"bugu/app/bugu/service/internal/data/ent/predicate"
-	"bugu/app/bugu/service/internal/data/ent/user"
 	"context"
 	"errors"
 	"fmt"
@@ -14,6 +10,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/artifact"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/file"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/predicate"
+	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/user"
 
 	"entgo.io/ent"
 )
@@ -38,6 +38,7 @@ type ArtifactMutation struct {
 	op                     Op
 	typ                    string
 	id                     *uuid.UUID
+	file_id                *uuid.UUID
 	method                 *string
 	created_at             *time.Time
 	updated_at             *time.Time
@@ -158,12 +159,12 @@ func (m *ArtifactMutation) IDs(ctx context.Context) ([]uuid.UUID, error) {
 
 // SetFileID sets the "file_id" field.
 func (m *ArtifactMutation) SetFileID(u uuid.UUID) {
-	m.affiliated_file = &u
+	m.file_id = &u
 }
 
 // FileID returns the value of the "file_id" field in the mutation.
 func (m *ArtifactMutation) FileID() (r uuid.UUID, exists bool) {
-	v := m.affiliated_file
+	v := m.file_id
 	if v == nil {
 		return
 	}
@@ -189,6 +190,42 @@ func (m *ArtifactMutation) OldFileID(ctx context.Context) (v uuid.UUID, err erro
 
 // ResetFileID resets all changes to the "file_id" field.
 func (m *ArtifactMutation) ResetFileID() {
+	m.file_id = nil
+}
+
+// SetAffiliatedFileID sets the "affiliated_file_id" field.
+func (m *ArtifactMutation) SetAffiliatedFileID(u uuid.UUID) {
+	m.affiliated_file = &u
+}
+
+// AffiliatedFileID returns the value of the "affiliated_file_id" field in the mutation.
+func (m *ArtifactMutation) AffiliatedFileID() (r uuid.UUID, exists bool) {
+	v := m.affiliated_file
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAffiliatedFileID returns the old "affiliated_file_id" field's value of the Artifact entity.
+// If the Artifact object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *ArtifactMutation) OldAffiliatedFileID(ctx context.Context) (v uuid.UUID, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAffiliatedFileID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAffiliatedFileID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAffiliatedFileID: %w", err)
+	}
+	return oldValue.AffiliatedFileID, nil
+}
+
+// ResetAffiliatedFileID resets all changes to the "affiliated_file_id" field.
+func (m *ArtifactMutation) ResetAffiliatedFileID() {
 	m.affiliated_file = nil
 }
 
@@ -313,11 +350,6 @@ func (m *ArtifactMutation) ResetUpdatedAt() {
 	m.updated_at = nil
 }
 
-// SetAffiliatedFileID sets the "affiliated_file" edge to the File entity by id.
-func (m *ArtifactMutation) SetAffiliatedFileID(id uuid.UUID) {
-	m.affiliated_file = &id
-}
-
 // ClearAffiliatedFile clears the "affiliated_file" edge to the File entity.
 func (m *ArtifactMutation) ClearAffiliatedFile() {
 	m.clearedaffiliated_file = true
@@ -326,14 +358,6 @@ func (m *ArtifactMutation) ClearAffiliatedFile() {
 // AffiliatedFileCleared reports if the "affiliated_file" edge to the File entity was cleared.
 func (m *ArtifactMutation) AffiliatedFileCleared() bool {
 	return m.clearedaffiliated_file
-}
-
-// AffiliatedFileID returns the "affiliated_file" edge ID in the mutation.
-func (m *ArtifactMutation) AffiliatedFileID() (id uuid.UUID, exists bool) {
-	if m.affiliated_file != nil {
-		return *m.affiliated_file, true
-	}
-	return
 }
 
 // AffiliatedFileIDs returns the "affiliated_file" edge IDs in the mutation.
@@ -425,9 +449,12 @@ func (m *ArtifactMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *ArtifactMutation) Fields() []string {
-	fields := make([]string, 0, 4)
-	if m.affiliated_file != nil {
+	fields := make([]string, 0, 5)
+	if m.file_id != nil {
 		fields = append(fields, artifact.FieldFileID)
+	}
+	if m.affiliated_file != nil {
+		fields = append(fields, artifact.FieldAffiliatedFileID)
 	}
 	if m.method != nil {
 		fields = append(fields, artifact.FieldMethod)
@@ -448,6 +475,8 @@ func (m *ArtifactMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case artifact.FieldFileID:
 		return m.FileID()
+	case artifact.FieldAffiliatedFileID:
+		return m.AffiliatedFileID()
 	case artifact.FieldMethod:
 		return m.Method()
 	case artifact.FieldCreatedAt:
@@ -465,6 +494,8 @@ func (m *ArtifactMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case artifact.FieldFileID:
 		return m.OldFileID(ctx)
+	case artifact.FieldAffiliatedFileID:
+		return m.OldAffiliatedFileID(ctx)
 	case artifact.FieldMethod:
 		return m.OldMethod(ctx)
 	case artifact.FieldCreatedAt:
@@ -486,6 +517,13 @@ func (m *ArtifactMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetFileID(v)
+		return nil
+	case artifact.FieldAffiliatedFileID:
+		v, ok := value.(uuid.UUID)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAffiliatedFileID(v)
 		return nil
 	case artifact.FieldMethod:
 		v, ok := value.(string)
@@ -568,6 +606,9 @@ func (m *ArtifactMutation) ResetField(name string) error {
 	switch name {
 	case artifact.FieldFileID:
 		m.ResetFileID()
+		return nil
+	case artifact.FieldAffiliatedFileID:
+		m.ResetAffiliatedFileID()
 		return nil
 	case artifact.FieldMethod:
 		m.ResetMethod()
