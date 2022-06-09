@@ -31,12 +31,12 @@ const (
 	// Table holds the table name of the file in the database.
 	Table = "files"
 	// ArtifactTable is the table that holds the artifact relation/edge.
-	ArtifactTable = "artifacts"
+	ArtifactTable = "files"
 	// ArtifactInverseTable is the table name for the Artifact entity.
 	// It exists in this package in order to avoid circular dependency with the "artifact" package.
 	ArtifactInverseTable = "artifacts"
 	// ArtifactColumn is the table column denoting the artifact relation/edge.
-	ArtifactColumn = "affiliated_file_id"
+	ArtifactColumn = "file_artifact"
 	// AffiliatedUserTable is the table that holds the affiliated_user relation/edge. The primary key declared below.
 	AffiliatedUserTable = "user_user_file"
 	// AffiliatedUserInverseTable is the table name for the User entity.
@@ -55,6 +55,12 @@ var Columns = []string{
 	FieldUpdatedAt,
 }
 
+// ForeignKeys holds the SQL foreign-keys that are owned by the "files"
+// table and are not defined as standalone fields in the schema.
+var ForeignKeys = []string{
+	"file_artifact",
+}
+
 var (
 	// AffiliatedUserPrimaryKey and AffiliatedUserColumn2 are the table columns denoting the
 	// primary key for the affiliated_user relation (M2M).
@@ -65,6 +71,11 @@ var (
 func ValidColumn(column string) bool {
 	for i := range Columns {
 		if column == Columns[i] {
+			return true
+		}
+	}
+	for i := range ForeignKeys {
+		if column == ForeignKeys[i] {
 			return true
 		}
 	}
@@ -80,6 +91,9 @@ var (
 
 // Type defines the type for the "type" enum field.
 type Type string
+
+// TypeOther is the default value of the Type enum.
+const DefaultType = TypeOther
 
 // Type values.
 const (

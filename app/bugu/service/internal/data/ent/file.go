@@ -32,7 +32,8 @@ type File struct {
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the FileQuery when eager-loading is set.
-	Edges FileEdges `json:"edges"`
+	Edges         FileEdges `json:"edges"`
+	file_artifact *uuid.UUID
 }
 
 // FileEdges holds the relations/edges for other nodes in the graph.
@@ -82,6 +83,8 @@ func (*File) scanValues(columns []string) ([]interface{}, error) {
 			values[i] = new(sql.NullTime)
 		case file.FieldID:
 			values[i] = new(uuid.UUID)
+		case file.ForeignKeys[0]: // file_artifact
+			values[i] = &sql.NullScanner{S: new(uuid.UUID)}
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type File", columns[i])
 		}
@@ -138,6 +141,13 @@ func (f *File) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
 			} else if value.Valid {
 				f.UpdatedAt = value.Time
+			}
+		case file.ForeignKeys[0]:
+			if value, ok := values[i].(*sql.NullScanner); !ok {
+				return fmt.Errorf("unexpected type %T for field file_artifact", values[i])
+			} else if value.Valid {
+				f.file_artifact = new(uuid.UUID)
+				*f.file_artifact = *value.S.(*uuid.UUID)
 			}
 		}
 	}

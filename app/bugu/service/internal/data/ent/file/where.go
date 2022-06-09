@@ -475,20 +475,6 @@ func TypeNotIn(vs ...Type) predicate.File {
 	})
 }
 
-// TypeIsNil applies the IsNil predicate on the "type" field.
-func TypeIsNil() predicate.File {
-	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldType)))
-	})
-}
-
-// TypeNotNil applies the NotNil predicate on the "type" field.
-func TypeNotNil() predicate.File {
-	return predicate.File(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldType)))
-	})
-}
-
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
 func CreatedAtEQ(v time.Time) predicate.File {
 	return predicate.File(func(s *sql.Selector) {
@@ -647,7 +633,7 @@ func HasArtifact() predicate.File {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(ArtifactTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, ArtifactTable, ArtifactColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, ArtifactTable, ArtifactColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
@@ -659,7 +645,7 @@ func HasArtifactWith(preds ...predicate.Artifact) predicate.File {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(ArtifactInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, ArtifactTable, ArtifactColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, ArtifactTable, ArtifactColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

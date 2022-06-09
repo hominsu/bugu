@@ -23,6 +23,7 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/generated_message_bases.h>
 #include <google/protobuf/generated_message_table_driven.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
@@ -30,6 +31,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "google/api/annotations.pb.h"
 #include "protoc-gen-openapiv2/options/annotations.pb.h"
@@ -49,7 +51,7 @@ struct TableStruct_bugu_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[18]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[28]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -65,24 +67,54 @@ extern ConfusionReplyDefaultTypeInternal _ConfusionReply_default_instance_;
 class ConfusionRequest;
 struct ConfusionRequestDefaultTypeInternal;
 extern ConfusionRequestDefaultTypeInternal _ConfusionRequest_default_instance_;
+class DeleteArtifactMetadataReply;
+struct DeleteArtifactMetadataReplyDefaultTypeInternal;
+extern DeleteArtifactMetadataReplyDefaultTypeInternal _DeleteArtifactMetadataReply_default_instance_;
+class DeleteArtifactMetadataRequest;
+struct DeleteArtifactMetadataRequestDefaultTypeInternal;
+extern DeleteArtifactMetadataRequestDefaultTypeInternal _DeleteArtifactMetadataRequest_default_instance_;
+class DeleteFileMetadataReply;
+struct DeleteFileMetadataReplyDefaultTypeInternal;
+extern DeleteFileMetadataReplyDefaultTypeInternal _DeleteFileMetadataReply_default_instance_;
+class DeleteFileMetadataRequest;
+struct DeleteFileMetadataRequestDefaultTypeInternal;
+extern DeleteFileMetadataRequestDefaultTypeInternal _DeleteFileMetadataRequest_default_instance_;
 class DetectReply;
 struct DetectReplyDefaultTypeInternal;
 extern DetectReplyDefaultTypeInternal _DetectReply_default_instance_;
 class DetectRequest;
 struct DetectRequestDefaultTypeInternal;
 extern DetectRequestDefaultTypeInternal _DetectRequest_default_instance_;
-class FileUploadReply;
-struct FileUploadReplyDefaultTypeInternal;
-extern FileUploadReplyDefaultTypeInternal _FileUploadReply_default_instance_;
-class FileUploadRequest;
-struct FileUploadRequestDefaultTypeInternal;
-extern FileUploadRequestDefaultTypeInternal _FileUploadRequest_default_instance_;
+class GetArtifactMetadataByFileIdReply;
+struct GetArtifactMetadataByFileIdReplyDefaultTypeInternal;
+extern GetArtifactMetadataByFileIdReplyDefaultTypeInternal _GetArtifactMetadataByFileIdReply_default_instance_;
+class GetArtifactMetadataByFileIdRequest;
+struct GetArtifactMetadataByFileIdRequestDefaultTypeInternal;
+extern GetArtifactMetadataByFileIdRequestDefaultTypeInternal _GetArtifactMetadataByFileIdRequest_default_instance_;
+class GetArtifactMetadataReply;
+struct GetArtifactMetadataReplyDefaultTypeInternal;
+extern GetArtifactMetadataReplyDefaultTypeInternal _GetArtifactMetadataReply_default_instance_;
+class GetArtifactMetadataRequest;
+struct GetArtifactMetadataRequestDefaultTypeInternal;
+extern GetArtifactMetadataRequestDefaultTypeInternal _GetArtifactMetadataRequest_default_instance_;
 class GetCurrentUserReply;
 struct GetCurrentUserReplyDefaultTypeInternal;
 extern GetCurrentUserReplyDefaultTypeInternal _GetCurrentUserReply_default_instance_;
 class GetCurrentUserRequest;
 struct GetCurrentUserRequestDefaultTypeInternal;
 extern GetCurrentUserRequestDefaultTypeInternal _GetCurrentUserRequest_default_instance_;
+class GetFileMetaByUserIdReply;
+struct GetFileMetaByUserIdReplyDefaultTypeInternal;
+extern GetFileMetaByUserIdReplyDefaultTypeInternal _GetFileMetaByUserIdReply_default_instance_;
+class GetFileMetaByUserIdRequest;
+struct GetFileMetaByUserIdRequestDefaultTypeInternal;
+extern GetFileMetaByUserIdRequestDefaultTypeInternal _GetFileMetaByUserIdRequest_default_instance_;
+class GetFileMetaReply;
+struct GetFileMetaReplyDefaultTypeInternal;
+extern GetFileMetaReplyDefaultTypeInternal _GetFileMetaReply_default_instance_;
+class GetFileMetaRequest;
+struct GetFileMetaRequestDefaultTypeInternal;
+extern GetFileMetaRequestDefaultTypeInternal _GetFileMetaRequest_default_instance_;
 class LoginReply;
 struct LoginReplyDefaultTypeInternal;
 extern LoginReplyDefaultTypeInternal _LoginReply_default_instance_;
@@ -119,12 +151,22 @@ extern UserStructDefaultTypeInternal _UserStruct_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::bugu::service::v1::ConfusionReply* Arena::CreateMaybeMessage<::bugu::service::v1::ConfusionReply>(Arena*);
 template<> ::bugu::service::v1::ConfusionRequest* Arena::CreateMaybeMessage<::bugu::service::v1::ConfusionRequest>(Arena*);
+template<> ::bugu::service::v1::DeleteArtifactMetadataReply* Arena::CreateMaybeMessage<::bugu::service::v1::DeleteArtifactMetadataReply>(Arena*);
+template<> ::bugu::service::v1::DeleteArtifactMetadataRequest* Arena::CreateMaybeMessage<::bugu::service::v1::DeleteArtifactMetadataRequest>(Arena*);
+template<> ::bugu::service::v1::DeleteFileMetadataReply* Arena::CreateMaybeMessage<::bugu::service::v1::DeleteFileMetadataReply>(Arena*);
+template<> ::bugu::service::v1::DeleteFileMetadataRequest* Arena::CreateMaybeMessage<::bugu::service::v1::DeleteFileMetadataRequest>(Arena*);
 template<> ::bugu::service::v1::DetectReply* Arena::CreateMaybeMessage<::bugu::service::v1::DetectReply>(Arena*);
 template<> ::bugu::service::v1::DetectRequest* Arena::CreateMaybeMessage<::bugu::service::v1::DetectRequest>(Arena*);
-template<> ::bugu::service::v1::FileUploadReply* Arena::CreateMaybeMessage<::bugu::service::v1::FileUploadReply>(Arena*);
-template<> ::bugu::service::v1::FileUploadRequest* Arena::CreateMaybeMessage<::bugu::service::v1::FileUploadRequest>(Arena*);
+template<> ::bugu::service::v1::GetArtifactMetadataByFileIdReply* Arena::CreateMaybeMessage<::bugu::service::v1::GetArtifactMetadataByFileIdReply>(Arena*);
+template<> ::bugu::service::v1::GetArtifactMetadataByFileIdRequest* Arena::CreateMaybeMessage<::bugu::service::v1::GetArtifactMetadataByFileIdRequest>(Arena*);
+template<> ::bugu::service::v1::GetArtifactMetadataReply* Arena::CreateMaybeMessage<::bugu::service::v1::GetArtifactMetadataReply>(Arena*);
+template<> ::bugu::service::v1::GetArtifactMetadataRequest* Arena::CreateMaybeMessage<::bugu::service::v1::GetArtifactMetadataRequest>(Arena*);
 template<> ::bugu::service::v1::GetCurrentUserReply* Arena::CreateMaybeMessage<::bugu::service::v1::GetCurrentUserReply>(Arena*);
 template<> ::bugu::service::v1::GetCurrentUserRequest* Arena::CreateMaybeMessage<::bugu::service::v1::GetCurrentUserRequest>(Arena*);
+template<> ::bugu::service::v1::GetFileMetaByUserIdReply* Arena::CreateMaybeMessage<::bugu::service::v1::GetFileMetaByUserIdReply>(Arena*);
+template<> ::bugu::service::v1::GetFileMetaByUserIdRequest* Arena::CreateMaybeMessage<::bugu::service::v1::GetFileMetaByUserIdRequest>(Arena*);
+template<> ::bugu::service::v1::GetFileMetaReply* Arena::CreateMaybeMessage<::bugu::service::v1::GetFileMetaReply>(Arena*);
+template<> ::bugu::service::v1::GetFileMetaRequest* Arena::CreateMaybeMessage<::bugu::service::v1::GetFileMetaRequest>(Arena*);
 template<> ::bugu::service::v1::LoginReply* Arena::CreateMaybeMessage<::bugu::service::v1::LoginReply>(Arena*);
 template<> ::bugu::service::v1::LoginRequest* Arena::CreateMaybeMessage<::bugu::service::v1::LoginRequest>(Arena*);
 template<> ::bugu::service::v1::LoginRequest_User* Arena::CreateMaybeMessage<::bugu::service::v1::LoginRequest_User>(Arena*);
@@ -140,6 +182,55 @@ namespace bugu {
 namespace service {
 namespace v1 {
 
+enum Type : int {
+  TYPE_ADPOSHEL = 0,
+  TYPE_AGENT = 1,
+  TYPE_ALLAPLE = 2,
+  TYPE_AMONETIZE = 3,
+  TYPE_ANDROM = 4,
+  TYPE_AUTORUN = 5,
+  TYPE_BROWSE_FOX = 6,
+  TYPE_DINWOD = 7,
+  TYPE_ELEX = 8,
+  TYPE_EXPIRO = 9,
+  TYPE_FASONG = 10,
+  TYPE_HACK_KMS = 11,
+  TYPE_HLUX = 12,
+  TYPE_INJECTOR = 13,
+  TYPE_INSTALL_CORE = 14,
+  TYPE_MULTI_Plug = 15,
+  TYPE_NEOREKLAMI = 16,
+  TYPE_NESHTA = 17,
+  TYPE_OTHER = 18,
+  TYPE_REGRUN = 19,
+  TYPE_SALITY = 20,
+  TYPE_SNARASITE = 21,
+  TYPE_STABTINKO = 22,
+  TYPE_VBA = 23,
+  TYPE_VBKRYPT = 24,
+  TYPE_VILSEL = 25,
+  Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool Type_IsValid(int value);
+constexpr Type Type_MIN = TYPE_ADPOSHEL;
+constexpr Type Type_MAX = TYPE_VILSEL;
+constexpr int Type_ARRAYSIZE = Type_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Type_descriptor();
+template<typename T>
+inline const std::string& Type_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Type>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function Type_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    Type_descriptor(), enum_t_value);
+}
+inline bool Type_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Type* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Type>(
+    Type_descriptor(), name, value);
+}
 // ===================================================================
 
 class RegisterRequest_User final :
@@ -2132,24 +2223,24 @@ class UserStruct final :
 };
 // -------------------------------------------------------------------
 
-class FileUploadRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.FileUploadRequest) */ {
+class GetFileMetaRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetFileMetaRequest) */ {
  public:
-  inline FileUploadRequest() : FileUploadRequest(nullptr) {}
-  ~FileUploadRequest() override;
-  explicit constexpr FileUploadRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetFileMetaRequest() : GetFileMetaRequest(nullptr) {}
+  ~GetFileMetaRequest() override;
+  explicit constexpr GetFileMetaRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  FileUploadRequest(const FileUploadRequest& from);
-  FileUploadRequest(FileUploadRequest&& from) noexcept
-    : FileUploadRequest() {
+  GetFileMetaRequest(const GetFileMetaRequest& from);
+  GetFileMetaRequest(GetFileMetaRequest&& from) noexcept
+    : GetFileMetaRequest() {
     *this = ::std::move(from);
   }
 
-  inline FileUploadRequest& operator=(const FileUploadRequest& from) {
+  inline GetFileMetaRequest& operator=(const GetFileMetaRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline FileUploadRequest& operator=(FileUploadRequest&& from) noexcept {
+  inline GetFileMetaRequest& operator=(GetFileMetaRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2172,20 +2263,20 @@ class FileUploadRequest final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const FileUploadRequest& default_instance() {
+  static const GetFileMetaRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const FileUploadRequest* internal_default_instance() {
-    return reinterpret_cast<const FileUploadRequest*>(
-               &_FileUploadRequest_default_instance_);
+  static inline const GetFileMetaRequest* internal_default_instance() {
+    return reinterpret_cast<const GetFileMetaRequest*>(
+               &_GetFileMetaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     12;
 
-  friend void swap(FileUploadRequest& a, FileUploadRequest& b) {
+  friend void swap(GetFileMetaRequest& a, GetFileMetaRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(FileUploadRequest* other) {
+  inline void Swap(GetFileMetaRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2198,7 +2289,7 @@ class FileUploadRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(FileUploadRequest* other) {
+  void UnsafeArenaSwap(GetFileMetaRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2206,13 +2297,13 @@ class FileUploadRequest final :
 
   // implements Message ----------------------------------------------
 
-  FileUploadRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<FileUploadRequest>(arena);
+  GetFileMetaRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFileMetaRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const FileUploadRequest& from);
+  void CopyFrom(const GetFileMetaRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const FileUploadRequest& from);
+  void MergeFrom(const GetFileMetaRequest& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -2229,15 +2320,15 @@ class FileUploadRequest final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(FileUploadRequest* other);
+  void InternalSwap(GetFileMetaRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "bugu.service.v1.FileUploadRequest";
+    return "bugu.service.v1.GetFileMetaRequest";
   }
   protected:
-  explicit FileUploadRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetFileMetaRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -2254,64 +2345,69 @@ class FileUploadRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kContentFieldNumber = 2,
-    kSizeFieldNumber = 1,
+    kUserIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
   };
-  // bytes content = 2;
-  void clear_content();
-  const std::string& content() const;
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_content(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_content();
-  PROTOBUF_NODISCARD std::string* release_content();
-  void set_allocated_content(std::string* content);
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
   private:
-  const std::string& _internal_content() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_content(const std::string& value);
-  std::string* _internal_mutable_content();
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
   public:
 
-  // int64 size = 1;
-  void clear_size();
-  int64_t size() const;
-  void set_size(int64_t value);
+  // string file_id = 2 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
   private:
-  int64_t _internal_size() const;
-  void _internal_set_size(int64_t value);
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
   public:
 
-  // @@protoc_insertion_point(class_scope:bugu.service.v1.FileUploadRequest)
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetFileMetaRequest)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_;
-  int64_t size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bugu_2eproto;
 };
 // -------------------------------------------------------------------
 
-class FileUploadReply final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.FileUploadReply) */ {
+class GetFileMetaReply final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetFileMetaReply) */ {
  public:
-  inline FileUploadReply() : FileUploadReply(nullptr) {}
-  ~FileUploadReply() override;
-  explicit constexpr FileUploadReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetFileMetaReply() : GetFileMetaReply(nullptr) {}
+  ~GetFileMetaReply() override;
+  explicit constexpr GetFileMetaReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  FileUploadReply(const FileUploadReply& from);
-  FileUploadReply(FileUploadReply&& from) noexcept
-    : FileUploadReply() {
+  GetFileMetaReply(const GetFileMetaReply& from);
+  GetFileMetaReply(GetFileMetaReply&& from) noexcept
+    : GetFileMetaReply() {
     *this = ::std::move(from);
   }
 
-  inline FileUploadReply& operator=(const FileUploadReply& from) {
+  inline GetFileMetaReply& operator=(const GetFileMetaReply& from) {
     CopyFrom(from);
     return *this;
   }
-  inline FileUploadReply& operator=(FileUploadReply&& from) noexcept {
+  inline GetFileMetaReply& operator=(GetFileMetaReply&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2334,20 +2430,20 @@ class FileUploadReply final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const FileUploadReply& default_instance() {
+  static const GetFileMetaReply& default_instance() {
     return *internal_default_instance();
   }
-  static inline const FileUploadReply* internal_default_instance() {
-    return reinterpret_cast<const FileUploadReply*>(
-               &_FileUploadReply_default_instance_);
+  static inline const GetFileMetaReply* internal_default_instance() {
+    return reinterpret_cast<const GetFileMetaReply*>(
+               &_GetFileMetaReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     13;
 
-  friend void swap(FileUploadReply& a, FileUploadReply& b) {
+  friend void swap(GetFileMetaReply& a, GetFileMetaReply& b) {
     a.Swap(&b);
   }
-  inline void Swap(FileUploadReply* other) {
+  inline void Swap(GetFileMetaReply* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2360,7 +2456,7 @@ class FileUploadReply final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(FileUploadReply* other) {
+  void UnsafeArenaSwap(GetFileMetaReply* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2368,13 +2464,13 @@ class FileUploadReply final :
 
   // implements Message ----------------------------------------------
 
-  FileUploadReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<FileUploadReply>(arena);
+  GetFileMetaReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFileMetaReply>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const FileUploadReply& from);
+  void CopyFrom(const GetFileMetaReply& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const FileUploadReply& from);
+  void MergeFrom(const GetFileMetaReply& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -2391,15 +2487,15 @@ class FileUploadReply final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(FileUploadReply* other);
+  void InternalSwap(GetFileMetaReply* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "bugu.service.v1.FileUploadReply";
+    return "bugu.service.v1.GetFileMetaReply";
   }
   protected:
-  explicit FileUploadReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetFileMetaReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -2416,30 +2512,675 @@ class FileUploadReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kIdFieldNumber = 1,
+    kFileIdFieldNumber = 1,
+    kFileSha1FieldNumber = 2,
+    kFileAddrFieldNumber = 4,
+    kFileSizeFieldNumber = 3,
+    kTypeFieldNumber = 5,
   };
-  // string id = 1 [(.validate.rules) = {
-  void clear_id();
-  const std::string& id() const;
+  // string file_id = 1 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_id();
-  PROTOBUF_NODISCARD std::string* release_id();
-  void set_allocated_id(std::string* id);
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
   private:
-  const std::string& _internal_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(const std::string& value);
-  std::string* _internal_mutable_id();
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
   public:
 
-  // @@protoc_insertion_point(class_scope:bugu.service.v1.FileUploadReply)
+  // string file_sha_1 = 2;
+  void clear_file_sha_1();
+  const std::string& file_sha_1() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_sha_1(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_sha_1();
+  PROTOBUF_NODISCARD std::string* release_file_sha_1();
+  void set_allocated_file_sha_1(std::string* file_sha_1);
+  private:
+  const std::string& _internal_file_sha_1() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_sha_1(const std::string& value);
+  std::string* _internal_mutable_file_sha_1();
+  public:
+
+  // string file_addr = 4;
+  void clear_file_addr();
+  const std::string& file_addr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_addr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_addr();
+  PROTOBUF_NODISCARD std::string* release_file_addr();
+  void set_allocated_file_addr(std::string* file_addr);
+  private:
+  const std::string& _internal_file_addr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_addr(const std::string& value);
+  std::string* _internal_mutable_file_addr();
+  public:
+
+  // int64 file_size = 3;
+  void clear_file_size();
+  int64_t file_size() const;
+  void set_file_size(int64_t value);
+  private:
+  int64_t _internal_file_size() const;
+  void _internal_set_file_size(int64_t value);
+  public:
+
+  // .bugu.service.v1.Type type = 5;
+  void clear_type();
+  ::bugu::service::v1::Type type() const;
+  void set_type(::bugu::service::v1::Type value);
+  private:
+  ::bugu::service::v1::Type _internal_type() const;
+  void _internal_set_type(::bugu::service::v1::Type value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetFileMetaReply)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_sha_1_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_addr_;
+  int64_t file_size_;
+  int type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetFileMetaByUserIdRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetFileMetaByUserIdRequest) */ {
+ public:
+  inline GetFileMetaByUserIdRequest() : GetFileMetaByUserIdRequest(nullptr) {}
+  ~GetFileMetaByUserIdRequest() override;
+  explicit constexpr GetFileMetaByUserIdRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetFileMetaByUserIdRequest(const GetFileMetaByUserIdRequest& from);
+  GetFileMetaByUserIdRequest(GetFileMetaByUserIdRequest&& from) noexcept
+    : GetFileMetaByUserIdRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetFileMetaByUserIdRequest& operator=(const GetFileMetaByUserIdRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetFileMetaByUserIdRequest& operator=(GetFileMetaByUserIdRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetFileMetaByUserIdRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetFileMetaByUserIdRequest* internal_default_instance() {
+    return reinterpret_cast<const GetFileMetaByUserIdRequest*>(
+               &_GetFileMetaByUserIdRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(GetFileMetaByUserIdRequest& a, GetFileMetaByUserIdRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetFileMetaByUserIdRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetFileMetaByUserIdRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetFileMetaByUserIdRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFileMetaByUserIdRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetFileMetaByUserIdRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const GetFileMetaByUserIdRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetFileMetaByUserIdRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.GetFileMetaByUserIdRequest";
+  }
+  protected:
+  explicit GetFileMetaByUserIdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserIdFieldNumber = 1,
+  };
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetFileMetaByUserIdRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetFileMetaByUserIdReply final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetFileMetaByUserIdReply) */ {
+ public:
+  inline GetFileMetaByUserIdReply() : GetFileMetaByUserIdReply(nullptr) {}
+  ~GetFileMetaByUserIdReply() override;
+  explicit constexpr GetFileMetaByUserIdReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetFileMetaByUserIdReply(const GetFileMetaByUserIdReply& from);
+  GetFileMetaByUserIdReply(GetFileMetaByUserIdReply&& from) noexcept
+    : GetFileMetaByUserIdReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetFileMetaByUserIdReply& operator=(const GetFileMetaByUserIdReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetFileMetaByUserIdReply& operator=(GetFileMetaByUserIdReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetFileMetaByUserIdReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetFileMetaByUserIdReply* internal_default_instance() {
+    return reinterpret_cast<const GetFileMetaByUserIdReply*>(
+               &_GetFileMetaByUserIdReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(GetFileMetaByUserIdReply& a, GetFileMetaByUserIdReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetFileMetaByUserIdReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetFileMetaByUserIdReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetFileMetaByUserIdReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFileMetaByUserIdReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetFileMetaByUserIdReply& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const GetFileMetaByUserIdReply& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetFileMetaByUserIdReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.GetFileMetaByUserIdReply";
+  }
+  protected:
+  explicit GetFileMetaByUserIdReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileMetadataFieldNumber = 1,
+  };
+  // repeated .bugu.service.v1.GetFileMetaReply file_metadata = 1;
+  int file_metadata_size() const;
+  private:
+  int _internal_file_metadata_size() const;
+  public:
+  void clear_file_metadata();
+  ::bugu::service::v1::GetFileMetaReply* mutable_file_metadata(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetFileMetaReply >*
+      mutable_file_metadata();
+  private:
+  const ::bugu::service::v1::GetFileMetaReply& _internal_file_metadata(int index) const;
+  ::bugu::service::v1::GetFileMetaReply* _internal_add_file_metadata();
+  public:
+  const ::bugu::service::v1::GetFileMetaReply& file_metadata(int index) const;
+  ::bugu::service::v1::GetFileMetaReply* add_file_metadata();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetFileMetaReply >&
+      file_metadata() const;
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetFileMetaByUserIdReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetFileMetaReply > file_metadata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteFileMetadataRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.DeleteFileMetadataRequest) */ {
+ public:
+  inline DeleteFileMetadataRequest() : DeleteFileMetadataRequest(nullptr) {}
+  ~DeleteFileMetadataRequest() override;
+  explicit constexpr DeleteFileMetadataRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteFileMetadataRequest(const DeleteFileMetadataRequest& from);
+  DeleteFileMetadataRequest(DeleteFileMetadataRequest&& from) noexcept
+    : DeleteFileMetadataRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteFileMetadataRequest& operator=(const DeleteFileMetadataRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteFileMetadataRequest& operator=(DeleteFileMetadataRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const DeleteFileMetadataRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteFileMetadataRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteFileMetadataRequest*>(
+               &_DeleteFileMetadataRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(DeleteFileMetadataRequest& a, DeleteFileMetadataRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteFileMetadataRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteFileMetadataRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteFileMetadataRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteFileMetadataRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const DeleteFileMetadataRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const DeleteFileMetadataRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteFileMetadataRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.DeleteFileMetadataRequest";
+  }
+  protected:
+  explicit DeleteFileMetadataRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
+  };
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
+  private:
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.DeleteFileMetadataRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteFileMetadataReply final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:bugu.service.v1.DeleteFileMetadataReply) */ {
+ public:
+  inline DeleteFileMetadataReply() : DeleteFileMetadataReply(nullptr) {}
+  explicit constexpr DeleteFileMetadataReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteFileMetadataReply(const DeleteFileMetadataReply& from);
+  DeleteFileMetadataReply(DeleteFileMetadataReply&& from) noexcept
+    : DeleteFileMetadataReply() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteFileMetadataReply& operator=(const DeleteFileMetadataReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteFileMetadataReply& operator=(DeleteFileMetadataReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const DeleteFileMetadataReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteFileMetadataReply* internal_default_instance() {
+    return reinterpret_cast<const DeleteFileMetadataReply*>(
+               &_DeleteFileMetadataReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(DeleteFileMetadataReply& a, DeleteFileMetadataReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteFileMetadataReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteFileMetadataReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteFileMetadataReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteFileMetadataReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const DeleteFileMetadataReply& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const DeleteFileMetadataReply& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.DeleteFileMetadataReply";
+  }
+  protected:
+  explicit DeleteFileMetadataReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.DeleteFileMetadataReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bugu_2eproto;
 };
@@ -2493,7 +3234,7 @@ class DetectRequest final :
                &_DetectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    18;
 
   friend void swap(DetectRequest& a, DetectRequest& b) {
     a.Swap(&b);
@@ -2660,7 +3401,7 @@ class DetectReply final :
                &_DetectReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    19;
 
   friend void swap(DetectReply& a, DetectReply& b) {
     a.Swap(&b);
@@ -2811,7 +3552,7 @@ class ConfusionRequest final :
                &_ConfusionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    20;
 
   friend void swap(ConfusionRequest& a, ConfusionRequest& b) {
     a.Swap(&b);
@@ -2978,7 +3719,7 @@ class ConfusionReply final :
                &_ConfusionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    21;
 
   friend void swap(ConfusionReply& a, ConfusionReply& b) {
     a.Swap(&b);
@@ -3124,6 +3865,979 @@ class ConfusionReply final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr affiliated_file_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr method_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetArtifactMetadataRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetArtifactMetadataRequest) */ {
+ public:
+  inline GetArtifactMetadataRequest() : GetArtifactMetadataRequest(nullptr) {}
+  ~GetArtifactMetadataRequest() override;
+  explicit constexpr GetArtifactMetadataRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetArtifactMetadataRequest(const GetArtifactMetadataRequest& from);
+  GetArtifactMetadataRequest(GetArtifactMetadataRequest&& from) noexcept
+    : GetArtifactMetadataRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetArtifactMetadataRequest& operator=(const GetArtifactMetadataRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetArtifactMetadataRequest& operator=(GetArtifactMetadataRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetArtifactMetadataRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetArtifactMetadataRequest* internal_default_instance() {
+    return reinterpret_cast<const GetArtifactMetadataRequest*>(
+               &_GetArtifactMetadataRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(GetArtifactMetadataRequest& a, GetArtifactMetadataRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetArtifactMetadataRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetArtifactMetadataRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetArtifactMetadataRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetArtifactMetadataRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetArtifactMetadataRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const GetArtifactMetadataRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetArtifactMetadataRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.GetArtifactMetadataRequest";
+  }
+  protected:
+  explicit GetArtifactMetadataRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserIdFieldNumber = 1,
+    kArtifactIdFieldNumber = 2,
+  };
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string artifact_id = 2 [(.validate.rules) = {
+  void clear_artifact_id();
+  const std::string& artifact_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_artifact_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_artifact_id();
+  PROTOBUF_NODISCARD std::string* release_artifact_id();
+  void set_allocated_artifact_id(std::string* artifact_id);
+  private:
+  const std::string& _internal_artifact_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_artifact_id(const std::string& value);
+  std::string* _internal_mutable_artifact_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetArtifactMetadataRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr artifact_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetArtifactMetadataReply final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetArtifactMetadataReply) */ {
+ public:
+  inline GetArtifactMetadataReply() : GetArtifactMetadataReply(nullptr) {}
+  ~GetArtifactMetadataReply() override;
+  explicit constexpr GetArtifactMetadataReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetArtifactMetadataReply(const GetArtifactMetadataReply& from);
+  GetArtifactMetadataReply(GetArtifactMetadataReply&& from) noexcept
+    : GetArtifactMetadataReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetArtifactMetadataReply& operator=(const GetArtifactMetadataReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetArtifactMetadataReply& operator=(GetArtifactMetadataReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetArtifactMetadataReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetArtifactMetadataReply* internal_default_instance() {
+    return reinterpret_cast<const GetArtifactMetadataReply*>(
+               &_GetArtifactMetadataReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(GetArtifactMetadataReply& a, GetArtifactMetadataReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetArtifactMetadataReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetArtifactMetadataReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetArtifactMetadataReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetArtifactMetadataReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetArtifactMetadataReply& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const GetArtifactMetadataReply& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetArtifactMetadataReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.GetArtifactMetadataReply";
+  }
+  protected:
+  explicit GetArtifactMetadataReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kArtifactIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
+    kAffiliatedFileIdFieldNumber = 3,
+    kMethodFieldNumber = 4,
+  };
+  // string artifact_id = 1 [(.validate.rules) = {
+  void clear_artifact_id();
+  const std::string& artifact_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_artifact_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_artifact_id();
+  PROTOBUF_NODISCARD std::string* release_artifact_id();
+  void set_allocated_artifact_id(std::string* artifact_id);
+  private:
+  const std::string& _internal_artifact_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_artifact_id(const std::string& value);
+  std::string* _internal_mutable_artifact_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
+  private:
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
+  public:
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  void clear_affiliated_file_id();
+  const std::string& affiliated_file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_affiliated_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_affiliated_file_id();
+  PROTOBUF_NODISCARD std::string* release_affiliated_file_id();
+  void set_allocated_affiliated_file_id(std::string* affiliated_file_id);
+  private:
+  const std::string& _internal_affiliated_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_affiliated_file_id(const std::string& value);
+  std::string* _internal_mutable_affiliated_file_id();
+  public:
+
+  // string method = 4;
+  void clear_method();
+  const std::string& method() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_method(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_method();
+  PROTOBUF_NODISCARD std::string* release_method();
+  void set_allocated_method(std::string* method);
+  private:
+  const std::string& _internal_method() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_method(const std::string& value);
+  std::string* _internal_mutable_method();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetArtifactMetadataReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr artifact_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr affiliated_file_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr method_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetArtifactMetadataByFileIdRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetArtifactMetadataByFileIdRequest) */ {
+ public:
+  inline GetArtifactMetadataByFileIdRequest() : GetArtifactMetadataByFileIdRequest(nullptr) {}
+  ~GetArtifactMetadataByFileIdRequest() override;
+  explicit constexpr GetArtifactMetadataByFileIdRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetArtifactMetadataByFileIdRequest(const GetArtifactMetadataByFileIdRequest& from);
+  GetArtifactMetadataByFileIdRequest(GetArtifactMetadataByFileIdRequest&& from) noexcept
+    : GetArtifactMetadataByFileIdRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetArtifactMetadataByFileIdRequest& operator=(const GetArtifactMetadataByFileIdRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetArtifactMetadataByFileIdRequest& operator=(GetArtifactMetadataByFileIdRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetArtifactMetadataByFileIdRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetArtifactMetadataByFileIdRequest* internal_default_instance() {
+    return reinterpret_cast<const GetArtifactMetadataByFileIdRequest*>(
+               &_GetArtifactMetadataByFileIdRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(GetArtifactMetadataByFileIdRequest& a, GetArtifactMetadataByFileIdRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetArtifactMetadataByFileIdRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetArtifactMetadataByFileIdRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetArtifactMetadataByFileIdRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetArtifactMetadataByFileIdRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetArtifactMetadataByFileIdRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const GetArtifactMetadataByFileIdRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetArtifactMetadataByFileIdRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.GetArtifactMetadataByFileIdRequest";
+  }
+  protected:
+  explicit GetArtifactMetadataByFileIdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
+  };
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
+  private:
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetArtifactMetadataByFileIdRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetArtifactMetadataByFileIdReply final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetArtifactMetadataByFileIdReply) */ {
+ public:
+  inline GetArtifactMetadataByFileIdReply() : GetArtifactMetadataByFileIdReply(nullptr) {}
+  ~GetArtifactMetadataByFileIdReply() override;
+  explicit constexpr GetArtifactMetadataByFileIdReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetArtifactMetadataByFileIdReply(const GetArtifactMetadataByFileIdReply& from);
+  GetArtifactMetadataByFileIdReply(GetArtifactMetadataByFileIdReply&& from) noexcept
+    : GetArtifactMetadataByFileIdReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetArtifactMetadataByFileIdReply& operator=(const GetArtifactMetadataByFileIdReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetArtifactMetadataByFileIdReply& operator=(GetArtifactMetadataByFileIdReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetArtifactMetadataByFileIdReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetArtifactMetadataByFileIdReply* internal_default_instance() {
+    return reinterpret_cast<const GetArtifactMetadataByFileIdReply*>(
+               &_GetArtifactMetadataByFileIdReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    25;
+
+  friend void swap(GetArtifactMetadataByFileIdReply& a, GetArtifactMetadataByFileIdReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetArtifactMetadataByFileIdReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetArtifactMetadataByFileIdReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetArtifactMetadataByFileIdReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetArtifactMetadataByFileIdReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetArtifactMetadataByFileIdReply& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const GetArtifactMetadataByFileIdReply& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetArtifactMetadataByFileIdReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.GetArtifactMetadataByFileIdReply";
+  }
+  protected:
+  explicit GetArtifactMetadataByFileIdReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kArtifactMetadataFieldNumber = 1,
+  };
+  // repeated .bugu.service.v1.GetArtifactMetadataReply artifact_metadata = 1;
+  int artifact_metadata_size() const;
+  private:
+  int _internal_artifact_metadata_size() const;
+  public:
+  void clear_artifact_metadata();
+  ::bugu::service::v1::GetArtifactMetadataReply* mutable_artifact_metadata(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetArtifactMetadataReply >*
+      mutable_artifact_metadata();
+  private:
+  const ::bugu::service::v1::GetArtifactMetadataReply& _internal_artifact_metadata(int index) const;
+  ::bugu::service::v1::GetArtifactMetadataReply* _internal_add_artifact_metadata();
+  public:
+  const ::bugu::service::v1::GetArtifactMetadataReply& artifact_metadata(int index) const;
+  ::bugu::service::v1::GetArtifactMetadataReply* add_artifact_metadata();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetArtifactMetadataReply >&
+      artifact_metadata() const;
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.GetArtifactMetadataByFileIdReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetArtifactMetadataReply > artifact_metadata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteArtifactMetadataRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.DeleteArtifactMetadataRequest) */ {
+ public:
+  inline DeleteArtifactMetadataRequest() : DeleteArtifactMetadataRequest(nullptr) {}
+  ~DeleteArtifactMetadataRequest() override;
+  explicit constexpr DeleteArtifactMetadataRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteArtifactMetadataRequest(const DeleteArtifactMetadataRequest& from);
+  DeleteArtifactMetadataRequest(DeleteArtifactMetadataRequest&& from) noexcept
+    : DeleteArtifactMetadataRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteArtifactMetadataRequest& operator=(const DeleteArtifactMetadataRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteArtifactMetadataRequest& operator=(DeleteArtifactMetadataRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const DeleteArtifactMetadataRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteArtifactMetadataRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteArtifactMetadataRequest*>(
+               &_DeleteArtifactMetadataRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    26;
+
+  friend void swap(DeleteArtifactMetadataRequest& a, DeleteArtifactMetadataRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteArtifactMetadataRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteArtifactMetadataRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteArtifactMetadataRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteArtifactMetadataRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const DeleteArtifactMetadataRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const DeleteArtifactMetadataRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteArtifactMetadataRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.DeleteArtifactMetadataRequest";
+  }
+  protected:
+  explicit DeleteArtifactMetadataRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserIdFieldNumber = 1,
+    kArtifactIdFieldNumber = 2,
+  };
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string artifact_id = 2 [(.validate.rules) = {
+  void clear_artifact_id();
+  const std::string& artifact_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_artifact_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_artifact_id();
+  PROTOBUF_NODISCARD std::string* release_artifact_id();
+  void set_allocated_artifact_id(std::string* artifact_id);
+  private:
+  const std::string& _internal_artifact_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_artifact_id(const std::string& value);
+  std::string* _internal_mutable_artifact_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.DeleteArtifactMetadataRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr artifact_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteArtifactMetadataReply final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:bugu.service.v1.DeleteArtifactMetadataReply) */ {
+ public:
+  inline DeleteArtifactMetadataReply() : DeleteArtifactMetadataReply(nullptr) {}
+  explicit constexpr DeleteArtifactMetadataReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteArtifactMetadataReply(const DeleteArtifactMetadataReply& from);
+  DeleteArtifactMetadataReply(DeleteArtifactMetadataReply&& from) noexcept
+    : DeleteArtifactMetadataReply() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteArtifactMetadataReply& operator=(const DeleteArtifactMetadataReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteArtifactMetadataReply& operator=(DeleteArtifactMetadataReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const DeleteArtifactMetadataReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteArtifactMetadataReply* internal_default_instance() {
+    return reinterpret_cast<const DeleteArtifactMetadataReply*>(
+               &_DeleteArtifactMetadataReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    27;
+
+  friend void swap(DeleteArtifactMetadataReply& a, DeleteArtifactMetadataReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteArtifactMetadataReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteArtifactMetadataReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteArtifactMetadataReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteArtifactMetadataReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const DeleteArtifactMetadataReply& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const DeleteArtifactMetadataReply& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.DeleteArtifactMetadataReply";
+  }
+  protected:
+  explicit DeleteArtifactMetadataReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.DeleteArtifactMetadataReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bugu_2eproto;
 };
@@ -4528,133 +6242,515 @@ inline void UserStruct::set_allocated_username(std::string* username) {
 
 // -------------------------------------------------------------------
 
-// FileUploadRequest
+// GetFileMetaRequest
 
-// int64 size = 1;
-inline void FileUploadRequest::clear_size() {
-  size_ = int64_t{0};
+// string user_id = 1 [(.validate.rules) = {
+inline void GetFileMetaRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
 }
-inline int64_t FileUploadRequest::_internal_size() const {
-  return size_;
-}
-inline int64_t FileUploadRequest::size() const {
-  // @@protoc_insertion_point(field_get:bugu.service.v1.FileUploadRequest.size)
-  return _internal_size();
-}
-inline void FileUploadRequest::_internal_set_size(int64_t value) {
-  
-  size_ = value;
-}
-inline void FileUploadRequest::set_size(int64_t value) {
-  _internal_set_size(value);
-  // @@protoc_insertion_point(field_set:bugu.service.v1.FileUploadRequest.size)
-}
-
-// bytes content = 2;
-inline void FileUploadRequest::clear_content() {
-  content_.ClearToEmpty();
-}
-inline const std::string& FileUploadRequest::content() const {
-  // @@protoc_insertion_point(field_get:bugu.service.v1.FileUploadRequest.content)
-  return _internal_content();
+inline const std::string& GetFileMetaRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaRequest.user_id)
+  return _internal_user_id();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void FileUploadRequest::set_content(ArgT0&& arg0, ArgT... args) {
+void GetFileMetaRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
  
- content_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:bugu.service.v1.FileUploadRequest.content)
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaRequest.user_id)
 }
-inline std::string* FileUploadRequest::mutable_content() {
-  std::string* _s = _internal_mutable_content();
-  // @@protoc_insertion_point(field_mutable:bugu.service.v1.FileUploadRequest.content)
+inline std::string* GetFileMetaRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaRequest.user_id)
   return _s;
 }
-inline const std::string& FileUploadRequest::_internal_content() const {
-  return content_.Get();
+inline const std::string& GetFileMetaRequest::_internal_user_id() const {
+  return user_id_.Get();
 }
-inline void FileUploadRequest::_internal_set_content(const std::string& value) {
+inline void GetFileMetaRequest::_internal_set_user_id(const std::string& value) {
   
-  content_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* FileUploadRequest::_internal_mutable_content() {
+inline std::string* GetFileMetaRequest::_internal_mutable_user_id() {
   
-  return content_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* FileUploadRequest::release_content() {
-  // @@protoc_insertion_point(field_release:bugu.service.v1.FileUploadRequest.content)
-  return content_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+inline std::string* GetFileMetaRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetFileMetaRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void FileUploadRequest::set_allocated_content(std::string* content) {
-  if (content != nullptr) {
+inline void GetFileMetaRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
     
   } else {
     
   }
-  content_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), content,
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
       GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (content_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
-    content_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.FileUploadRequest.content)
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetFileMetaRequest.user_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
+inline void GetFileMetaRequest::clear_file_id() {
+  file_id_.ClearToEmpty();
+}
+inline const std::string& GetFileMetaRequest::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaRequest.file_id)
+  return _internal_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetFileMetaRequest::set_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaRequest.file_id)
+}
+inline std::string* GetFileMetaRequest::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaRequest.file_id)
+  return _s;
+}
+inline const std::string& GetFileMetaRequest::_internal_file_id() const {
+  return file_id_.Get();
+}
+inline void GetFileMetaRequest::_internal_set_file_id(const std::string& value) {
+  
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaRequest::_internal_mutable_file_id() {
+  
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaRequest::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetFileMetaRequest.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetFileMetaRequest::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetFileMetaRequest.file_id)
 }
 
 // -------------------------------------------------------------------
 
-// FileUploadReply
+// GetFileMetaReply
 
-// string id = 1 [(.validate.rules) = {
-inline void FileUploadReply::clear_id() {
-  id_.ClearToEmpty();
+// string file_id = 1 [(.validate.rules) = {
+inline void GetFileMetaReply::clear_file_id() {
+  file_id_.ClearToEmpty();
 }
-inline const std::string& FileUploadReply::id() const {
-  // @@protoc_insertion_point(field_get:bugu.service.v1.FileUploadReply.id)
-  return _internal_id();
+inline const std::string& GetFileMetaReply::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaReply.file_id)
+  return _internal_file_id();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void FileUploadReply::set_id(ArgT0&& arg0, ArgT... args) {
+void GetFileMetaReply::set_file_id(ArgT0&& arg0, ArgT... args) {
  
- id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:bugu.service.v1.FileUploadReply.id)
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaReply.file_id)
 }
-inline std::string* FileUploadReply::mutable_id() {
-  std::string* _s = _internal_mutable_id();
-  // @@protoc_insertion_point(field_mutable:bugu.service.v1.FileUploadReply.id)
+inline std::string* GetFileMetaReply::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaReply.file_id)
   return _s;
 }
-inline const std::string& FileUploadReply::_internal_id() const {
-  return id_.Get();
+inline const std::string& GetFileMetaReply::_internal_file_id() const {
+  return file_id_.Get();
 }
-inline void FileUploadReply::_internal_set_id(const std::string& value) {
+inline void GetFileMetaReply::_internal_set_file_id(const std::string& value) {
   
-  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* FileUploadReply::_internal_mutable_id() {
+inline std::string* GetFileMetaReply::_internal_mutable_file_id() {
   
-  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* FileUploadReply::release_id() {
-  // @@protoc_insertion_point(field_release:bugu.service.v1.FileUploadReply.id)
-  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+inline std::string* GetFileMetaReply::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetFileMetaReply.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void FileUploadReply::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void GetFileMetaReply::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
       GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
-    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.FileUploadReply.id)
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetFileMetaReply.file_id)
 }
+
+// string file_sha_1 = 2;
+inline void GetFileMetaReply::clear_file_sha_1() {
+  file_sha_1_.ClearToEmpty();
+}
+inline const std::string& GetFileMetaReply::file_sha_1() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaReply.file_sha_1)
+  return _internal_file_sha_1();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetFileMetaReply::set_file_sha_1(ArgT0&& arg0, ArgT... args) {
+ 
+ file_sha_1_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaReply.file_sha_1)
+}
+inline std::string* GetFileMetaReply::mutable_file_sha_1() {
+  std::string* _s = _internal_mutable_file_sha_1();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaReply.file_sha_1)
+  return _s;
+}
+inline const std::string& GetFileMetaReply::_internal_file_sha_1() const {
+  return file_sha_1_.Get();
+}
+inline void GetFileMetaReply::_internal_set_file_sha_1(const std::string& value) {
+  
+  file_sha_1_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaReply::_internal_mutable_file_sha_1() {
+  
+  return file_sha_1_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaReply::release_file_sha_1() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetFileMetaReply.file_sha_1)
+  return file_sha_1_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetFileMetaReply::set_allocated_file_sha_1(std::string* file_sha_1) {
+  if (file_sha_1 != nullptr) {
+    
+  } else {
+    
+  }
+  file_sha_1_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_sha_1,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_sha_1_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_sha_1_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetFileMetaReply.file_sha_1)
+}
+
+// int64 file_size = 3;
+inline void GetFileMetaReply::clear_file_size() {
+  file_size_ = int64_t{0};
+}
+inline int64_t GetFileMetaReply::_internal_file_size() const {
+  return file_size_;
+}
+inline int64_t GetFileMetaReply::file_size() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaReply.file_size)
+  return _internal_file_size();
+}
+inline void GetFileMetaReply::_internal_set_file_size(int64_t value) {
+  
+  file_size_ = value;
+}
+inline void GetFileMetaReply::set_file_size(int64_t value) {
+  _internal_set_file_size(value);
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaReply.file_size)
+}
+
+// string file_addr = 4;
+inline void GetFileMetaReply::clear_file_addr() {
+  file_addr_.ClearToEmpty();
+}
+inline const std::string& GetFileMetaReply::file_addr() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaReply.file_addr)
+  return _internal_file_addr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetFileMetaReply::set_file_addr(ArgT0&& arg0, ArgT... args) {
+ 
+ file_addr_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaReply.file_addr)
+}
+inline std::string* GetFileMetaReply::mutable_file_addr() {
+  std::string* _s = _internal_mutable_file_addr();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaReply.file_addr)
+  return _s;
+}
+inline const std::string& GetFileMetaReply::_internal_file_addr() const {
+  return file_addr_.Get();
+}
+inline void GetFileMetaReply::_internal_set_file_addr(const std::string& value) {
+  
+  file_addr_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaReply::_internal_mutable_file_addr() {
+  
+  return file_addr_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaReply::release_file_addr() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetFileMetaReply.file_addr)
+  return file_addr_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetFileMetaReply::set_allocated_file_addr(std::string* file_addr) {
+  if (file_addr != nullptr) {
+    
+  } else {
+    
+  }
+  file_addr_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_addr,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_addr_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_addr_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetFileMetaReply.file_addr)
+}
+
+// .bugu.service.v1.Type type = 5;
+inline void GetFileMetaReply::clear_type() {
+  type_ = 0;
+}
+inline ::bugu::service::v1::Type GetFileMetaReply::_internal_type() const {
+  return static_cast< ::bugu::service::v1::Type >(type_);
+}
+inline ::bugu::service::v1::Type GetFileMetaReply::type() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaReply.type)
+  return _internal_type();
+}
+inline void GetFileMetaReply::_internal_set_type(::bugu::service::v1::Type value) {
+  
+  type_ = value;
+}
+inline void GetFileMetaReply::set_type(::bugu::service::v1::Type value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaReply.type)
+}
+
+// -------------------------------------------------------------------
+
+// GetFileMetaByUserIdRequest
+
+// string user_id = 1 [(.validate.rules) = {
+inline void GetFileMetaByUserIdRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& GetFileMetaByUserIdRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaByUserIdRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetFileMetaByUserIdRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetFileMetaByUserIdRequest.user_id)
+}
+inline std::string* GetFileMetaByUserIdRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaByUserIdRequest.user_id)
+  return _s;
+}
+inline const std::string& GetFileMetaByUserIdRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void GetFileMetaByUserIdRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaByUserIdRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetFileMetaByUserIdRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetFileMetaByUserIdRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetFileMetaByUserIdRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetFileMetaByUserIdRequest.user_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetFileMetaByUserIdReply
+
+// repeated .bugu.service.v1.GetFileMetaReply file_metadata = 1;
+inline int GetFileMetaByUserIdReply::_internal_file_metadata_size() const {
+  return file_metadata_.size();
+}
+inline int GetFileMetaByUserIdReply::file_metadata_size() const {
+  return _internal_file_metadata_size();
+}
+inline void GetFileMetaByUserIdReply::clear_file_metadata() {
+  file_metadata_.Clear();
+}
+inline ::bugu::service::v1::GetFileMetaReply* GetFileMetaByUserIdReply::mutable_file_metadata(int index) {
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetFileMetaByUserIdReply.file_metadata)
+  return file_metadata_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetFileMetaReply >*
+GetFileMetaByUserIdReply::mutable_file_metadata() {
+  // @@protoc_insertion_point(field_mutable_list:bugu.service.v1.GetFileMetaByUserIdReply.file_metadata)
+  return &file_metadata_;
+}
+inline const ::bugu::service::v1::GetFileMetaReply& GetFileMetaByUserIdReply::_internal_file_metadata(int index) const {
+  return file_metadata_.Get(index);
+}
+inline const ::bugu::service::v1::GetFileMetaReply& GetFileMetaByUserIdReply::file_metadata(int index) const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetFileMetaByUserIdReply.file_metadata)
+  return _internal_file_metadata(index);
+}
+inline ::bugu::service::v1::GetFileMetaReply* GetFileMetaByUserIdReply::_internal_add_file_metadata() {
+  return file_metadata_.Add();
+}
+inline ::bugu::service::v1::GetFileMetaReply* GetFileMetaByUserIdReply::add_file_metadata() {
+  ::bugu::service::v1::GetFileMetaReply* _add = _internal_add_file_metadata();
+  // @@protoc_insertion_point(field_add:bugu.service.v1.GetFileMetaByUserIdReply.file_metadata)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetFileMetaReply >&
+GetFileMetaByUserIdReply::file_metadata() const {
+  // @@protoc_insertion_point(field_list:bugu.service.v1.GetFileMetaByUserIdReply.file_metadata)
+  return file_metadata_;
+}
+
+// -------------------------------------------------------------------
+
+// DeleteFileMetadataRequest
+
+// string user_id = 1 [(.validate.rules) = {
+inline void DeleteFileMetadataRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& DeleteFileMetadataRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.DeleteFileMetadataRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeleteFileMetadataRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.DeleteFileMetadataRequest.user_id)
+}
+inline std::string* DeleteFileMetadataRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.DeleteFileMetadataRequest.user_id)
+  return _s;
+}
+inline const std::string& DeleteFileMetadataRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void DeleteFileMetadataRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* DeleteFileMetadataRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* DeleteFileMetadataRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.DeleteFileMetadataRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void DeleteFileMetadataRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.DeleteFileMetadataRequest.user_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
+inline void DeleteFileMetadataRequest::clear_file_id() {
+  file_id_.ClearToEmpty();
+}
+inline const std::string& DeleteFileMetadataRequest::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.DeleteFileMetadataRequest.file_id)
+  return _internal_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeleteFileMetadataRequest::set_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.DeleteFileMetadataRequest.file_id)
+}
+inline std::string* DeleteFileMetadataRequest::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.DeleteFileMetadataRequest.file_id)
+  return _s;
+}
+inline const std::string& DeleteFileMetadataRequest::_internal_file_id() const {
+  return file_id_.Get();
+}
+inline void DeleteFileMetadataRequest::_internal_set_file_id(const std::string& value) {
+  
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* DeleteFileMetadataRequest::_internal_mutable_file_id() {
+  
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* DeleteFileMetadataRequest::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.DeleteFileMetadataRequest.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void DeleteFileMetadataRequest::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.DeleteFileMetadataRequest.file_id)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteFileMetadataReply
 
 // -------------------------------------------------------------------
 
@@ -5131,9 +7227,603 @@ inline void ConfusionReply::set_allocated_method(std::string* method) {
   // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.ConfusionReply.method)
 }
 
+// -------------------------------------------------------------------
+
+// GetArtifactMetadataRequest
+
+// string user_id = 1 [(.validate.rules) = {
+inline void GetArtifactMetadataRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataRequest.user_id)
+}
+inline std::string* GetArtifactMetadataRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataRequest.user_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void GetArtifactMetadataRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataRequest.user_id)
+}
+
+// string artifact_id = 2 [(.validate.rules) = {
+inline void GetArtifactMetadataRequest::clear_artifact_id() {
+  artifact_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataRequest::artifact_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataRequest.artifact_id)
+  return _internal_artifact_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataRequest::set_artifact_id(ArgT0&& arg0, ArgT... args) {
+ 
+ artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataRequest.artifact_id)
+}
+inline std::string* GetArtifactMetadataRequest::mutable_artifact_id() {
+  std::string* _s = _internal_mutable_artifact_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataRequest.artifact_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataRequest::_internal_artifact_id() const {
+  return artifact_id_.Get();
+}
+inline void GetArtifactMetadataRequest::_internal_set_artifact_id(const std::string& value) {
+  
+  artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataRequest::_internal_mutable_artifact_id() {
+  
+  return artifact_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataRequest::release_artifact_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataRequest.artifact_id)
+  return artifact_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataRequest::set_allocated_artifact_id(std::string* artifact_id) {
+  if (artifact_id != nullptr) {
+    
+  } else {
+    
+  }
+  artifact_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), artifact_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (artifact_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataRequest.artifact_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetArtifactMetadataReply
+
+// string artifact_id = 1 [(.validate.rules) = {
+inline void GetArtifactMetadataReply::clear_artifact_id() {
+  artifact_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataReply::artifact_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataReply.artifact_id)
+  return _internal_artifact_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataReply::set_artifact_id(ArgT0&& arg0, ArgT... args) {
+ 
+ artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataReply.artifact_id)
+}
+inline std::string* GetArtifactMetadataReply::mutable_artifact_id() {
+  std::string* _s = _internal_mutable_artifact_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataReply.artifact_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataReply::_internal_artifact_id() const {
+  return artifact_id_.Get();
+}
+inline void GetArtifactMetadataReply::_internal_set_artifact_id(const std::string& value) {
+  
+  artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::_internal_mutable_artifact_id() {
+  
+  return artifact_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::release_artifact_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataReply.artifact_id)
+  return artifact_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataReply::set_allocated_artifact_id(std::string* artifact_id) {
+  if (artifact_id != nullptr) {
+    
+  } else {
+    
+  }
+  artifact_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), artifact_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (artifact_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataReply.artifact_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
+inline void GetArtifactMetadataReply::clear_file_id() {
+  file_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataReply::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataReply.file_id)
+  return _internal_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataReply::set_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataReply.file_id)
+}
+inline std::string* GetArtifactMetadataReply::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataReply.file_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataReply::_internal_file_id() const {
+  return file_id_.Get();
+}
+inline void GetArtifactMetadataReply::_internal_set_file_id(const std::string& value) {
+  
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::_internal_mutable_file_id() {
+  
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataReply.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataReply::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataReply.file_id)
+}
+
+// string affiliated_file_id = 3 [(.validate.rules) = {
+inline void GetArtifactMetadataReply::clear_affiliated_file_id() {
+  affiliated_file_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataReply::affiliated_file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id)
+  return _internal_affiliated_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataReply::set_affiliated_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id)
+}
+inline std::string* GetArtifactMetadataReply::mutable_affiliated_file_id() {
+  std::string* _s = _internal_mutable_affiliated_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataReply::_internal_affiliated_file_id() const {
+  return affiliated_file_id_.Get();
+}
+inline void GetArtifactMetadataReply::_internal_set_affiliated_file_id(const std::string& value) {
+  
+  affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::_internal_mutable_affiliated_file_id() {
+  
+  return affiliated_file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::release_affiliated_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id)
+  return affiliated_file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataReply::set_allocated_affiliated_file_id(std::string* affiliated_file_id) {
+  if (affiliated_file_id != nullptr) {
+    
+  } else {
+    
+  }
+  affiliated_file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), affiliated_file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (affiliated_file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataReply.affiliated_file_id)
+}
+
+// string method = 4;
+inline void GetArtifactMetadataReply::clear_method() {
+  method_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataReply::method() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataReply.method)
+  return _internal_method();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataReply::set_method(ArgT0&& arg0, ArgT... args) {
+ 
+ method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataReply.method)
+}
+inline std::string* GetArtifactMetadataReply::mutable_method() {
+  std::string* _s = _internal_mutable_method();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataReply.method)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataReply::_internal_method() const {
+  return method_.Get();
+}
+inline void GetArtifactMetadataReply::_internal_set_method(const std::string& value) {
+  
+  method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::_internal_mutable_method() {
+  
+  return method_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataReply::release_method() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataReply.method)
+  return method_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataReply::set_allocated_method(std::string* method) {
+  if (method != nullptr) {
+    
+  } else {
+    
+  }
+  method_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), method,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (method_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataReply.method)
+}
+
+// -------------------------------------------------------------------
+
+// GetArtifactMetadataByFileIdRequest
+
+// string user_id = 1 [(.validate.rules) = {
+inline void GetArtifactMetadataByFileIdRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataByFileIdRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataByFileIdRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id)
+}
+inline std::string* GetArtifactMetadataByFileIdRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataByFileIdRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void GetArtifactMetadataByFileIdRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataByFileIdRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataByFileIdRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataByFileIdRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataByFileIdRequest.user_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
+inline void GetArtifactMetadataByFileIdRequest::clear_file_id() {
+  file_id_.ClearToEmpty();
+}
+inline const std::string& GetArtifactMetadataByFileIdRequest::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id)
+  return _internal_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetArtifactMetadataByFileIdRequest::set_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id)
+}
+inline std::string* GetArtifactMetadataByFileIdRequest::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id)
+  return _s;
+}
+inline const std::string& GetArtifactMetadataByFileIdRequest::_internal_file_id() const {
+  return file_id_.Get();
+}
+inline void GetArtifactMetadataByFileIdRequest::_internal_set_file_id(const std::string& value) {
+  
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataByFileIdRequest::_internal_mutable_file_id() {
+  
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetArtifactMetadataByFileIdRequest::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetArtifactMetadataByFileIdRequest::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.GetArtifactMetadataByFileIdRequest.file_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetArtifactMetadataByFileIdReply
+
+// repeated .bugu.service.v1.GetArtifactMetadataReply artifact_metadata = 1;
+inline int GetArtifactMetadataByFileIdReply::_internal_artifact_metadata_size() const {
+  return artifact_metadata_.size();
+}
+inline int GetArtifactMetadataByFileIdReply::artifact_metadata_size() const {
+  return _internal_artifact_metadata_size();
+}
+inline void GetArtifactMetadataByFileIdReply::clear_artifact_metadata() {
+  artifact_metadata_.Clear();
+}
+inline ::bugu::service::v1::GetArtifactMetadataReply* GetArtifactMetadataByFileIdReply::mutable_artifact_metadata(int index) {
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.GetArtifactMetadataByFileIdReply.artifact_metadata)
+  return artifact_metadata_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetArtifactMetadataReply >*
+GetArtifactMetadataByFileIdReply::mutable_artifact_metadata() {
+  // @@protoc_insertion_point(field_mutable_list:bugu.service.v1.GetArtifactMetadataByFileIdReply.artifact_metadata)
+  return &artifact_metadata_;
+}
+inline const ::bugu::service::v1::GetArtifactMetadataReply& GetArtifactMetadataByFileIdReply::_internal_artifact_metadata(int index) const {
+  return artifact_metadata_.Get(index);
+}
+inline const ::bugu::service::v1::GetArtifactMetadataReply& GetArtifactMetadataByFileIdReply::artifact_metadata(int index) const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.GetArtifactMetadataByFileIdReply.artifact_metadata)
+  return _internal_artifact_metadata(index);
+}
+inline ::bugu::service::v1::GetArtifactMetadataReply* GetArtifactMetadataByFileIdReply::_internal_add_artifact_metadata() {
+  return artifact_metadata_.Add();
+}
+inline ::bugu::service::v1::GetArtifactMetadataReply* GetArtifactMetadataByFileIdReply::add_artifact_metadata() {
+  ::bugu::service::v1::GetArtifactMetadataReply* _add = _internal_add_artifact_metadata();
+  // @@protoc_insertion_point(field_add:bugu.service.v1.GetArtifactMetadataByFileIdReply.artifact_metadata)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::bugu::service::v1::GetArtifactMetadataReply >&
+GetArtifactMetadataByFileIdReply::artifact_metadata() const {
+  // @@protoc_insertion_point(field_list:bugu.service.v1.GetArtifactMetadataByFileIdReply.artifact_metadata)
+  return artifact_metadata_;
+}
+
+// -------------------------------------------------------------------
+
+// DeleteArtifactMetadataRequest
+
+// string user_id = 1 [(.validate.rules) = {
+inline void DeleteArtifactMetadataRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& DeleteArtifactMetadataRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.DeleteArtifactMetadataRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeleteArtifactMetadataRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.DeleteArtifactMetadataRequest.user_id)
+}
+inline std::string* DeleteArtifactMetadataRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.DeleteArtifactMetadataRequest.user_id)
+  return _s;
+}
+inline const std::string& DeleteArtifactMetadataRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void DeleteArtifactMetadataRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* DeleteArtifactMetadataRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* DeleteArtifactMetadataRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.DeleteArtifactMetadataRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void DeleteArtifactMetadataRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.DeleteArtifactMetadataRequest.user_id)
+}
+
+// string artifact_id = 2 [(.validate.rules) = {
+inline void DeleteArtifactMetadataRequest::clear_artifact_id() {
+  artifact_id_.ClearToEmpty();
+}
+inline const std::string& DeleteArtifactMetadataRequest::artifact_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.DeleteArtifactMetadataRequest.artifact_id)
+  return _internal_artifact_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeleteArtifactMetadataRequest::set_artifact_id(ArgT0&& arg0, ArgT... args) {
+ 
+ artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.DeleteArtifactMetadataRequest.artifact_id)
+}
+inline std::string* DeleteArtifactMetadataRequest::mutable_artifact_id() {
+  std::string* _s = _internal_mutable_artifact_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.DeleteArtifactMetadataRequest.artifact_id)
+  return _s;
+}
+inline const std::string& DeleteArtifactMetadataRequest::_internal_artifact_id() const {
+  return artifact_id_.Get();
+}
+inline void DeleteArtifactMetadataRequest::_internal_set_artifact_id(const std::string& value) {
+  
+  artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* DeleteArtifactMetadataRequest::_internal_mutable_artifact_id() {
+  
+  return artifact_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* DeleteArtifactMetadataRequest::release_artifact_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.DeleteArtifactMetadataRequest.artifact_id)
+  return artifact_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void DeleteArtifactMetadataRequest::set_allocated_artifact_id(std::string* artifact_id) {
+  if (artifact_id != nullptr) {
+    
+  } else {
+    
+  }
+  artifact_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), artifact_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (artifact_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.DeleteArtifactMetadataRequest.artifact_id)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteArtifactMetadataReply
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -5174,6 +7864,16 @@ inline void ConfusionReply::set_allocated_method(std::string* method) {
 }  // namespace v1
 }  // namespace service
 }  // namespace bugu
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::bugu::service::v1::Type> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::bugu::service::v1::Type>() {
+  return ::bugu::service::v1::Type_descriptor();
+}
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

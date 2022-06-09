@@ -70,12 +70,6 @@ func (fu *FileUpdate) SetNillableType(f *file.Type) *FileUpdate {
 	return fu
 }
 
-// ClearType clears the value of the "type" field.
-func (fu *FileUpdate) ClearType() *FileUpdate {
-	fu.mutation.ClearType()
-	return fu
-}
-
 // SetUpdatedAt sets the "updated_at" field.
 func (fu *FileUpdate) SetUpdatedAt(t time.Time) *FileUpdate {
 	fu.mutation.SetUpdatedAt(t)
@@ -279,12 +273,6 @@ func (fu *FileUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: file.FieldType,
 		})
 	}
-	if fu.mutation.TypeCleared() {
-		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeEnum,
-			Column: file.FieldType,
-		})
-	}
 	if value, ok := fu.mutation.UpdatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
@@ -294,7 +282,7 @@ func (fu *FileUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if fu.mutation.ArtifactCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   file.ArtifactTable,
 			Columns: []string{file.ArtifactColumn},
@@ -310,7 +298,7 @@ func (fu *FileUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if nodes := fu.mutation.ArtifactIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   file.ArtifactTable,
 			Columns: []string{file.ArtifactColumn},
@@ -436,12 +424,6 @@ func (fuo *FileUpdateOne) SetNillableType(f *file.Type) *FileUpdateOne {
 	if f != nil {
 		fuo.SetType(*f)
 	}
-	return fuo
-}
-
-// ClearType clears the value of the "type" field.
-func (fuo *FileUpdateOne) ClearType() *FileUpdateOne {
-	fuo.mutation.ClearType()
 	return fuo
 }
 
@@ -672,12 +654,6 @@ func (fuo *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) 
 			Column: file.FieldType,
 		})
 	}
-	if fuo.mutation.TypeCleared() {
-		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
-			Type:   field.TypeEnum,
-			Column: file.FieldType,
-		})
-	}
 	if value, ok := fuo.mutation.UpdatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
@@ -687,7 +663,7 @@ func (fuo *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) 
 	}
 	if fuo.mutation.ArtifactCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   file.ArtifactTable,
 			Columns: []string{file.ArtifactColumn},
@@ -703,7 +679,7 @@ func (fuo *FileUpdateOne) sqlSave(ctx context.Context) (_node *File, err error) 
 	}
 	if nodes := fuo.mutation.ArtifactIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
+			Rel:     sqlgraph.M2O,
 			Inverse: false,
 			Table:   file.ArtifactTable,
 			Columns: []string{file.ArtifactColumn},

@@ -29,7 +29,7 @@ func (File) Fields() []ent.Field {
 				"MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun",
 				"Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt",
 				"Vilsel").
-			Optional(),
+			Default("Other"),
 		field.Time("created_at").
 			Default(time.Now).
 			Immutable().

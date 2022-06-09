@@ -12,24 +12,16 @@ var (
 	ArtifactsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "file_id", Type: field.TypeUUID},
+		{Name: "affiliated_file_id", Type: field.TypeUUID},
 		{Name: "method", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
-		{Name: "affiliated_file_id", Type: field.TypeUUID, Unique: true},
 	}
 	// ArtifactsTable holds the schema information for the "artifacts" table.
 	ArtifactsTable = &schema.Table{
 		Name:       "artifacts",
 		Columns:    ArtifactsColumns,
 		PrimaryKey: []*schema.Column{ArtifactsColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{
-			{
-				Symbol:     "artifacts_files_artifact",
-				Columns:    []*schema.Column{ArtifactsColumns[5]},
-				RefColumns: []*schema.Column{FilesColumns[0]},
-				OnDelete:   schema.NoAction,
-			},
-		},
 	}
 	// FilesColumns holds the columns for the "files" table.
 	FilesColumns = []*schema.Column{
@@ -37,15 +29,24 @@ var (
 		{Name: "file_sha_1", Type: field.TypeString, Unique: true},
 		{Name: "file_size", Type: field.TypeInt64},
 		{Name: "file_addr", Type: field.TypeString},
-		{Name: "type", Type: field.TypeEnum, Nullable: true, Enums: []string{"Adposhel", "Agent", "Allaple", "Amonetize", "Androm", "Autorun", "BrowseFox", "Dinwod", "Elex", "Expiro", "Fasong", "HackKMS", "Hlux", "Injector", "InstallCore", "MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun", "Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt", "Vilsel"}},
+		{Name: "type", Type: field.TypeEnum, Enums: []string{"Adposhel", "Agent", "Allaple", "Amonetize", "Androm", "Autorun", "BrowseFox", "Dinwod", "Elex", "Expiro", "Fasong", "HackKMS", "Hlux", "Injector", "InstallCore", "MultiPlug", "Neoreklami", "Neshta", "Other", "Regrun", "Sality", "Snarasite", "Stantinko", "VBA", "VBKrypt", "Vilsel"}, Default: "Other"},
 		{Name: "created_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
 		{Name: "updated_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+		{Name: "file_artifact", Type: field.TypeUUID, Nullable: true},
 	}
 	// FilesTable holds the schema information for the "files" table.
 	FilesTable = &schema.Table{
 		Name:       "files",
 		Columns:    FilesColumns,
 		PrimaryKey: []*schema.Column{FilesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "files_artifacts_artifact",
+				Columns:    []*schema.Column{FilesColumns[7]},
+				RefColumns: []*schema.Column{ArtifactsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
 	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
@@ -123,7 +124,7 @@ var (
 )
 
 func init() {
-	ArtifactsTable.ForeignKeys[0].RefTable = FilesTable
+	FilesTable.ForeignKeys[0].RefTable = ArtifactsTable
 	UserUserFileTable.ForeignKeys[0].RefTable = UsersTable
 	UserUserFileTable.ForeignKeys[1].RefTable = FilesTable
 	UserUserArtifactTable.ForeignKeys[0].RefTable = UsersTable

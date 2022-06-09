@@ -39,11 +39,13 @@ type ArtifactMutation struct {
 	typ                    string
 	id                     *uuid.UUID
 	file_id                *uuid.UUID
+	affiliated_file_id     *uuid.UUID
 	method                 *string
 	created_at             *time.Time
 	updated_at             *time.Time
 	clearedFields          map[string]struct{}
-	affiliated_file        *uuid.UUID
+	affiliated_file        map[uuid.UUID]struct{}
+	removedaffiliated_file map[uuid.UUID]struct{}
 	clearedaffiliated_file bool
 	affiliated_user        map[uuid.UUID]struct{}
 	removedaffiliated_user map[uuid.UUID]struct{}
@@ -195,12 +197,12 @@ func (m *ArtifactMutation) ResetFileID() {
 
 // SetAffiliatedFileID sets the "affiliated_file_id" field.
 func (m *ArtifactMutation) SetAffiliatedFileID(u uuid.UUID) {
-	m.affiliated_file = &u
+	m.affiliated_file_id = &u
 }
 
 // AffiliatedFileID returns the value of the "affiliated_file_id" field in the mutation.
 func (m *ArtifactMutation) AffiliatedFileID() (r uuid.UUID, exists bool) {
-	v := m.affiliated_file
+	v := m.affiliated_file_id
 	if v == nil {
 		return
 	}
@@ -226,7 +228,7 @@ func (m *ArtifactMutation) OldAffiliatedFileID(ctx context.Context) (v uuid.UUID
 
 // ResetAffiliatedFileID resets all changes to the "affiliated_file_id" field.
 func (m *ArtifactMutation) ResetAffiliatedFileID() {
-	m.affiliated_file = nil
+	m.affiliated_file_id = nil
 }
 
 // SetMethod sets the "method" field.
@@ -350,6 +352,16 @@ func (m *ArtifactMutation) ResetUpdatedAt() {
 	m.updated_at = nil
 }
 
+// AddAffiliatedFileIDs adds the "affiliated_file" edge to the File entity by ids.
+func (m *ArtifactMutation) AddAffiliatedFileIDs(ids ...uuid.UUID) {
+	if m.affiliated_file == nil {
+		m.affiliated_file = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		m.affiliated_file[ids[i]] = struct{}{}
+	}
+}
+
 // ClearAffiliatedFile clears the "affiliated_file" edge to the File entity.
 func (m *ArtifactMutation) ClearAffiliatedFile() {
 	m.clearedaffiliated_file = true
@@ -360,12 +372,29 @@ func (m *ArtifactMutation) AffiliatedFileCleared() bool {
 	return m.clearedaffiliated_file
 }
 
+// RemoveAffiliatedFileIDs removes the "affiliated_file" edge to the File entity by IDs.
+func (m *ArtifactMutation) RemoveAffiliatedFileIDs(ids ...uuid.UUID) {
+	if m.removedaffiliated_file == nil {
+		m.removedaffiliated_file = make(map[uuid.UUID]struct{})
+	}
+	for i := range ids {
+		delete(m.affiliated_file, ids[i])
+		m.removedaffiliated_file[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedAffiliatedFile returns the removed IDs of the "affiliated_file" edge to the File entity.
+func (m *ArtifactMutation) RemovedAffiliatedFileIDs() (ids []uuid.UUID) {
+	for id := range m.removedaffiliated_file {
+		ids = append(ids, id)
+	}
+	return
+}
+
 // AffiliatedFileIDs returns the "affiliated_file" edge IDs in the mutation.
-// Note that IDs always returns len(IDs) <= 1 for unique edges, and you should use
-// AffiliatedFileID instead. It exists only for internal usage by the builders.
 func (m *ArtifactMutation) AffiliatedFileIDs() (ids []uuid.UUID) {
-	if id := m.affiliated_file; id != nil {
-		ids = append(ids, *id)
+	for id := range m.affiliated_file {
+		ids = append(ids, id)
 	}
 	return
 }
@@ -374,6 +403,7 @@ func (m *ArtifactMutation) AffiliatedFileIDs() (ids []uuid.UUID) {
 func (m *ArtifactMutation) ResetAffiliatedFile() {
 	m.affiliated_file = nil
 	m.clearedaffiliated_file = false
+	m.removedaffiliated_file = nil
 }
 
 // AddAffiliatedUserIDs adds the "affiliated_user" edge to the User entity by ids.
@@ -453,7 +483,7 @@ func (m *ArtifactMutation) Fields() []string {
 	if m.file_id != nil {
 		fields = append(fields, artifact.FieldFileID)
 	}
-	if m.affiliated_file != nil {
+	if m.affiliated_file_id != nil {
 		fields = append(fields, artifact.FieldAffiliatedFileID)
 	}
 	if m.method != nil {
@@ -640,9 +670,11 @@ func (m *ArtifactMutation) AddedEdges() []string {
 func (m *ArtifactMutation) AddedIDs(name string) []ent.Value {
 	switch name {
 	case artifact.EdgeAffiliatedFile:
-		if id := m.affiliated_file; id != nil {
-			return []ent.Value{*id}
+		ids := make([]ent.Value, 0, len(m.affiliated_file))
+		for id := range m.affiliated_file {
+			ids = append(ids, id)
 		}
+		return ids
 	case artifact.EdgeAffiliatedUser:
 		ids := make([]ent.Value, 0, len(m.affiliated_user))
 		for id := range m.affiliated_user {
@@ -656,6 +688,9 @@ func (m *ArtifactMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this mutation.
 func (m *ArtifactMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 2)
+	if m.removedaffiliated_file != nil {
+		edges = append(edges, artifact.EdgeAffiliatedFile)
+	}
 	if m.removedaffiliated_user != nil {
 		edges = append(edges, artifact.EdgeAffiliatedUser)
 	}
@@ -666,6 +701,12 @@ func (m *ArtifactMutation) RemovedEdges() []string {
 // the given name in this mutation.
 func (m *ArtifactMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
+	case artifact.EdgeAffiliatedFile:
+		ids := make([]ent.Value, 0, len(m.removedaffiliated_file))
+		for id := range m.removedaffiliated_file {
+			ids = append(ids, id)
+		}
+		return ids
 	case artifact.EdgeAffiliatedUser:
 		ids := make([]ent.Value, 0, len(m.removedaffiliated_user))
 		for id := range m.removedaffiliated_user {
@@ -704,9 +745,6 @@ func (m *ArtifactMutation) EdgeCleared(name string) bool {
 // if that edge is not defined in the schema.
 func (m *ArtifactMutation) ClearEdge(name string) error {
 	switch name {
-	case artifact.EdgeAffiliatedFile:
-		m.ClearAffiliatedFile()
-		return nil
 	}
 	return fmt.Errorf("unknown Artifact unique edge %s", name)
 }
@@ -1012,22 +1050,9 @@ func (m *FileMutation) OldType(ctx context.Context) (v file.Type, err error) {
 	return oldValue.Type, nil
 }
 
-// ClearType clears the value of the "type" field.
-func (m *FileMutation) ClearType() {
-	m._type = nil
-	m.clearedFields[file.FieldType] = struct{}{}
-}
-
-// TypeCleared returns if the "type" field was cleared in this mutation.
-func (m *FileMutation) TypeCleared() bool {
-	_, ok := m.clearedFields[file.FieldType]
-	return ok
-}
-
 // ResetType resets all changes to the "type" field.
 func (m *FileMutation) ResetType() {
 	m._type = nil
-	delete(m.clearedFields, file.FieldType)
 }
 
 // SetCreatedAt sets the "created_at" field.
@@ -1369,11 +1394,7 @@ func (m *FileMutation) AddField(name string, value ent.Value) error {
 // ClearedFields returns all nullable fields that were cleared during this
 // mutation.
 func (m *FileMutation) ClearedFields() []string {
-	var fields []string
-	if m.FieldCleared(file.FieldType) {
-		fields = append(fields, file.FieldType)
-	}
-	return fields
+	return nil
 }
 
 // FieldCleared returns a boolean indicating if a field with the given name was
@@ -1386,11 +1407,6 @@ func (m *FileMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *FileMutation) ClearField(name string) error {
-	switch name {
-	case file.FieldType:
-		m.ClearType()
-		return nil
-	}
 	return fmt.Errorf("unknown File nullable field %s", name)
 }
 

@@ -11,6 +11,7 @@ COPY . /src
 WORKDIR /src
 RUN make grpc-cpp && cd /src/app/obfusion/service && make conf
 WORKDIR /src/app/${APP_RELATIVE_PATH}
+RUN git submodule update --init --recommend-shallow --recursive
 RUN make build
 
 #final stage

@@ -31,6 +31,7 @@ type FileQuery struct {
 	// eager-loading edges.
 	withArtifact       *ArtifactQuery
 	withAffiliatedUser *UserQuery
+	withFKs            bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -81,7 +82,7 @@ func (fq *FileQuery) QueryArtifact() *ArtifactQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(file.Table, file.FieldID, selector),
 			sqlgraph.To(artifact.Table, artifact.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, file.ArtifactTable, file.ArtifactColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, file.ArtifactTable, file.ArtifactColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(fq.driver.Dialect(), step)
 		return fromU, nil
@@ -387,12 +388,19 @@ func (fq *FileQuery) prepareQuery(ctx context.Context) error {
 func (fq *FileQuery) sqlAll(ctx context.Context) ([]*File, error) {
 	var (
 		nodes       = []*File{}
+		withFKs     = fq.withFKs
 		_spec       = fq.querySpec()
 		loadedTypes = [2]bool{
 			fq.withArtifact != nil,
 			fq.withAffiliatedUser != nil,
 		}
 	)
+	if fq.withArtifact != nil {
+		withFKs = true
+	}
+	if withFKs {
+		_spec.Node.Columns = append(_spec.Node.Columns, file.ForeignKeys...)
+	}
 	_spec.ScanValues = func(columns []string) ([]interface{}, error) {
 		node := &File{config: fq.config}
 		nodes = append(nodes, node)
@@ -414,26 +422,31 @@ func (fq *FileQuery) sqlAll(ctx context.Context) ([]*File, error) {
 	}
 
 	if query := fq.withArtifact; query != nil {
-		fks := make([]driver.Value, 0, len(nodes))
-		nodeids := make(map[uuid.UUID]*File)
+		ids := make([]uuid.UUID, 0, len(nodes))
+		nodeids := make(map[uuid.UUID][]*File)
 		for i := range nodes {
-			fks = append(fks, nodes[i].ID)
-			nodeids[nodes[i].ID] = nodes[i]
+			if nodes[i].file_artifact == nil {
+				continue
+			}
+			fk := *nodes[i].file_artifact
+			if _, ok := nodeids[fk]; !ok {
+				ids = append(ids, fk)
+			}
+			nodeids[fk] = append(nodeids[fk], nodes[i])
 		}
-		query.Where(predicate.Artifact(func(s *sql.Selector) {
-			s.Where(sql.InValues(file.ArtifactColumn, fks...))
-		}))
+		query.Where(artifact.IDIn(ids...))
 		neighbors, err := query.All(ctx)
 		if err != nil {
 			return nil, err
 		}
 		for _, n := range neighbors {
-			fk := n.AffiliatedFileID
-			node, ok := nodeids[fk]
+			nodes, ok := nodeids[n.ID]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "affiliated_file_id" returned %v for node %v`, fk, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "file_artifact" returned %v`, n.ID)
 			}
-			node.Edges.Artifact = n
+			for i := range nodes {
+				nodes[i].Edges.Artifact = n
+			}
 		}
 	}
 

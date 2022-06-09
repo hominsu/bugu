@@ -231,7 +231,7 @@ func (c *ArtifactClient) QueryAffiliatedFile(a *Artifact) *FileQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(artifact.Table, artifact.FieldID, id),
 			sqlgraph.To(file.Table, file.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, artifact.AffiliatedFileTable, artifact.AffiliatedFileColumn),
+			sqlgraph.Edge(sqlgraph.O2M, true, artifact.AffiliatedFileTable, artifact.AffiliatedFileColumn),
 		)
 		fromV = sqlgraph.Neighbors(a.driver.Dialect(), step)
 		return fromV, nil
@@ -353,7 +353,7 @@ func (c *FileClient) QueryArtifact(f *File) *ArtifactQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(file.Table, file.FieldID, id),
 			sqlgraph.To(artifact.Table, artifact.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, file.ArtifactTable, file.ArtifactColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, file.ArtifactTable, file.ArtifactColumn),
 		)
 		fromV = sqlgraph.Neighbors(f.driver.Dialect(), step)
 		return fromV, nil

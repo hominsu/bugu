@@ -40,13 +40,15 @@ type BuguService struct {
 	buguV1.UnimplementedBuguServer
 
 	uu  *biz.UserUsecase
+	fu  *biz.FileUsecase
 	au  *biz.ArtifactUsecase
 	log *log.Helper
 }
 
-func NewBuguService(uu *biz.UserUsecase, au *biz.ArtifactUsecase, logger log.Logger) *BuguService {
+func NewBuguService(uu *biz.UserUsecase, fu *biz.FileUsecase, au *biz.ArtifactUsecase, logger log.Logger) *BuguService {
 	return &BuguService{
 		uu:  uu,
+		fu:  fu,
 		au:  au,
 		log: log.NewHelper(log.With(logger, "module", "service/bugu")),
 	}

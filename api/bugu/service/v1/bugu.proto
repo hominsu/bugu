@@ -52,15 +52,59 @@ service Bugu {
     };
   };
 
+  rpc GetFileMeta (GetFileMetaRequest) returns (GetFileMetaReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/file/{file_id}/metadata",
+    };
+  };
+
+  rpc GetFileMetaByUserId (GetFileMetaByUserIdRequest) returns (GetFileMetaByUserIdReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/files",
+    };
+  };
+
+  rpc DeleteFileMetadata (DeleteFileMetadataRequest) returns (DeleteFileMetadataReply) {
+    option (google.api.http) = {
+      delete: "/v1/user/{user_id}/file/{file_id}/metadata",
+    };
+  };
+
   rpc Detect (DetectRequest) returns (DetectReply) {
     option (google.api.http) = {
       get: "/v1/user/{user_id}/file/{file_id}/detect",
+      additional_bindings: {
+        post: "/v1/user/file/detect",
+        body: "*"
+      }
     };
   };
 
   rpc Confusion (ConfusionRequest) returns (ConfusionReply) {
     option (google.api.http) = {
       get: "/v1/user/{user_id}/file/{file_id}/confusion",
+      additional_bindings: {
+        post: "/v1/user/file/confusion",
+        body: "*"
+      }
+    };
+  };
+
+  rpc GetArtifactMetadata (GetArtifactMetadataRequest) returns (GetArtifactMetadataReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/artifact/{artifact_id}/metadata",
+    };
+  };
+
+  rpc GetArtifactMetadataByFileId (GetArtifactMetadataByFileIdRequest) returns (GetArtifactMetadataByFileIdReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/artifact/file/{file_id}",
+    };
+  };
+
+  rpc DeleteArtifactMetadata (DeleteArtifactMetadataRequest) returns (DeleteArtifactMetadataReply) {
+    option (google.api.http) = {
+      delete: "/v1/user/{user_id}/artifact/{artifact_id}/metadata",
     };
   };
 };
@@ -119,13 +163,62 @@ message UserStruct {
   string username = 3;
 }
 
-message FileUploadRequest {
-  int64 size = 1;
-  bytes content = 2;
+enum Type {
+  TYPE_ADPOSHEL = 0;
+  TYPE_AGENT = 1;
+  TYPE_ALLAPLE = 2;
+  TYPE_AMONETIZE = 3;
+  TYPE_ANDROM = 4;
+  TYPE_AUTORUN = 5;
+  TYPE_BROWSE_FOX = 6;
+  TYPE_DINWOD = 7;
+  TYPE_ELEX = 8;
+  TYPE_EXPIRO = 9;
+  TYPE_FASONG = 10;
+  TYPE_HACK_KMS = 11;
+  TYPE_HLUX = 12;
+  TYPE_INJECTOR = 13;
+  TYPE_INSTALL_CORE = 14;
+  TYPE_MULTI_Plug = 15;
+  TYPE_NEOREKLAMI = 16;
+  TYPE_NESHTA = 17;
+  TYPE_OTHER = 18;
+  TYPE_REGRUN = 19;
+  TYPE_SALITY = 20;
+  TYPE_SNARASITE = 21;
+  TYPE_STABTINKO = 22;
+  TYPE_VBA = 23;
+  TYPE_VBKRYPT = 24;
+  TYPE_VILSEL = 25;
 }
 
-message FileUploadReply {
-  string id = 1 [(validate.rules).string = {uuid: true}];
+message GetFileMetaRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message GetFileMetaReply {
+  string file_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_sha_1 = 2;
+  int64 file_size = 3;
+  string file_addr = 4;
+  Type type = 5;
+}
+
+message GetFileMetaByUserIdRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+}
+
+message GetFileMetaByUserIdReply {
+  repeated GetFileMetaReply file_metadata = 1;
+}
+
+message DeleteFileMetadataRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message DeleteFileMetadataReply {
 }
 
 message DetectRequest {
@@ -147,4 +240,33 @@ message ConfusionReply {
   string file_id = 2 [(validate.rules).string = {uuid: true}];
   string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];
   string method = 4;
+}
+
+message GetArtifactMetadataRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string artifact_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message GetArtifactMetadataReply {
+  string artifact_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+  string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];
+  string method = 4;
+}
+
+message GetArtifactMetadataByFileIdRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message GetArtifactMetadataByFileIdReply {
+  repeated GetArtifactMetadataReply artifact_metadata = 1;
+}
+
+message DeleteArtifactMetadataRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string artifact_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message DeleteArtifactMetadataReply {
 }

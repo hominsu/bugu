@@ -28,12 +28,12 @@ const (
 	// Table holds the table name of the artifact in the database.
 	Table = "artifacts"
 	// AffiliatedFileTable is the table that holds the affiliated_file relation/edge.
-	AffiliatedFileTable = "artifacts"
+	AffiliatedFileTable = "files"
 	// AffiliatedFileInverseTable is the table name for the File entity.
 	// It exists in this package in order to avoid circular dependency with the "file" package.
 	AffiliatedFileInverseTable = "files"
 	// AffiliatedFileColumn is the table column denoting the affiliated_file relation/edge.
-	AffiliatedFileColumn = "affiliated_file_id"
+	AffiliatedFileColumn = "file_artifact"
 	// AffiliatedUserTable is the table that holds the affiliated_user relation/edge. The primary key declared below.
 	AffiliatedUserTable = "user_user_artifact"
 	// AffiliatedUserInverseTable is the table name for the User entity.
