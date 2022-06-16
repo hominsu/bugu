@@ -22,31 +22,44 @@
 //
 
 //
-// Created by Homin Su on 2022/5/26.
+// Created by Homin Su on 2022/6/16.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
-#define BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#ifndef BUGU_PACKER_SERVICE_SRC_UTILS_INTERRUPT_SLEEPER_H_
+#define BUGU_PACKER_SERVICE_SRC_UTILS_INTERRUPT_SLEEPER_H_
 
-#include <grpc++/grpc++.h>
-
-#include <string>
+#include <atomic>
+#include <chrono>
 #include <memory>
+#include <mutex>
 
 namespace bugu {
 
-class Credentials {
- public:
-  static ::std::string GetFileContents(const ::std::string &_path);
+class InterruptSleeper {
+ private:
+  ::std::condition_variable cv_;
+  ::std::mutex mutex_;
+  ::std::atomic<bool> terminate_ = false;
 
-  static ::std::shared_ptr<::grpc::ServerCredentials> GetServerCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                           const ::std::string &_server_key_dir = "/cert/server.key",
-                                                                           const ::std::string &_server_cert_dir = "/cert/server.pem");
-  static ::std::shared_ptr<::grpc::ChannelCredentials> GetClientCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                            const ::std::string &_client_key_dir = "/cert/client.key",
-                                                                            const ::std::string &_client_cert_dir = "/cert/client.pem");
+ public:
+  void wait() {
+    ::std::unique_lock<::std::mutex> lock(mutex_);
+    cv_.wait(lock, [&] { return terminate_.load(); });
+  }
+
+  template<typename R, typename P>
+  bool wait_for(::std::chrono::duration<R, P> const &_time) {
+    ::std::unique_lock<::std::mutex> lock(mutex_);
+    return !cv_.wait_for(lock, _time, [&] { return terminate_.load(); });
+  }
+
+  void interrupt() {
+    ::std::unique_lock<::std::mutex> lock(mutex_);
+    terminate_.store(true);
+    cv_.notify_all();
+  }
 };
 
 } // namespace bugu
 
-#endif //BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#endif //BUGU_PACKER_SERVICE_SRC_UTILS_INTERRUPT_SLEEPER_H_

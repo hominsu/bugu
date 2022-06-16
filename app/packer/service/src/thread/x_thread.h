@@ -22,31 +22,46 @@
 //
 
 //
-// Created by Homin Su on 2022/5/26.
+// Created by Homin Su on 2022/5/17.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
-#define BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#ifndef SERVICE_SRC_THREAD_X_THREAD_H_
+#define SERVICE_SRC_THREAD_X_THREAD_H_
 
-#include <grpc++/grpc++.h>
-
-#include <string>
-#include <memory>
+#include <mutex>
+#include <thread>
+#include <shared_mutex>
+#include <functional>
 
 namespace bugu {
+/**
+ * @brief 线程基类
+ * @details Start() 启动服务，Stop() 关闭服务
+ */
+class XThread {
+ private:
+  ::std::thread thread_;  ///< 线程句柄
+  bool is_running_ = false;  ///< 当前线程运行状态
+  mutable ::std::shared_mutex is_running_mutex_;  ///< 线程运行状态互斥量
 
-class Credentials {
  public:
-  static ::std::string GetFileContents(const ::std::string &_path);
+  virtual void Start();
+  virtual void Wait();
+  virtual void Stop();
+  virtual void StopWith(::std::function<void()> &_do);
+  virtual void ThreadSleep(::std::chrono::milliseconds _time);
 
-  static ::std::shared_ptr<::grpc::ServerCredentials> GetServerCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                           const ::std::string &_server_key_dir = "/cert/server.key",
-                                                                           const ::std::string &_server_cert_dir = "/cert/server.pem");
-  static ::std::shared_ptr<::grpc::ChannelCredentials> GetClientCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                            const ::std::string &_client_key_dir = "/cert/client.key",
-                                                                            const ::std::string &_client_cert_dir = "/cert/client.pem");
+  bool IsRunning() const;
+
+ private:
+  void SetIsRunning(bool is_running);
+
+  /**
+   * @brief 该纯虚函数必须在子类中实现，用于线程函数的主函数
+   */
+  virtual void Main() = 0;
 };
 
 } // namespace bugu
 
-#endif //BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#endif //SERVICE_SRC_THREAD_X_THREAD_H_

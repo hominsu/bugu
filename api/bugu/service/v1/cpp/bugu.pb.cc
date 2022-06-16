@@ -303,6 +303,34 @@ struct ConfusionReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConfusionReplyDefaultTypeInternal _ConfusionReply_default_instance_;
+constexpr PackerRequest::PackerRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct PackerRequestDefaultTypeInternal {
+  constexpr PackerRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~PackerRequestDefaultTypeInternal() {}
+  union {
+    PackerRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PackerRequestDefaultTypeInternal _PackerRequest_default_instance_;
+constexpr PackerReply::PackerReply(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : artifact_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , affiliated_file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , method_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct PackerReplyDefaultTypeInternal {
+  constexpr PackerReplyDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~PackerReplyDefaultTypeInternal() {}
+  union {
+    PackerReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PackerReplyDefaultTypeInternal _PackerReply_default_instance_;
 constexpr GetArtifactMetadataRequest::GetArtifactMetadataRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -383,7 +411,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeleteArtifactMetadataReplyDefa
 }  // namespace v1
 }  // namespace service
 }  // namespace bugu
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_bugu_2eproto[28];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_bugu_2eproto[30];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_bugu_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_bugu_2eproto = nullptr;
 
@@ -562,6 +590,24 @@ const uint32_t TableStruct_bugu_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(pro
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, affiliated_file_id_),
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::ConfusionReply, method_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerRequest, user_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerRequest, file_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerReply, artifact_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerReply, file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerReply, affiliated_file_id_),
+  PROTOBUF_FIELD_OFFSET(::bugu::service::v1::PackerReply, method_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::bugu::service::v1::GetArtifactMetadataRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -632,12 +678,14 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 148, -1, -1, sizeof(::bugu::service::v1::DetectReply)},
   { 155, -1, -1, sizeof(::bugu::service::v1::ConfusionRequest)},
   { 163, -1, -1, sizeof(::bugu::service::v1::ConfusionReply)},
-  { 173, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataRequest)},
-  { 181, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataReply)},
-  { 191, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataByFileIdRequest)},
-  { 199, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataByFileIdReply)},
-  { 206, -1, -1, sizeof(::bugu::service::v1::DeleteArtifactMetadataRequest)},
-  { 214, -1, -1, sizeof(::bugu::service::v1::DeleteArtifactMetadataReply)},
+  { 173, -1, -1, sizeof(::bugu::service::v1::PackerRequest)},
+  { 181, -1, -1, sizeof(::bugu::service::v1::PackerReply)},
+  { 191, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataRequest)},
+  { 199, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataReply)},
+  { 209, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataByFileIdRequest)},
+  { 217, -1, -1, sizeof(::bugu::service::v1::GetArtifactMetadataByFileIdReply)},
+  { 224, -1, -1, sizeof(::bugu::service::v1::DeleteArtifactMetadataRequest)},
+  { 232, -1, -1, sizeof(::bugu::service::v1::DeleteArtifactMetadataReply)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -663,6 +711,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_DetectReply_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_ConfusionRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_ConfusionReply_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_PackerRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_PackerReply_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataReply_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::bugu::service::v1::_GetArtifactMetadataByFileIdRequest_default_instance_),
@@ -714,81 +764,89 @@ const char descriptor_table_protodef_bugu_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\001\n\016ConfusionReply\022\035\n\013artifact_id\030\001 \001(\tB\010"
   "\372B\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\022$\n\022a"
   "ffiliated_file_id\030\003 \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006met"
-  "hod\030\004 \001(\t\"V\n\032GetArtifactMetadataRequest\022"
-  "\031\n\007user_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\035\n\013artifact_i"
-  "d\030\002 \001(\tB\010\372B\005r\003\260\001\001\"\212\001\n\030GetArtifactMetadat"
-  "aReply\022\035\n\013artifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n"
-  "\007file_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\022$\n\022affiliated_f"
-  "ile_id\030\003 \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006method\030\004 \001(\t\"Z"
-  "\n\"GetArtifactMetadataByFileIdRequest\022\031\n\007"
-  "user_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\t"
-  "B\010\372B\005r\003\260\001\001\"h\n GetArtifactMetadataByFileI"
-  "dReply\022D\n\021artifact_metadata\030\001 \003(\0132).bugu"
-  ".service.v1.GetArtifactMetadataReply\"Y\n\035"
-  "DeleteArtifactMetadataRequest\022\031\n\007user_id"
-  "\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\035\n\013artifact_id\030\002 \001(\tB\010\372"
-  "B\005r\003\260\001\001\"\035\n\033DeleteArtifactMetadataReply*\333"
-  "\003\n\004Type\022\021\n\rTYPE_ADPOSHEL\020\000\022\016\n\nTYPE_AGENT"
-  "\020\001\022\020\n\014TYPE_ALLAPLE\020\002\022\022\n\016TYPE_AMONETIZE\020\003"
-  "\022\017\n\013TYPE_ANDROM\020\004\022\020\n\014TYPE_AUTORUN\020\005\022\023\n\017T"
-  "YPE_BROWSE_FOX\020\006\022\017\n\013TYPE_DINWOD\020\007\022\r\n\tTYP"
-  "E_ELEX\020\010\022\017\n\013TYPE_EXPIRO\020\t\022\017\n\013TYPE_FASONG"
-  "\020\n\022\021\n\rTYPE_HACK_KMS\020\013\022\r\n\tTYPE_HLUX\020\014\022\021\n\r"
-  "TYPE_INJECTOR\020\r\022\025\n\021TYPE_INSTALL_CORE\020\016\022\023"
-  "\n\017TYPE_MULTI_Plug\020\017\022\023\n\017TYPE_NEOREKLAMI\020\020"
-  "\022\017\n\013TYPE_NESHTA\020\021\022\016\n\nTYPE_OTHER\020\022\022\017\n\013TYP"
-  "E_REGRUN\020\023\022\017\n\013TYPE_SALITY\020\024\022\022\n\016TYPE_SNAR"
-  "ASITE\020\025\022\022\n\016TYPE_STABTINKO\020\026\022\014\n\010TYPE_VBA\020"
-  "\027\022\020\n\014TYPE_VBKRYPT\020\030\022\017\n\013TYPE_VILSEL\020\0312\303\r\n"
-  "\004Bugu\022b\n\010Register\022 .bugu.service.v1.Regi"
-  "sterRequest\032\036.bugu.service.v1.RegisterRe"
-  "ply\"\024\202\323\344\223\002\016\"\t/v1/users:\001*\022_\n\005Login\022\035.bug"
-  "u.service.v1.LoginRequest\032\033.bugu.service"
-  ".v1.LoginReply\"\032\202\323\344\223\002\024\"\017/v1/users/login:"
-  "\001*\022u\n\016GetCurrentUser\022&.bugu.service.v1.G"
-  "etCurrentUserRequest\032$.bugu.service.v1.G"
-  "etCurrentUserReply\"\025\202\323\344\223\002\017\022\r/v1/user/{id"
-  "}\022h\n\nUpdateUser\022\".bugu.service.v1.Update"
-  "UserRequest\032 .bugu.service.v1.UpdateUser"
-  "Reply\"\024\202\323\344\223\002\016\032\t/v1/users:\001*\022\211\001\n\013GetFileM"
-  "eta\022#.bugu.service.v1.GetFileMetaRequest"
-  "\032!.bugu.service.v1.GetFileMetaReply\"2\202\323\344"
-  "\223\002,\022*/v1/user/{user_id}/file/{file_id}/m"
-  "etadata\022\217\001\n\023GetFileMetaByUserId\022+.bugu.s"
-  "ervice.v1.GetFileMetaByUserIdRequest\032).b"
-  "ugu.service.v1.GetFileMetaByUserIdReply\""
-  " \202\323\344\223\002\032\022\030/v1/user/{user_id}/files\022\236\001\n\022De"
-  "leteFileMetadata\022*.bugu.service.v1.Delet"
-  "eFileMetadataRequest\032(.bugu.service.v1.D"
-  "eleteFileMetadataReply\"2\202\323\344\223\002,**/v1/user"
-  "/{user_id}/file/{file_id}/metadata\022\223\001\n\006D"
-  "etect\022\036.bugu.service.v1.DetectRequest\032\034."
-  "bugu.service.v1.DetectReply\"K\202\323\344\223\002E\022(/v1"
-  "/user/{user_id}/file/{file_id}/detectZ\031\""
-  "\024/v1/user/file/detect:\001*\022\242\001\n\tConfusion\022!"
-  ".bugu.service.v1.ConfusionRequest\032\037.bugu"
-  ".service.v1.ConfusionReply\"Q\202\323\344\223\002K\022+/v1/"
-  "user/{user_id}/file/{file_id}/confusionZ"
-  "\034\"\027/v1/user/file/confusion:\001*\022\251\001\n\023GetArt"
-  "ifactMetadata\022+.bugu.service.v1.GetArtif"
-  "actMetadataRequest\032).bugu.service.v1.Get"
-  "ArtifactMetadataReply\":\202\323\344\223\0024\0222/v1/user/"
-  "{user_id}/artifact/{artifact_id}/metadat"
-  "a\022\271\001\n\033GetArtifactMetadataByFileId\0223.bugu"
-  ".service.v1.GetArtifactMetadataByFileIdR"
-  "equest\0321.bugu.service.v1.GetArtifactMeta"
-  "dataByFileIdReply\"2\202\323\344\223\002,\022*/v1/user/{use"
-  "r_id}/artifact/file/{file_id}\022\262\001\n\026Delete"
-  "ArtifactMetadata\022..bugu.service.v1.Delet"
-  "eArtifactMetadataRequest\032,.bugu.service."
-  "v1.DeleteArtifactMetadataReply\":\202\323\344\223\0024*2"
-  "/v1/user/{user_id}/artifact/{artifact_id"
-  "}/metadataB\264\001Z.github.com/hominsu/bugu/a"
-  "pi/bugu/service/v1;v1\222A\200\001\022W\n\nE-Code API\""
-  "D\n\014Bugu Backend\022\037https://github.com/homi"
-  "nsu/bugu\032\023hominsu@foxmail.com2\0031.0*\001\0022\020a"
-  "pplication/json:\020application/jsonb\006proto"
-  "3"
+  "hod\030\004 \001(\t\"E\n\rPackerRequest\022\031\n\007user_id\030\001 "
+  "\001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010\372B\005r\003\260\001\001"
+  "\"}\n\013PackerReply\022\035\n\013artifact_id\030\001 \001(\tB\010\372B"
+  "\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\022$\n\022aff"
+  "iliated_file_id\030\003 \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006metho"
+  "d\030\004 \001(\t\"V\n\032GetArtifactMetadataRequest\022\031\n"
+  "\007user_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\035\n\013artifact_id\030"
+  "\002 \001(\tB\010\372B\005r\003\260\001\001\"\212\001\n\030GetArtifactMetadataR"
+  "eply\022\035\n\013artifact_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007f"
+  "ile_id\030\002 \001(\tB\010\372B\005r\003\260\001\001\022$\n\022affiliated_fil"
+  "e_id\030\003 \001(\tB\010\372B\005r\003\260\001\001\022\016\n\006method\030\004 \001(\t\"Z\n\""
+  "GetArtifactMetadataByFileIdRequest\022\031\n\007us"
+  "er_id\030\001 \001(\tB\010\372B\005r\003\260\001\001\022\031\n\007file_id\030\002 \001(\tB\010"
+  "\372B\005r\003\260\001\001\"h\n GetArtifactMetadataByFileIdR"
+  "eply\022D\n\021artifact_metadata\030\001 \003(\0132).bugu.s"
+  "ervice.v1.GetArtifactMetadataReply\"Y\n\035De"
+  "leteArtifactMetadataRequest\022\031\n\007user_id\030\001"
+  " \001(\tB\010\372B\005r\003\260\001\001\022\035\n\013artifact_id\030\002 \001(\tB\010\372B\005"
+  "r\003\260\001\001\"\035\n\033DeleteArtifactMetadataReply*\333\003\n"
+  "\004Type\022\021\n\rTYPE_ADPOSHEL\020\000\022\016\n\nTYPE_AGENT\020\001"
+  "\022\020\n\014TYPE_ALLAPLE\020\002\022\022\n\016TYPE_AMONETIZE\020\003\022\017"
+  "\n\013TYPE_ANDROM\020\004\022\020\n\014TYPE_AUTORUN\020\005\022\023\n\017TYP"
+  "E_BROWSE_FOX\020\006\022\017\n\013TYPE_DINWOD\020\007\022\r\n\tTYPE_"
+  "ELEX\020\010\022\017\n\013TYPE_EXPIRO\020\t\022\017\n\013TYPE_FASONG\020\n"
+  "\022\021\n\rTYPE_HACK_KMS\020\013\022\r\n\tTYPE_HLUX\020\014\022\021\n\rTY"
+  "PE_INJECTOR\020\r\022\025\n\021TYPE_INSTALL_CORE\020\016\022\023\n\017"
+  "TYPE_MULTI_Plug\020\017\022\023\n\017TYPE_NEOREKLAMI\020\020\022\017"
+  "\n\013TYPE_NESHTA\020\021\022\016\n\nTYPE_OTHER\020\022\022\017\n\013TYPE_"
+  "REGRUN\020\023\022\017\n\013TYPE_SALITY\020\024\022\022\n\016TYPE_SNARAS"
+  "ITE\020\025\022\022\n\016TYPE_STABTINKO\020\026\022\014\n\010TYPE_VBA\020\027\022"
+  "\020\n\014TYPE_VBKRYPT\020\030\022\017\n\013TYPE_VILSEL\020\0312\331\016\n\004B"
+  "ugu\022b\n\010Register\022 .bugu.service.v1.Regist"
+  "erRequest\032\036.bugu.service.v1.RegisterRepl"
+  "y\"\024\202\323\344\223\002\016\"\t/v1/users:\001*\022_\n\005Login\022\035.bugu."
+  "service.v1.LoginRequest\032\033.bugu.service.v"
+  "1.LoginReply\"\032\202\323\344\223\002\024\"\017/v1/users/login:\001*"
+  "\022u\n\016GetCurrentUser\022&.bugu.service.v1.Get"
+  "CurrentUserRequest\032$.bugu.service.v1.Get"
+  "CurrentUserReply\"\025\202\323\344\223\002\017\022\r/v1/user/{id}\022"
+  "h\n\nUpdateUser\022\".bugu.service.v1.UpdateUs"
+  "erRequest\032 .bugu.service.v1.UpdateUserRe"
+  "ply\"\024\202\323\344\223\002\016\032\t/v1/users:\001*\022\211\001\n\013GetFileMet"
+  "a\022#.bugu.service.v1.GetFileMetaRequest\032!"
+  ".bugu.service.v1.GetFileMetaReply\"2\202\323\344\223\002"
+  ",\022*/v1/user/{user_id}/file/{file_id}/met"
+  "adata\022\217\001\n\023GetFileMetaByUserId\022+.bugu.ser"
+  "vice.v1.GetFileMetaByUserIdRequest\032).bug"
+  "u.service.v1.GetFileMetaByUserIdReply\" \202"
+  "\323\344\223\002\032\022\030/v1/user/{user_id}/files\022\236\001\n\022Dele"
+  "teFileMetadata\022*.bugu.service.v1.DeleteF"
+  "ileMetadataRequest\032(.bugu.service.v1.Del"
+  "eteFileMetadataReply\"2\202\323\344\223\002,**/v1/user/{"
+  "user_id}/file/{file_id}/metadata\022\223\001\n\006Det"
+  "ect\022\036.bugu.service.v1.DetectRequest\032\034.bu"
+  "gu.service.v1.DetectReply\"K\202\323\344\223\002E\022(/v1/u"
+  "ser/{user_id}/file/{file_id}/detectZ\031\"\024/"
+  "v1/user/file/detect:\001*\022\242\001\n\tConfusion\022!.b"
+  "ugu.service.v1.ConfusionRequest\032\037.bugu.s"
+  "ervice.v1.ConfusionReply\"Q\202\323\344\223\002K\022+/v1/us"
+  "er/{user_id}/file/{file_id}/confusionZ\034\""
+  "\027/v1/user/file/confusion:\001*\022\223\001\n\006Packer\022\036"
+  ".bugu.service.v1.PackerRequest\032\034.bugu.se"
+  "rvice.v1.PackerReply\"K\202\323\344\223\002E\022(/v1/user/{"
+  "user_id}/file/{file_id}/packerZ\031\"\024/v1/us"
+  "er/file/packer:\001*\022\251\001\n\023GetArtifactMetadat"
+  "a\022+.bugu.service.v1.GetArtifactMetadataR"
+  "equest\032).bugu.service.v1.GetArtifactMeta"
+  "dataReply\":\202\323\344\223\0024\0222/v1/user/{user_id}/ar"
+  "tifact/{artifact_id}/metadata\022\271\001\n\033GetArt"
+  "ifactMetadataByFileId\0223.bugu.service.v1."
+  "GetArtifactMetadataByFileIdRequest\0321.bug"
+  "u.service.v1.GetArtifactMetadataByFileId"
+  "Reply\"2\202\323\344\223\002,\022*/v1/user/{user_id}/artifa"
+  "ct/file/{file_id}\022\262\001\n\026DeleteArtifactMeta"
+  "data\022..bugu.service.v1.DeleteArtifactMet"
+  "adataRequest\032,.bugu.service.v1.DeleteArt"
+  "ifactMetadataReply\":\202\323\344\223\0024*2/v1/user/{us"
+  "er_id}/artifact/{artifact_id}/metadataB\264"
+  "\001Z.github.com/hominsu/bugu/api/bugu/serv"
+  "ice/v1;v1\222A\200\001\022W\n\nE-Code API\"D\n\014Bugu Back"
+  "end\022\037https://github.com/hominsu/bugu\032\023ho"
+  "minsu@foxmail.com2\0031.0*\001\0022\020application/j"
+  "son:\020application/jsonb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_bugu_2eproto_deps[3] = {
   &::descriptor_table_google_2fapi_2fannotations_2eproto,
@@ -797,8 +855,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bugu_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bugu_2eproto = {
-  false, false, 4641, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
-  &descriptor_table_bugu_2eproto_once, descriptor_table_bugu_2eproto_deps, 3, 28,
+  false, false, 4989, descriptor_table_protodef_bugu_2eproto, "bugu.proto", 
+  &descriptor_table_bugu_2eproto_once, descriptor_table_bugu_2eproto_deps, 3, 30,
   schemas, file_default_instances, TableStruct_bugu_2eproto::offsets,
   file_level_metadata_bugu_2eproto, file_level_enum_descriptors_bugu_2eproto, file_level_service_descriptors_bugu_2eproto,
 };
@@ -6027,6 +6085,608 @@ void ConfusionReply::InternalSwap(ConfusionReply* other) {
 
 // ===================================================================
 
+class PackerRequest::_Internal {
+ public:
+};
+
+PackerRequest::PackerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:bugu.service.v1.PackerRequest)
+}
+PackerRequest::PackerRequest(const PackerRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_id().empty()) {
+    user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_id(), 
+      GetArenaForAllocation());
+  }
+  file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_file_id().empty()) {
+    file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_id(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:bugu.service.v1.PackerRequest)
+}
+
+inline void PackerRequest::SharedCtor() {
+user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PackerRequest::~PackerRequest() {
+  // @@protoc_insertion_point(destructor:bugu.service.v1.PackerRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void PackerRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  user_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void PackerRequest::ArenaDtor(void* object) {
+  PackerRequest* _this = reinterpret_cast< PackerRequest* >(object);
+  (void)_this;
+}
+void PackerRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void PackerRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void PackerRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:bugu.service.v1.PackerRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  user_id_.ClearToEmpty();
+  file_id_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PackerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string user_id = 1 [(.validate.rules) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_user_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.PackerRequest.user_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.PackerRequest.file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PackerRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bugu.service.v1.PackerRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_id().data(), static_cast<int>(this->_internal_user_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.PackerRequest.user_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_user_id(), target);
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.PackerRequest.file_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bugu.service.v1.PackerRequest)
+  return target;
+}
+
+size_t PackerRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bugu.service.v1.PackerRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string user_id = 1 [(.validate.rules) = {
+  if (!this->_internal_user_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PackerRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    PackerRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PackerRequest::GetClassData() const { return &_class_data_; }
+
+void PackerRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<PackerRequest *>(to)->MergeFrom(
+      static_cast<const PackerRequest &>(from));
+}
+
+
+void PackerRequest::MergeFrom(const PackerRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bugu.service.v1.PackerRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_user_id().empty()) {
+    _internal_set_user_id(from._internal_user_id());
+  }
+  if (!from._internal_file_id().empty()) {
+    _internal_set_file_id(from._internal_file_id());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PackerRequest::CopyFrom(const PackerRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bugu.service.v1.PackerRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PackerRequest::IsInitialized() const {
+  return true;
+}
+
+void PackerRequest::InternalSwap(PackerRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &user_id_, lhs_arena,
+      &other->user_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_id_, lhs_arena,
+      &other->file_id_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PackerRequest::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
+      file_level_metadata_bugu_2eproto[22]);
+}
+
+// ===================================================================
+
+class PackerReply::_Internal {
+ public:
+};
+
+PackerReply::PackerReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:bugu.service.v1.PackerReply)
+}
+PackerReply::PackerReply(const PackerReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_artifact_id().empty()) {
+    artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_artifact_id(), 
+      GetArenaForAllocation());
+  }
+  file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_file_id().empty()) {
+    file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_id(), 
+      GetArenaForAllocation());
+  }
+  affiliated_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_affiliated_file_id().empty()) {
+    affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_affiliated_file_id(), 
+      GetArenaForAllocation());
+  }
+  method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_method().empty()) {
+    method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_method(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:bugu.service.v1.PackerReply)
+}
+
+inline void PackerReply::SharedCtor() {
+artifact_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+affiliated_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+method_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PackerReply::~PackerReply() {
+  // @@protoc_insertion_point(destructor:bugu.service.v1.PackerReply)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void PackerReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  artifact_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  affiliated_file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  method_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void PackerReply::ArenaDtor(void* object) {
+  PackerReply* _this = reinterpret_cast< PackerReply* >(object);
+  (void)_this;
+}
+void PackerReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void PackerReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void PackerReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:bugu.service.v1.PackerReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  artifact_id_.ClearToEmpty();
+  file_id_.ClearToEmpty();
+  affiliated_file_id_.ClearToEmpty();
+  method_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PackerReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string artifact_id = 1 [(.validate.rules) = {
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_artifact_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.PackerReply.artifact_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string file_id = 2 [(.validate.rules) = {
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.PackerReply.file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string affiliated_file_id = 3 [(.validate.rules) = {
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_affiliated_file_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.PackerReply.affiliated_file_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string method = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_method();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "bugu.service.v1.PackerReply.method"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PackerReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:bugu.service.v1.PackerReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string artifact_id = 1 [(.validate.rules) = {
+  if (!this->_internal_artifact_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_artifact_id().data(), static_cast<int>(this->_internal_artifact_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.PackerReply.artifact_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_artifact_id(), target);
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_file_id().data(), static_cast<int>(this->_internal_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.PackerReply.file_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_file_id(), target);
+  }
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  if (!this->_internal_affiliated_file_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_affiliated_file_id().data(), static_cast<int>(this->_internal_affiliated_file_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.PackerReply.affiliated_file_id");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_affiliated_file_id(), target);
+  }
+
+  // string method = 4;
+  if (!this->_internal_method().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_method().data(), static_cast<int>(this->_internal_method().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "bugu.service.v1.PackerReply.method");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_method(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:bugu.service.v1.PackerReply)
+  return target;
+}
+
+size_t PackerReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:bugu.service.v1.PackerReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string artifact_id = 1 [(.validate.rules) = {
+  if (!this->_internal_artifact_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_artifact_id());
+  }
+
+  // string file_id = 2 [(.validate.rules) = {
+  if (!this->_internal_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_file_id());
+  }
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  if (!this->_internal_affiliated_file_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_affiliated_file_id());
+  }
+
+  // string method = 4;
+  if (!this->_internal_method().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_method());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PackerReply::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    PackerReply::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PackerReply::GetClassData() const { return &_class_data_; }
+
+void PackerReply::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<PackerReply *>(to)->MergeFrom(
+      static_cast<const PackerReply &>(from));
+}
+
+
+void PackerReply::MergeFrom(const PackerReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:bugu.service.v1.PackerReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_artifact_id().empty()) {
+    _internal_set_artifact_id(from._internal_artifact_id());
+  }
+  if (!from._internal_file_id().empty()) {
+    _internal_set_file_id(from._internal_file_id());
+  }
+  if (!from._internal_affiliated_file_id().empty()) {
+    _internal_set_affiliated_file_id(from._internal_affiliated_file_id());
+  }
+  if (!from._internal_method().empty()) {
+    _internal_set_method(from._internal_method());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PackerReply::CopyFrom(const PackerReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:bugu.service.v1.PackerReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PackerReply::IsInitialized() const {
+  return true;
+}
+
+void PackerReply::InternalSwap(PackerReply* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &artifact_id_, lhs_arena,
+      &other->artifact_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_id_, lhs_arena,
+      &other->file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &affiliated_file_id_, lhs_arena,
+      &other->affiliated_file_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &method_, lhs_arena,
+      &other->method_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PackerReply::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
+      file_level_metadata_bugu_2eproto[23]);
+}
+
+// ===================================================================
+
 class GetArtifactMetadataRequest::_Internal {
  public:
 };
@@ -6274,7 +6934,7 @@ void GetArtifactMetadataRequest::InternalSwap(GetArtifactMetadataRequest* other)
 ::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
-      file_level_metadata_bugu_2eproto[22]);
+      file_level_metadata_bugu_2eproto[24]);
 }
 
 // ===================================================================
@@ -6624,7 +7284,7 @@ void GetArtifactMetadataReply::InternalSwap(GetArtifactMetadataReply* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataReply::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
-      file_level_metadata_bugu_2eproto[23]);
+      file_level_metadata_bugu_2eproto[25]);
 }
 
 // ===================================================================
@@ -6876,7 +7536,7 @@ void GetArtifactMetadataByFileIdRequest::InternalSwap(GetArtifactMetadataByFileI
 ::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataByFileIdRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
-      file_level_metadata_bugu_2eproto[24]);
+      file_level_metadata_bugu_2eproto[26]);
 }
 
 // ===================================================================
@@ -7061,7 +7721,7 @@ void GetArtifactMetadataByFileIdReply::InternalSwap(GetArtifactMetadataByFileIdR
 ::PROTOBUF_NAMESPACE_ID::Metadata GetArtifactMetadataByFileIdReply::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
-      file_level_metadata_bugu_2eproto[25]);
+      file_level_metadata_bugu_2eproto[27]);
 }
 
 // ===================================================================
@@ -7313,7 +7973,7 @@ void DeleteArtifactMetadataRequest::InternalSwap(DeleteArtifactMetadataRequest* 
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteArtifactMetadataRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
-      file_level_metadata_bugu_2eproto[26]);
+      file_level_metadata_bugu_2eproto[28]);
 }
 
 // ===================================================================
@@ -7352,7 +8012,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DeleteArtifactMetadataReply::G
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteArtifactMetadataReply::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_bugu_2eproto_getter, &descriptor_table_bugu_2eproto_once,
-      file_level_metadata_bugu_2eproto[27]);
+      file_level_metadata_bugu_2eproto[29]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -7425,6 +8085,12 @@ template<> PROTOBUF_NOINLINE ::bugu::service::v1::ConfusionRequest* Arena::Creat
 }
 template<> PROTOBUF_NOINLINE ::bugu::service::v1::ConfusionReply* Arena::CreateMaybeMessage< ::bugu::service::v1::ConfusionReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::bugu::service::v1::ConfusionReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bugu::service::v1::PackerRequest* Arena::CreateMaybeMessage< ::bugu::service::v1::PackerRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bugu::service::v1::PackerRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::bugu::service::v1::PackerReply* Arena::CreateMaybeMessage< ::bugu::service::v1::PackerReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bugu::service::v1::PackerReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::bugu::service::v1::GetArtifactMetadataRequest* Arena::CreateMaybeMessage< ::bugu::service::v1::GetArtifactMetadataRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::bugu::service::v1::GetArtifactMetadataRequest >(arena);

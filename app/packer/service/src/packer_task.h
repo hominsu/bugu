@@ -22,31 +22,42 @@
 //
 
 //
-// Created by Homin Su on 2022/5/26.
+// Created by Homin Su on 2022/6/16.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
-#define BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#ifndef BUGU_PACKER_SERVICE_SRC_PACKER_TASK_H_
+#define BUGU_PACKER_SERVICE_SRC_PACKER_TASK_H_
 
-#include <grpc++/grpc++.h>
+#include "thread_pool/x_task.h"
 
-#include <string>
+#include <fstream>
 #include <memory>
+#include <memory_resource>
+#include <string>
+#include <utility>
 
 namespace bugu {
 
-class Credentials {
- public:
-  static ::std::string GetFileContents(const ::std::string &_path);
+class Data;
 
-  static ::std::shared_ptr<::grpc::ServerCredentials> GetServerCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                           const ::std::string &_server_key_dir = "/cert/server.key",
-                                                                           const ::std::string &_server_cert_dir = "/cert/server.pem");
-  static ::std::shared_ptr<::grpc::ChannelCredentials> GetClientCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                            const ::std::string &_client_key_dir = "/cert/client.key",
-                                                                            const ::std::string &_client_cert_dir = "/cert/client.pem");
+class PackerTask : public XTask<::std::shared_ptr<Data>> {
+ private:
+  ::std::shared_ptr<Data> data_;
+  ::std::shared_ptr<::std::pmr::memory_resource> memory_resource_;  ///< 内存池
+
+ public:
+  explicit PackerTask(::std::shared_ptr<Data> _data,
+                        ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource)
+      : data_(std::move(_data)), memory_resource_(std::move(_memory_resource)) {};
+  ~PackerTask() override = default;
+
+ private:
+  /**
+   * 线程入口函数
+   */
+  void Main() final;
 };
 
 } // namespace bugu
 
-#endif //BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#endif //BUGU_PACKER_SERVICE_SRC_PACKER_TASK_H_

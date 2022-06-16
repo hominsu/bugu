@@ -29,17 +29,17 @@ import (
 	"context"
 	"time"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
-
+	"github.com/go-redis/redis/v8"
+	"github.com/google/wire"
 	obfusionV1 "github.com/hominsu/bugu/api/obfusion/service/v1"
+	packerV1 "github.com/hominsu/bugu/api/packer/service/v1"
 	"github.com/hominsu/bugu/app/bugu/service/internal/conf"
 	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent"
 	"github.com/hominsu/bugu/app/bugu/service/internal/data/ent/migrate"
 
-	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-redis/redis/v8"
-	"github.com/google/wire"
 	// init mysql driver
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -62,6 +62,7 @@ type Data struct {
 	rdCmd redis.Cmdable
 
 	oc obfusionV1.BuguObfusionClient
+	pc packerV1.BuguPackerClient
 
 	conf *conf.Data
 }
@@ -142,5 +143,25 @@ func NewOubfusionServiceClient(conf *conf.Server) obfusionV1.BuguObfusionClient 
 	}
 
 	c := obfusionV1.NewBuguObfusionClient(conn)
+	return c
+}
+
+func NewPackerServiceClient(conf *conf.Server) packerV1.BuguPackerClient {
+	opts := []grpc.ClientOption{
+		grpc.WithEndpoint("bugu-packer-service:9000"),
+		grpc.WithMiddleware(
+			recovery.Recovery(),
+		),
+	}
+	if conf.Http.Timeout != nil {
+		opts = append(opts, grpc.WithTimeout(conf.Http.Timeout.AsDuration()))
+	}
+
+	conn, err := grpc.DialInsecure(context.Background(), opts...)
+	if err != nil {
+		panic(err)
+	}
+
+	c := packerV1.NewBuguPackerClient(conn)
 	return c
 }

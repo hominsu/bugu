@@ -22,11 +22,11 @@
 //
 
 //
-// Created by Homin Su on 2022/5/26.
+// Created by Homin Su on 2022/6/16.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
-#define BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#ifndef BUGU_PACKER_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#define BUGU_PACKER_SERVICE_SRC_UTILS_CREDENTIALS_H_
 
 #include <grpc++/grpc++.h>
 
@@ -49,4 +49,4 @@ class Credentials {
 
 } // namespace bugu
 
-#endif //BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#endif //BUGU_PACKER_SERVICE_SRC_UTILS_CREDENTIALS_H_

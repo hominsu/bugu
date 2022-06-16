@@ -22,31 +22,38 @@
 //
 
 //
-// Created by Homin Su on 2022/5/26.
+// Created by Homin Su on 2022/6/16.
 //
 
-#ifndef BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
-#define BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#ifndef BUGU_PACKER_SERVICE_SRC_BUGU_PACKER_IMPL_H_
+#define BUGU_PACKER_SERVICE_SRC_BUGU_PACKER_IMPL_H_
+
+#include "api/packer/service/v1/cpp/bugu_packer.grpc.pb.h"
 
 #include <grpc++/grpc++.h>
-
-#include <string>
+#include <memory_resource>
 #include <memory>
+#include <thread>
 
 namespace bugu {
 
-class Credentials {
- public:
-  static ::std::string GetFileContents(const ::std::string &_path);
+class XThreadPool;
 
-  static ::std::shared_ptr<::grpc::ServerCredentials> GetServerCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                           const ::std::string &_server_key_dir = "/cert/server.key",
-                                                                           const ::std::string &_server_cert_dir = "/cert/server.pem");
-  static ::std::shared_ptr<::grpc::ChannelCredentials> GetClientCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
-                                                                            const ::std::string &_client_key_dir = "/cert/client.key",
-                                                                            const ::std::string &_client_cert_dir = "/cert/client.pem");
+class BuguPackerImpl final : public bugu_packer::service::v1::BuguPacker::Service {
+ private:
+  ::bugu::XThreadPool *thread_pool_;  ///< 线程池
+  ::std::shared_ptr<::std::pmr::memory_resource> memory_resource_;  ///< 内存池
+
+ public:
+  explicit BuguPackerImpl(::bugu::XThreadPool *_thread_pool,
+                            ::std::shared_ptr<::std::pmr::memory_resource> _memory_resource)
+      : thread_pool_(_thread_pool), memory_resource_(::std::move(_memory_resource)) {};
+
+  ::grpc::Status Packer(::grpc::ServerContext *_ctx,
+                          const ::bugu_packer::service::v1::PackerRequest *_request,
+                          ::bugu_packer::service::v1::PackerReply *_response) override;
 };
 
 } // namespace bugu
 
-#endif //BUGU_OBFUSION_SERVICE_SRC_UTILS_CREDENTIALS_H_
+#endif //BUGU_PACKER_SERVICE_SRC_BUGU_PACKER_IMPL_H_

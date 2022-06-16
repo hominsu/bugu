@@ -28,6 +28,7 @@ type BuguHTTPServer interface {
 	GetFileMeta(context.Context, *GetFileMetaRequest) (*GetFileMetaReply, error)
 	GetFileMetaByUserId(context.Context, *GetFileMetaByUserIdRequest) (*GetFileMetaByUserIdReply, error)
 	Login(context.Context, *LoginRequest) (*LoginReply, error)
+	Packer(context.Context, *PackerRequest) (*PackerReply, error)
 	Register(context.Context, *RegisterRequest) (*RegisterReply, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserReply, error)
 }
@@ -45,6 +46,8 @@ func RegisterBuguHTTPServer(s *http.Server, srv BuguHTTPServer) {
 	r.GET("/v1/user/{user_id}/file/{file_id}/detect", _Bugu_Detect1_HTTP_Handler(srv))
 	r.POST("/v1/user/file/confusion", _Bugu_Confusion0_HTTP_Handler(srv))
 	r.GET("/v1/user/{user_id}/file/{file_id}/confusion", _Bugu_Confusion1_HTTP_Handler(srv))
+	r.POST("/v1/user/file/packer", _Bugu_Packer0_HTTP_Handler(srv))
+	r.GET("/v1/user/{user_id}/file/{file_id}/packer", _Bugu_Packer1_HTTP_Handler(srv))
 	r.GET("/v1/user/{user_id}/artifact/{artifact_id}/metadata", _Bugu_GetArtifactMetadata0_HTTP_Handler(srv))
 	r.GET("/v1/user/{user_id}/artifact/file/{file_id}", _Bugu_GetArtifactMetadataByFileId0_HTTP_Handler(srv))
 	r.DELETE("/v1/user/{user_id}/artifact/{artifact_id}/metadata", _Bugu_DeleteArtifactMetadata0_HTTP_Handler(srv))
@@ -277,6 +280,47 @@ func _Bugu_Confusion1_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) er
 	}
 }
 
+func _Bugu_Packer0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PackerRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Packer")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Packer(ctx, req.(*PackerRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PackerReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Bugu_Packer1_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PackerRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindVars(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, "/bugu.service.v1.Bugu/Packer")
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.Packer(ctx, req.(*PackerRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PackerReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Bugu_GetArtifactMetadata0_HTTP_Handler(srv BuguHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in GetArtifactMetadataRequest
@@ -354,6 +398,7 @@ type BuguHTTPClient interface {
 	GetFileMeta(ctx context.Context, req *GetFileMetaRequest, opts ...http.CallOption) (rsp *GetFileMetaReply, err error)
 	GetFileMetaByUserId(ctx context.Context, req *GetFileMetaByUserIdRequest, opts ...http.CallOption) (rsp *GetFileMetaByUserIdReply, err error)
 	Login(ctx context.Context, req *LoginRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
+	Packer(ctx context.Context, req *PackerRequest, opts ...http.CallOption) (rsp *PackerReply, err error)
 	Register(ctx context.Context, req *RegisterRequest, opts ...http.CallOption) (rsp *RegisterReply, err error)
 	UpdateUser(ctx context.Context, req *UpdateUserRequest, opts ...http.CallOption) (rsp *UpdateUserReply, err error)
 }
@@ -490,6 +535,19 @@ func (c *BuguHTTPClientImpl) Login(ctx context.Context, in *LoginRequest, opts .
 	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/Login"))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *BuguHTTPClientImpl) Packer(ctx context.Context, in *PackerRequest, opts ...http.CallOption) (*PackerReply, error) {
+	var out PackerReply
+	pattern := "/v1/user/{user_id}/file/{file_id}/packer"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation("/bugu.service.v1.Bugu/Packer"))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

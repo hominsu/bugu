@@ -90,6 +90,16 @@ service Bugu {
     };
   };
 
+  rpc Packer (PackerRequest) returns (PackerReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{user_id}/file/{file_id}/packer",
+      additional_bindings: {
+        post: "/v1/user/file/packer",
+        body: "*"
+      }
+    };
+  };
+
   rpc GetArtifactMetadata (GetArtifactMetadataRequest) returns (GetArtifactMetadataReply) {
     option (google.api.http) = {
       get: "/v1/user/{user_id}/artifact/{artifact_id}/metadata",
@@ -236,6 +246,18 @@ message ConfusionRequest {
 }
 
 message ConfusionReply {
+  string artifact_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+  string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];
+  string method = 4;
+}
+
+message PackerRequest {
+  string user_id = 1 [(validate.rules).string = {uuid: true}];
+  string file_id = 2 [(validate.rules).string = {uuid: true}];
+}
+
+message PackerReply {
   string artifact_id = 1 [(validate.rules).string = {uuid: true}];
   string file_id = 2 [(validate.rules).string = {uuid: true}];
   string affiliated_file_id = 3 [(validate.rules).string = {uuid: true}];

@@ -6,14 +6,26 @@ services:
     container_name: bugu-bugu-service
     restart: always
     depends_on:
-      - bugu-obfusion-service
+      bugu-obfusion-service:
+        condition: service_started
     environment:
       TZ: "Asia/Shanghai"
     volumes:
-      - "../../app/bugu/service/configs:/data/conf"
-      - "./data/file:/data/file"
+      - type: bind
+        source: "../../app/bugu/service/configs"
+        target: "/data/conf"
+        bind:
+          create_host_path: true
+      - type: bind
+        source: "./data/file"
+        target: "/data/file"
+        bind:
+          create_host_path: true
     ports:
-      - "8000:8000"
+      - mode: ingress
+        target: 8000
+        published: 8000
+        protocol: tcp
     networks:
       net:
         aliases:
@@ -26,9 +38,16 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     volumes:
-      - "../../app/obfusion/service/configs:/data/conf"
+      - type: bind
+        source: "../../app/obfusion/service/configs"
+        target: "/data/conf"
+        bind:
+          create_host_path: true
     ports:
-      - "9000:9000"
+      - mode: ingress
+        target: 9000
+        published: 9000
+        protocol: tcp
     networks:
       net:
         aliases:
@@ -41,13 +60,42 @@ services:
     environment:
       TZ: "Asia/Shanghai"
     volumes:
-      - "../../app/detect/service/configs:/data/conf"
+      - type: bind
+        source: "../../app/detect/service/configs"
+        target: "/data/conf"
+        bind:
+          create_host_path: true
     ports:
-      - "9000:9000"
+      - mode: ingress
+        target: 9000
+        published: 9000
+        protocol: tcp
     networks:
       net:
         aliases:
           - bugu-detect-service
+
+  bugu-packer-service:
+    image: hominsu/bugu-packer-service:latest
+    container_name: bugu-packer-service
+    restart: always
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - type: bind
+        source: "../../app/packer/service/configs"
+        target: "/data/conf"
+        bind:
+          create_host_path: true
+    ports:
+      - mode: ingress
+        target: 9000
+        published: 9000
+        protocol: tcp
+    networks:
+      net:
+        aliases:
+          - bugu-packer-service
 
 networks:
   net:
