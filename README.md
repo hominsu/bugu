@@ -21,7 +21,7 @@
 <h3 align="center">bugu</h3>
 
   <p align="center">
-    Kill - free system based on artificial intelligence detection
+    Malicious code detection and complication system
     <br/>
     <a href="https://hominsu.github.io/bugu/"><strong>Explore the docs » (you are here)</strong></a>
     <br/>

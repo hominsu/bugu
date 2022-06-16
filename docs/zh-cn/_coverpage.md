@@ -6,4 +6,4 @@
 - 多种免杀方法
 
 [GitHub](https://github.com/hominsu/bugu)
-[快速开始](/README_zh)
+[快速开始](/zh-cn/README_zh)

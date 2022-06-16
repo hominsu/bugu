@@ -21,7 +21,7 @@
 <h3 align="center">bugu</h3>
 
   <p align="center">
-    基于人工智能检测的免杀系统
+    恶意代码检测和复杂化系统
     <br/>
     <a href="https://hominsu.github.io/bugu/"><strong>Explore the docs » (you are here)</strong></a>
     <br/>
