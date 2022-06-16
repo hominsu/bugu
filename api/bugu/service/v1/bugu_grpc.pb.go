@@ -31,6 +31,7 @@ type BuguClient interface {
 	DeleteFileMetadata(ctx context.Context, in *DeleteFileMetadataRequest, opts ...grpc.CallOption) (*DeleteFileMetadataReply, error)
 	Detect(ctx context.Context, in *DetectRequest, opts ...grpc.CallOption) (*DetectReply, error)
 	Confusion(ctx context.Context, in *ConfusionRequest, opts ...grpc.CallOption) (*ConfusionReply, error)
+	Packer(ctx context.Context, in *PackerRequest, opts ...grpc.CallOption) (*PackerReply, error)
 	GetArtifactMetadata(ctx context.Context, in *GetArtifactMetadataRequest, opts ...grpc.CallOption) (*GetArtifactMetadataReply, error)
 	GetArtifactMetadataByFileId(ctx context.Context, in *GetArtifactMetadataByFileIdRequest, opts ...grpc.CallOption) (*GetArtifactMetadataByFileIdReply, error)
 	DeleteArtifactMetadata(ctx context.Context, in *DeleteArtifactMetadataRequest, opts ...grpc.CallOption) (*DeleteArtifactMetadataReply, error)
@@ -125,6 +126,15 @@ func (c *buguClient) Confusion(ctx context.Context, in *ConfusionRequest, opts .
 	return out, nil
 }
 
+func (c *buguClient) Packer(ctx context.Context, in *PackerRequest, opts ...grpc.CallOption) (*PackerReply, error) {
+	out := new(PackerReply)
+	err := c.cc.Invoke(ctx, "/bugu.service.v1.Bugu/Packer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *buguClient) GetArtifactMetadata(ctx context.Context, in *GetArtifactMetadataRequest, opts ...grpc.CallOption) (*GetArtifactMetadataReply, error) {
 	out := new(GetArtifactMetadataReply)
 	err := c.cc.Invoke(ctx, "/bugu.service.v1.Bugu/GetArtifactMetadata", in, out, opts...)
@@ -165,6 +175,7 @@ type BuguServer interface {
 	DeleteFileMetadata(context.Context, *DeleteFileMetadataRequest) (*DeleteFileMetadataReply, error)
 	Detect(context.Context, *DetectRequest) (*DetectReply, error)
 	Confusion(context.Context, *ConfusionRequest) (*ConfusionReply, error)
+	Packer(context.Context, *PackerRequest) (*PackerReply, error)
 	GetArtifactMetadata(context.Context, *GetArtifactMetadataRequest) (*GetArtifactMetadataReply, error)
 	GetArtifactMetadataByFileId(context.Context, *GetArtifactMetadataByFileIdRequest) (*GetArtifactMetadataByFileIdReply, error)
 	DeleteArtifactMetadata(context.Context, *DeleteArtifactMetadataRequest) (*DeleteArtifactMetadataReply, error)
@@ -201,6 +212,9 @@ func (UnimplementedBuguServer) Detect(context.Context, *DetectRequest) (*DetectR
 }
 func (UnimplementedBuguServer) Confusion(context.Context, *ConfusionRequest) (*ConfusionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Confusion not implemented")
+}
+func (UnimplementedBuguServer) Packer(context.Context, *PackerRequest) (*PackerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Packer not implemented")
 }
 func (UnimplementedBuguServer) GetArtifactMetadata(context.Context, *GetArtifactMetadataRequest) (*GetArtifactMetadataReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetArtifactMetadata not implemented")
@@ -386,6 +400,24 @@ func _Bugu_Confusion_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Bugu_Packer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PackerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BuguServer).Packer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bugu.service.v1.Bugu/Packer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BuguServer).Packer(ctx, req.(*PackerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Bugu_GetArtifactMetadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetArtifactMetadataRequest)
 	if err := dec(in); err != nil {
@@ -482,6 +514,10 @@ var Bugu_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Confusion",
 			Handler:    _Bugu_Confusion_Handler,
+		},
+		{
+			MethodName: "Packer",
+			Handler:    _Bugu_Packer_Handler,
 		},
 		{
 			MethodName: "GetArtifactMetadata",

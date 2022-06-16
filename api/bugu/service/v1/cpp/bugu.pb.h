@@ -51,7 +51,7 @@ struct TableStruct_bugu_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[28]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[30]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -124,6 +124,12 @@ extern LoginRequestDefaultTypeInternal _LoginRequest_default_instance_;
 class LoginRequest_User;
 struct LoginRequest_UserDefaultTypeInternal;
 extern LoginRequest_UserDefaultTypeInternal _LoginRequest_User_default_instance_;
+class PackerReply;
+struct PackerReplyDefaultTypeInternal;
+extern PackerReplyDefaultTypeInternal _PackerReply_default_instance_;
+class PackerRequest;
+struct PackerRequestDefaultTypeInternal;
+extern PackerRequestDefaultTypeInternal _PackerRequest_default_instance_;
 class RegisterReply;
 struct RegisterReplyDefaultTypeInternal;
 extern RegisterReplyDefaultTypeInternal _RegisterReply_default_instance_;
@@ -170,6 +176,8 @@ template<> ::bugu::service::v1::GetFileMetaRequest* Arena::CreateMaybeMessage<::
 template<> ::bugu::service::v1::LoginReply* Arena::CreateMaybeMessage<::bugu::service::v1::LoginReply>(Arena*);
 template<> ::bugu::service::v1::LoginRequest* Arena::CreateMaybeMessage<::bugu::service::v1::LoginRequest>(Arena*);
 template<> ::bugu::service::v1::LoginRequest_User* Arena::CreateMaybeMessage<::bugu::service::v1::LoginRequest_User>(Arena*);
+template<> ::bugu::service::v1::PackerReply* Arena::CreateMaybeMessage<::bugu::service::v1::PackerReply>(Arena*);
+template<> ::bugu::service::v1::PackerRequest* Arena::CreateMaybeMessage<::bugu::service::v1::PackerRequest>(Arena*);
 template<> ::bugu::service::v1::RegisterReply* Arena::CreateMaybeMessage<::bugu::service::v1::RegisterReply>(Arena*);
 template<> ::bugu::service::v1::RegisterRequest* Arena::CreateMaybeMessage<::bugu::service::v1::RegisterRequest>(Arena*);
 template<> ::bugu::service::v1::RegisterRequest_User* Arena::CreateMaybeMessage<::bugu::service::v1::RegisterRequest_User>(Arena*);
@@ -3870,6 +3878,372 @@ class ConfusionReply final :
 };
 // -------------------------------------------------------------------
 
+class PackerRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.PackerRequest) */ {
+ public:
+  inline PackerRequest() : PackerRequest(nullptr) {}
+  ~PackerRequest() override;
+  explicit constexpr PackerRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PackerRequest(const PackerRequest& from);
+  PackerRequest(PackerRequest&& from) noexcept
+    : PackerRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline PackerRequest& operator=(const PackerRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PackerRequest& operator=(PackerRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PackerRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PackerRequest* internal_default_instance() {
+    return reinterpret_cast<const PackerRequest*>(
+               &_PackerRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(PackerRequest& a, PackerRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PackerRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PackerRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PackerRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PackerRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PackerRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const PackerRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PackerRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.PackerRequest";
+  }
+  protected:
+  explicit PackerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUserIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
+  };
+  // string user_id = 1 [(.validate.rules) = {
+  void clear_user_id();
+  const std::string& user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_id();
+  PROTOBUF_NODISCARD std::string* release_user_id();
+  void set_allocated_user_id(std::string* user_id);
+  private:
+  const std::string& _internal_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_id(const std::string& value);
+  std::string* _internal_mutable_user_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
+  private:
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.PackerRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PackerReply final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.PackerReply) */ {
+ public:
+  inline PackerReply() : PackerReply(nullptr) {}
+  ~PackerReply() override;
+  explicit constexpr PackerReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PackerReply(const PackerReply& from);
+  PackerReply(PackerReply&& from) noexcept
+    : PackerReply() {
+    *this = ::std::move(from);
+  }
+
+  inline PackerReply& operator=(const PackerReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PackerReply& operator=(PackerReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PackerReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PackerReply* internal_default_instance() {
+    return reinterpret_cast<const PackerReply*>(
+               &_PackerReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    23;
+
+  friend void swap(PackerReply& a, PackerReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PackerReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PackerReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PackerReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PackerReply>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PackerReply& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const PackerReply& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PackerReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "bugu.service.v1.PackerReply";
+  }
+  protected:
+  explicit PackerReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kArtifactIdFieldNumber = 1,
+    kFileIdFieldNumber = 2,
+    kAffiliatedFileIdFieldNumber = 3,
+    kMethodFieldNumber = 4,
+  };
+  // string artifact_id = 1 [(.validate.rules) = {
+  void clear_artifact_id();
+  const std::string& artifact_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_artifact_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_artifact_id();
+  PROTOBUF_NODISCARD std::string* release_artifact_id();
+  void set_allocated_artifact_id(std::string* artifact_id);
+  private:
+  const std::string& _internal_artifact_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_artifact_id(const std::string& value);
+  std::string* _internal_mutable_artifact_id();
+  public:
+
+  // string file_id = 2 [(.validate.rules) = {
+  void clear_file_id();
+  const std::string& file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_id();
+  PROTOBUF_NODISCARD std::string* release_file_id();
+  void set_allocated_file_id(std::string* file_id);
+  private:
+  const std::string& _internal_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_id(const std::string& value);
+  std::string* _internal_mutable_file_id();
+  public:
+
+  // string affiliated_file_id = 3 [(.validate.rules) = {
+  void clear_affiliated_file_id();
+  const std::string& affiliated_file_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_affiliated_file_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_affiliated_file_id();
+  PROTOBUF_NODISCARD std::string* release_affiliated_file_id();
+  void set_allocated_affiliated_file_id(std::string* affiliated_file_id);
+  private:
+  const std::string& _internal_affiliated_file_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_affiliated_file_id(const std::string& value);
+  std::string* _internal_mutable_affiliated_file_id();
+  public:
+
+  // string method = 4;
+  void clear_method();
+  const std::string& method() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_method(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_method();
+  PROTOBUF_NODISCARD std::string* release_method();
+  void set_allocated_method(std::string* method);
+  private:
+  const std::string& _internal_method() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_method(const std::string& value);
+  std::string* _internal_mutable_method();
+  public:
+
+  // @@protoc_insertion_point(class_scope:bugu.service.v1.PackerReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr artifact_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr affiliated_file_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr method_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_bugu_2eproto;
+};
+// -------------------------------------------------------------------
+
 class GetArtifactMetadataRequest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:bugu.service.v1.GetArtifactMetadataRequest) */ {
  public:
@@ -3918,7 +4292,7 @@ class GetArtifactMetadataRequest final :
                &_GetArtifactMetadataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(GetArtifactMetadataRequest& a, GetArtifactMetadataRequest& b) {
     a.Swap(&b);
@@ -4085,7 +4459,7 @@ class GetArtifactMetadataReply final :
                &_GetArtifactMetadataReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(GetArtifactMetadataReply& a, GetArtifactMetadataReply& b) {
     a.Swap(&b);
@@ -4284,7 +4658,7 @@ class GetArtifactMetadataByFileIdRequest final :
                &_GetArtifactMetadataByFileIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(GetArtifactMetadataByFileIdRequest& a, GetArtifactMetadataByFileIdRequest& b) {
     a.Swap(&b);
@@ -4451,7 +4825,7 @@ class GetArtifactMetadataByFileIdReply final :
                &_GetArtifactMetadataByFileIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(GetArtifactMetadataByFileIdReply& a, GetArtifactMetadataByFileIdReply& b) {
     a.Swap(&b);
@@ -4606,7 +4980,7 @@ class DeleteArtifactMetadataRequest final :
                &_DeleteArtifactMetadataRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(DeleteArtifactMetadataRequest& a, DeleteArtifactMetadataRequest& b) {
     a.Swap(&b);
@@ -4772,7 +5146,7 @@ class DeleteArtifactMetadataReply final :
                &_DeleteArtifactMetadataReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    29;
 
   friend void swap(DeleteArtifactMetadataReply& a, DeleteArtifactMetadataReply& b) {
     a.Swap(&b);
@@ -7229,6 +7603,320 @@ inline void ConfusionReply::set_allocated_method(std::string* method) {
 
 // -------------------------------------------------------------------
 
+// PackerRequest
+
+// string user_id = 1 [(.validate.rules) = {
+inline void PackerRequest::clear_user_id() {
+  user_id_.ClearToEmpty();
+}
+inline const std::string& PackerRequest::user_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.PackerRequest.user_id)
+  return _internal_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PackerRequest::set_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.PackerRequest.user_id)
+}
+inline std::string* PackerRequest::mutable_user_id() {
+  std::string* _s = _internal_mutable_user_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.PackerRequest.user_id)
+  return _s;
+}
+inline const std::string& PackerRequest::_internal_user_id() const {
+  return user_id_.Get();
+}
+inline void PackerRequest::_internal_set_user_id(const std::string& value) {
+  
+  user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* PackerRequest::_internal_mutable_user_id() {
+  
+  return user_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* PackerRequest::release_user_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.PackerRequest.user_id)
+  return user_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void PackerRequest::set_allocated_user_id(std::string* user_id) {
+  if (user_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), user_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.PackerRequest.user_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
+inline void PackerRequest::clear_file_id() {
+  file_id_.ClearToEmpty();
+}
+inline const std::string& PackerRequest::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.PackerRequest.file_id)
+  return _internal_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PackerRequest::set_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.PackerRequest.file_id)
+}
+inline std::string* PackerRequest::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.PackerRequest.file_id)
+  return _s;
+}
+inline const std::string& PackerRequest::_internal_file_id() const {
+  return file_id_.Get();
+}
+inline void PackerRequest::_internal_set_file_id(const std::string& value) {
+  
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* PackerRequest::_internal_mutable_file_id() {
+  
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* PackerRequest::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.PackerRequest.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void PackerRequest::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.PackerRequest.file_id)
+}
+
+// -------------------------------------------------------------------
+
+// PackerReply
+
+// string artifact_id = 1 [(.validate.rules) = {
+inline void PackerReply::clear_artifact_id() {
+  artifact_id_.ClearToEmpty();
+}
+inline const std::string& PackerReply::artifact_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.PackerReply.artifact_id)
+  return _internal_artifact_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PackerReply::set_artifact_id(ArgT0&& arg0, ArgT... args) {
+ 
+ artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.PackerReply.artifact_id)
+}
+inline std::string* PackerReply::mutable_artifact_id() {
+  std::string* _s = _internal_mutable_artifact_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.PackerReply.artifact_id)
+  return _s;
+}
+inline const std::string& PackerReply::_internal_artifact_id() const {
+  return artifact_id_.Get();
+}
+inline void PackerReply::_internal_set_artifact_id(const std::string& value) {
+  
+  artifact_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* PackerReply::_internal_mutable_artifact_id() {
+  
+  return artifact_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* PackerReply::release_artifact_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.PackerReply.artifact_id)
+  return artifact_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void PackerReply::set_allocated_artifact_id(std::string* artifact_id) {
+  if (artifact_id != nullptr) {
+    
+  } else {
+    
+  }
+  artifact_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), artifact_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (artifact_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    artifact_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.PackerReply.artifact_id)
+}
+
+// string file_id = 2 [(.validate.rules) = {
+inline void PackerReply::clear_file_id() {
+  file_id_.ClearToEmpty();
+}
+inline const std::string& PackerReply::file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.PackerReply.file_id)
+  return _internal_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PackerReply::set_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.PackerReply.file_id)
+}
+inline std::string* PackerReply::mutable_file_id() {
+  std::string* _s = _internal_mutable_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.PackerReply.file_id)
+  return _s;
+}
+inline const std::string& PackerReply::_internal_file_id() const {
+  return file_id_.Get();
+}
+inline void PackerReply::_internal_set_file_id(const std::string& value) {
+  
+  file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* PackerReply::_internal_mutable_file_id() {
+  
+  return file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* PackerReply::release_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.PackerReply.file_id)
+  return file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void PackerReply::set_allocated_file_id(std::string* file_id) {
+  if (file_id != nullptr) {
+    
+  } else {
+    
+  }
+  file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.PackerReply.file_id)
+}
+
+// string affiliated_file_id = 3 [(.validate.rules) = {
+inline void PackerReply::clear_affiliated_file_id() {
+  affiliated_file_id_.ClearToEmpty();
+}
+inline const std::string& PackerReply::affiliated_file_id() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.PackerReply.affiliated_file_id)
+  return _internal_affiliated_file_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PackerReply::set_affiliated_file_id(ArgT0&& arg0, ArgT... args) {
+ 
+ affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.PackerReply.affiliated_file_id)
+}
+inline std::string* PackerReply::mutable_affiliated_file_id() {
+  std::string* _s = _internal_mutable_affiliated_file_id();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.PackerReply.affiliated_file_id)
+  return _s;
+}
+inline const std::string& PackerReply::_internal_affiliated_file_id() const {
+  return affiliated_file_id_.Get();
+}
+inline void PackerReply::_internal_set_affiliated_file_id(const std::string& value) {
+  
+  affiliated_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* PackerReply::_internal_mutable_affiliated_file_id() {
+  
+  return affiliated_file_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* PackerReply::release_affiliated_file_id() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.PackerReply.affiliated_file_id)
+  return affiliated_file_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void PackerReply::set_allocated_affiliated_file_id(std::string* affiliated_file_id) {
+  if (affiliated_file_id != nullptr) {
+    
+  } else {
+    
+  }
+  affiliated_file_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), affiliated_file_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (affiliated_file_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    affiliated_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.PackerReply.affiliated_file_id)
+}
+
+// string method = 4;
+inline void PackerReply::clear_method() {
+  method_.ClearToEmpty();
+}
+inline const std::string& PackerReply::method() const {
+  // @@protoc_insertion_point(field_get:bugu.service.v1.PackerReply.method)
+  return _internal_method();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PackerReply::set_method(ArgT0&& arg0, ArgT... args) {
+ 
+ method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:bugu.service.v1.PackerReply.method)
+}
+inline std::string* PackerReply::mutable_method() {
+  std::string* _s = _internal_mutable_method();
+  // @@protoc_insertion_point(field_mutable:bugu.service.v1.PackerReply.method)
+  return _s;
+}
+inline const std::string& PackerReply::_internal_method() const {
+  return method_.Get();
+}
+inline void PackerReply::_internal_set_method(const std::string& value) {
+  
+  method_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* PackerReply::_internal_mutable_method() {
+  
+  return method_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* PackerReply::release_method() {
+  // @@protoc_insertion_point(field_release:bugu.service.v1.PackerReply.method)
+  return method_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void PackerReply::set_allocated_method(std::string* method) {
+  if (method != nullptr) {
+    
+  } else {
+    
+  }
+  method_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), method,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (method_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    method_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:bugu.service.v1.PackerReply.method)
+}
+
+// -------------------------------------------------------------------
+
 // GetArtifactMetadataRequest
 
 // string user_id = 1 [(.validate.rules) = {
@@ -7804,6 +8492,10 @@ inline void DeleteArtifactMetadataRequest::set_allocated_artifact_id(std::string
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

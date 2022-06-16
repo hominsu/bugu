@@ -66,6 +66,10 @@ func (s *BuguService) Detect(ctx context.Context, in *buguV1.DetectRequest) (*bu
 	return nil, status.Errorf(codes.Unimplemented, "method Detect not implemented")
 }
 
+func (s *BuguService) Packer(ctx context.Context, in *buguV1.PackerRequest) (*buguV1.PackerReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Packer not implemented")
+}
+
 func (s *BuguService) GetArtifactMetadata(ctx context.Context, in *buguV1.GetArtifactMetadataRequest) (*buguV1.GetArtifactMetadataReply, error) {
 	userId := in.GetUserId()
 

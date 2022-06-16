@@ -88,6 +88,38 @@
         ]
       }
     },
+    "/v1/user/file/packer": {
+      "post": {
+        "operationId": "Bugu_Packer2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PackerReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PackerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
     "/v1/user/{id}": {
       "get": {
         "operationId": "Bugu_GetCurrentUser",
@@ -338,6 +370,42 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/v1DeleteFileMetadataReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bugu"
+        ]
+      }
+    },
+    "/v1/user/{userId}/file/{fileId}/packer": {
+      "get": {
+        "operationId": "Bugu_Packer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1PackerReply"
             }
           },
           "default": {
@@ -698,6 +766,34 @@
           "type": "string"
         },
         "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PackerReply": {
+      "type": "object",
+      "properties": {
+        "artifactId": {
+          "type": "string"
+        },
+        "fileId": {
+          "type": "string"
+        },
+        "affiliatedFileId": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PackerRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "fileId": {
           "type": "string"
         }
       }

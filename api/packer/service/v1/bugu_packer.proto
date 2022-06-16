@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package bugu_packer.service.v1;
+
+option go_package = "github.com/hominsu/bugu/api/packer/service/v1;v1";
+
+service BuguPacker {
+  rpc Packer (PackerRequest) returns (PackerReply) {};
+};
+
+message PackerRequest {
+  repeated bytes data = 1;
+  uint32 size = 2;
+}
+
+message PackerReply {
+  repeated bytes data = 1;
+  uint32 size = 2;
+}

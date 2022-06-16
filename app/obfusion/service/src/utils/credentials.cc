@@ -41,10 +41,12 @@
   return contents;
 }
 
-::std::shared_ptr<::grpc::ServerCredentials> bugu::Credentials::GetServerCredentials() {
-  auto root_cert = GetFileContents("../cert/ca.crt");
-  auto key_str = GetFileContents("../cert/server.key");
-  auto cert_str = GetFileContents("../cert/server.pem");
+::std::shared_ptr<::grpc::ServerCredentials> bugu::Credentials::GetServerCredentials(const ::std::string &_root_cert_dir,
+                                                                                     const ::std::string &_server_key_dir,
+                                                                                     const ::std::string &_server_cert_dir) {
+  auto root_cert = GetFileContents(_root_cert_dir);
+  auto key_str = GetFileContents(_server_key_dir);
+  auto cert_str = GetFileContents(_server_cert_dir);
   auto x509KeyPair = ::grpc::SslServerCredentialsOptions::PemKeyCertPair{key_str, cert_str};
 
   ::grpc::SslServerCredentialsOptions cred_option;
@@ -54,15 +56,17 @@
   return ::grpc::SslServerCredentials(cred_option);
 }
 
-::std::shared_ptr<::grpc::ChannelCredentials> bugu::Credentials::GetClientCredentials() {
-  auto root_cert = GetFileContents("../cert/ca.crt");
-  auto key_str = GetFileContents("../cert/client.key");
-  auto cert_str = GetFileContents("../cert/client.pem");
+::std::shared_ptr<::grpc::ChannelCredentials> bugu::Credentials::GetClientCredentials(const ::std::string &_root_cert_dir,
+                                                                                      const ::std::string &_client_key_dir,
+                                                                                      const ::std::string &_client_cert_dir) {
+  auto root_cert = GetFileContents(_root_cert_dir);
+  auto key_str = GetFileContents(_client_key_dir);
+  auto cert_str = GetFileContents(_client_cert_dir);
 
   ::grpc::SslCredentialsOptions cred_option;
-  cred_option.pem_root_certs  = root_cert;
+  cred_option.pem_root_certs = root_cert;
   cred_option.pem_private_key = key_str;
-  cred_option.pem_cert_chain  = cert_str;
+  cred_option.pem_cert_chain = cert_str;
 
   return ::grpc::SslCredentials(cred_option);
 }

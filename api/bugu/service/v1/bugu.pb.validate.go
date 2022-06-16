@@ -2475,6 +2475,283 @@ var _ interface {
 	ErrorName() string
 } = ConfusionReplyValidationError{}
 
+// Validate checks the field values on PackerRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PackerRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PackerRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PackerRequestMultiError, or
+// nil if none found.
+func (m *PackerRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PackerRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetUserId()); err != nil {
+		err = PackerRequestValidationError{
+			field:  "UserId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = PackerRequestValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return PackerRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *PackerRequest) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// PackerRequestMultiError is an error wrapping multiple validation errors
+// returned by PackerRequest.ValidateAll() if the designated constraints
+// aren't met.
+type PackerRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PackerRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PackerRequestMultiError) AllErrors() []error { return m }
+
+// PackerRequestValidationError is the validation error returned by
+// PackerRequest.Validate if the designated constraints aren't met.
+type PackerRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PackerRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PackerRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PackerRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PackerRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PackerRequestValidationError) ErrorName() string { return "PackerRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PackerRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPackerRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PackerRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PackerRequestValidationError{}
+
+// Validate checks the field values on PackerReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PackerReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PackerReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PackerReplyMultiError, or
+// nil if none found.
+func (m *PackerReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PackerReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetArtifactId()); err != nil {
+		err = PackerReplyValidationError{
+			field:  "ArtifactId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetFileId()); err != nil {
+		err = PackerReplyValidationError{
+			field:  "FileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if err := m._validateUuid(m.GetAffiliatedFileId()); err != nil {
+		err = PackerReplyValidationError{
+			field:  "AffiliatedFileId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Method
+
+	if len(errors) > 0 {
+		return PackerReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *PackerReply) _validateUuid(uuid string) error {
+	if matched := _bugu_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// PackerReplyMultiError is an error wrapping multiple validation errors
+// returned by PackerReply.ValidateAll() if the designated constraints aren't met.
+type PackerReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PackerReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PackerReplyMultiError) AllErrors() []error { return m }
+
+// PackerReplyValidationError is the validation error returned by
+// PackerReply.Validate if the designated constraints aren't met.
+type PackerReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PackerReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PackerReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PackerReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PackerReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PackerReplyValidationError) ErrorName() string { return "PackerReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PackerReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPackerReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PackerReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PackerReplyValidationError{}
+
 // Validate checks the field values on GetArtifactMetadataRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

@@ -38,8 +38,13 @@ namespace bugu {
 class Credentials {
  public:
   static ::std::string GetFileContents(const ::std::string &_path);
-  static ::std::shared_ptr<::grpc::ServerCredentials> GetServerCredentials();
-  static ::std::shared_ptr<::grpc::ChannelCredentials> GetClientCredentials();
+
+  static ::std::shared_ptr<::grpc::ServerCredentials> GetServerCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
+                                                                           const ::std::string &_server_key_dir = "/cert/server.key",
+                                                                           const ::std::string &_server_cert_dir = "/cert/server.pem");
+  static ::std::shared_ptr<::grpc::ChannelCredentials> GetClientCredentials(const ::std::string &_root_cert_dir = "/cert/ca.crt",
+                                                                            const ::std::string &_client_key_dir = "/cert/client.key",
+                                                                            const ::std::string &_client_cert_dir = "/cert/client.pem");
 };
 
 } // namespace bugu
